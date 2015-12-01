@@ -1,0 +1,30 @@
+body {
+	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+	margin-top:3%;
+	background-image:url(../graphics/bg.png);
+	background-repeat:repeat-y;
+	margin-bottom:3%;
+}
+.container .logo{
+	padding:10px;
+}
+.container{
+	background-color:#00b9f2;
+}
+nav .jumbotron {
+	background-color:#008cc1;
+	padding:6px;
+}
+
+footer .jumbotron{
+	padding:13px 0px 1px 0px;
+	background-color:#008cc1;
+	border-color:#008cc1;
+}
+footer .jumbotron .text-muted{
+	color:#FFFFFF !important;
+}
+
+.modal-content{
+	padding:20px;
+}
