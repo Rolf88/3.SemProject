@@ -1,0 +1,123 @@
+package entity;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+
+@Entity(name = "Flight")
+public class FlightEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date departure;
+
+    @Column(nullable = false)
+    private int capacity;
+
+    @Column(nullable = false)
+    private double price;
+
+    @ManyToOne
+    private AirlineEntity airline;
+
+    @OneToOne
+    private AirportEntity origin;
+
+    @OneToOne
+    private AirlineEntity destination;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(Date departure) {
+        this.departure = departure;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public AirlineEntity getAirline() {
+        return airline;
+    }
+
+    public void setAirline(AirlineEntity airline) {
+        this.airline = airline;
+    }
+
+    public AirportEntity getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(AirportEntity origin) {
+        this.origin = origin;
+    }
+
+    public AirlineEntity getDestination() {
+        return destination;
+    }
+
+    public void setDestination(AirlineEntity destination) {
+        this.destination = destination;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof FlightEntity)) {
+            return false;
+        }
+        FlightEntity other = (FlightEntity) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entity.FlightEntity[ id=" + id + " ]";
+    }
+
+}
