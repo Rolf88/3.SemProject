@@ -46,10 +46,14 @@
                     <file>${file.reference.nimbus-jose-jwt-3.9.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+                <library dirs="200">
+                    <file>${libs.MySQLDriver.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries>
                 <library dirs="200">
-                    <file>${file.reference.AngSeedClient-app}</file>
+                    <file>${file.reference.Client-app}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
