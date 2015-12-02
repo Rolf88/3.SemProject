@@ -24,6 +24,11 @@ public class AirlineEntity implements Serializable {
     @OneToMany(mappedBy = "airline")
     private List<FlightEntity> flights;
 
+    public AirlineEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

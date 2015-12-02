@@ -10,20 +10,18 @@ import com.google.gson.GsonBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
 
 /**
  *
  * @author RolfMoikjær
  */
-@Provider
-public class GeneralErrorException implements ExceptionMapper<Exception> {
+public class NotEnoughTicketsExceptionMapper implements ExceptionMapper<NotEnoughTicketsException> {
 
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
-    public Response toResponse(Exception ex) {
-        ErrorMessage em = new ErrorMessage(ex, 4, 500);
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(em)).type(MediaType.APPLICATION_JSON).build();
+    public Response toResponse(NotEnoughTicketsException ex) {
+        ErrorMessage em = new ErrorMessage(ex, 2, 400);
+        return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(em)).type(MediaType.APPLICATION_JSON).build();
     }
 }
