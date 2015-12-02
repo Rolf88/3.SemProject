@@ -44,10 +44,9 @@ public class FlightServiceTest {
 
     @Test
     public void test_findFlights_isNotNull() throws ParseException {
-        String iataOrigin = "CBH";
+        String iataOrigin = "CPH";
         String iataDestination = "QAR";
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        Date departure = sdf1.parse("01-01-2016 06:00:00");
+        Date departure = new Date(116, 00, 01, 06, 00, 00);
 
         FlightService flightService = new FlightService();
 
