@@ -6,6 +6,12 @@ public class FlightModel {
     private int numberOfSeatsLeft;
     private String flightNumber;
 
+    public FlightModel(int numberOfSeats, int numberOfSeatsLeft, String flightNumber) {
+        this.numberOfSeats = numberOfSeats;
+        this.numberOfSeatsLeft = numberOfSeatsLeft;
+        this.flightNumber = flightNumber;
+    }
+
     public int getNumberOfSeats() {
         return numberOfSeats;
     }
