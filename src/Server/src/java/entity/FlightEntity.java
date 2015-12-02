@@ -2,12 +2,14 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -38,6 +40,9 @@ public class FlightEntity implements Serializable {
 
     @OneToOne
     private AirlineEntity destination;
+
+    @OneToMany(mappedBy = "flight")
+    private List<ReservationEntity> reservations;
 
     public Long getId() {
         return id;
@@ -93,6 +98,10 @@ public class FlightEntity implements Serializable {
 
     public void setDestination(AirlineEntity destination) {
         this.destination = destination;
+    }
+
+    public List<ReservationEntity> getReservations() {
+        return reservations;
     }
 
     @Override
