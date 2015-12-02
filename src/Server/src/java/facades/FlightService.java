@@ -1,5 +1,7 @@
 package facades;
 
+import exceptions.NoFlightFoundException;
+import exceptions.NotEnoughTicketsException;
 import infrastructure.IFlightService;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,5 +29,10 @@ public class FlightService implements IFlightService{
         ReservationModel reservation = new ReservationModel();
 
         return reservation;
+    }
+
+    @Override
+    public List<FlightModel> findFlights(String iataOrigin, Date departure, int tickets) throws NotEnoughTicketsException, NoFlightFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
