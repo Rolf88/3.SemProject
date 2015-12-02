@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "Reservation")
@@ -32,6 +33,9 @@ public class ReservationEntity implements Serializable {
 
     @OneToMany
     private List<PassengerEntity> passsengers;
+    
+    @ManyToOne
+    private FlightEntity flight;
 
     public Long getId() {
         return id;

@@ -36,4 +36,16 @@ public class FlightRepositoryTest {
 
         assertEquals(3, flights.size());
     }
+
+    @Test
+    public void test_findAllFlights_DoesNothaveNullRelations() {
+        List<FlightEntity> flights = this.flightRepository.findAllFlights();
+
+        for (FlightEntity flight : flights) {
+            assertNotNull(flight.getAirline());
+            assertNotNull(flight.getOrigin());
+            assertNotNull(flight.getDestination());
+            assertNotNull(flight.getReservations());
+        }
+    }
 }
