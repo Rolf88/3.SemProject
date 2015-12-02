@@ -42,9 +42,26 @@ public class FlightRepository implements IFlightRepository {
     }
 
     @Override
+    public List<FlightEntity> findFlights(String iataOrigin, Date departure, int numberOfPassengers) {
+        final String jpa = "SELECT f FROM Flight f "
+                + "INNER JOIN Airport origin "
+                + "WHERE origin.iataCode = :iataOrigin AND f.departure BETWEEN :departureFrom AND :departureTo";
+
+        Query query = entityManager.createQuery(jpa);
+
+        query.setParameter("iataOrigin", iataOrigin);
+        query.setParameter("departureFrom", departure, TemporalType.TIMESTAMP);
+
+        Date nextDate = new Date(departure.getTime() + 1 * 24 * 60 * 60 * 1000);
+        query.setParameter("departureTo", nextDate, TemporalType.DATE);
+
+        return query.getResultList();
+    }
+
+    @Override
     public ReservationEntity createReservation(FlightEntity flight, ReservatorModel reservator, List<PassengerModel> passengers) {
         ReservationEntity reservation = new ReservationEntity();
-        
+
         reservation.setFlight(flight);
         reservation.setFirstname(reservator.getFirstname());
         reservation.setLastname(reservator.getLastname());
@@ -69,7 +86,7 @@ public class FlightRepository implements IFlightRepository {
 
     @Override
     public FlightEntity getFlightById(int flightId) {
-        return this.entityManager.find(FlightEntity.class, (long)flightId);
+        return this.entityManager.find(FlightEntity.class, (long) flightId);
     }
 
 }
