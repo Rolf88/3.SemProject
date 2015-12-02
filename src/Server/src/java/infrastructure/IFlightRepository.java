@@ -13,7 +13,7 @@ public interface IFlightRepository {
 
     List<FlightEntity> findFlights(String iataOrigin, String iataDestination, Date departure);
 
-    ReservationEntity createReservation(int flightId, ReservatorModel reservator, List<PassengerModel> passengers);
-    
+    ReservationEntity createReservation(FlightEntity flight, ReservatorModel reservator, List<PassengerModel> passengers);
+
     FlightEntity getFlightById(int flightId);
 }

@@ -135,7 +135,9 @@ public class FlightRepositoryTest {
         List<PassengerModel> passengers = new ArrayList<>();
         passengers.add(new PassengerModel("Kim", "Madsen"));
 
-        ReservationEntity reservation = this.flightRepository.createReservation(flightId, reservator, passengers);
+        FlightEntity flightEntity = this.flightRepository.getFlightById(1);
+
+        ReservationEntity reservation = this.flightRepository.createReservation(flightEntity, reservator, passengers);
 
         assertNotNull(reservation);
     }
@@ -154,7 +156,9 @@ public class FlightRepositoryTest {
         PassengerModel passenger2 = new PassengerModel("Line", "Madsen");
         passengers.add(passenger2);
 
-        ReservationEntity reservation = this.flightRepository.createReservation((int) flightId, reservator, passengers);
+        FlightEntity flightEntity = this.flightRepository.getFlightById(1);
+
+        ReservationEntity reservation = this.flightRepository.createReservation(flightEntity, reservator, passengers);
 
         assertNotNull(reservation.getFlight());
         assertEquals((long) reservation.getFlight().getId(), flightId);
@@ -181,8 +185,10 @@ public class FlightRepositoryTest {
         List<PassengerModel> passengers = new ArrayList<>();
         passengers.add(new PassengerModel("Kim", "Madsen"));
 
+        FlightEntity flightEntity = this.flightRepository.getFlightById(1);
+
         long before = PersistenceHelper.count("SELECT COUNT(1) FROM Reservation");
-        this.flightRepository.createReservation(flightId, reservator, passengers);
+        this.flightRepository.createReservation(flightEntity, reservator, passengers);
         long after = PersistenceHelper.count("SELECT COUNT(1) FROM Reservation");
 
         assertEquals(before + 1, after);
@@ -212,7 +218,7 @@ public class FlightRepositoryTest {
         assertNotNull(flight.getDestination());
         assertEquals("ALS", flight.getDestination().getIataCode());
 
-        assertEquals((int)20, (int)flight.getPrice());
+        assertEquals((int) 20, (int) flight.getPrice());
     }
 
     @Test

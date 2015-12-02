@@ -42,10 +42,10 @@ public class FlightRepository implements IFlightRepository {
     }
 
     @Override
-    public ReservationEntity createReservation(int flightId, ReservatorModel reservator, List<PassengerModel> passengers) {
+    public ReservationEntity createReservation(FlightEntity flight, ReservatorModel reservator, List<PassengerModel> passengers) {
         ReservationEntity reservation = new ReservationEntity();
         
-        reservation.setFlight(entityManager.find(FlightEntity.class, Long.valueOf(flightId)));
+        reservation.setFlight(flight);
         reservation.setFirstname(reservator.getFirstname());
         reservation.setLastname(reservator.getLastname());
         reservation.setEmail(reservator.getEmail());
