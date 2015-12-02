@@ -39,6 +39,10 @@ public class ReservationEntity implements Serializable {
     @ManyToOne
     private FlightEntity flight;
 
+    public ReservationEntity() {
+
+    }
+
     public ReservationEntity(Long id, String firstname, String lastname, String email, String phone) {
         this.id = id;
         this.firstname = firstname;

@@ -13,6 +13,8 @@ import infrastructure.IFlightRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import models.PassengerModel;
+import models.ReservatorModel;
 
 /**
  *
@@ -53,6 +55,21 @@ public class FlightRepositorySub implements IFlightRepository {
         flights.add(new FlightEntity(id, departure, capacity, price, airline, origin, destination, reservations));
 
         return flights;
+    }
+
+    @Override
+    public List<FlightEntity> findFlights(String iataOrigin, Date departure, int numberOfPassengers) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReservationEntity createReservation(FlightEntity flight, ReservatorModel reservator, List<PassengerModel> passengers) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public FlightEntity getFlightById(int flightId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
