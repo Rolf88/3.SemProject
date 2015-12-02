@@ -9,7 +9,7 @@ import models.ReservatorModel;
 
 public interface IFlightRepository {
 
-    public List<FlightEntity> findAllFlights();
+    List<FlightEntity> findAllFlights();
 
     List<FlightEntity> findFlights(String iataOrigin, String iataDestination, Date departure);
 
