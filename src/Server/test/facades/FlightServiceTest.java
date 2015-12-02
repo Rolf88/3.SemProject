@@ -2,11 +2,14 @@ package facades;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import junit.framework.Assert;
 import models.FlightModel;
+import models.PassengerModel;
+import models.ReservationModel;
+import models.ReservatorModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,5 +68,22 @@ public class FlightServiceTest {
         List<FlightModel> flights = flightService.findFlights(iataOrigin, iataDestination, departure);
 
         Assert.assertFalse(flights.isEmpty());
+    }
+
+    @Test
+    public void test_reservate_isNotNull() {
+        int flightId = 546;
+        ReservatorModel reservator = new ReservatorModel("Hans", "Hansi", "Hans@Hansi.dk", "45879856");
+
+        List<PassengerModel> passengers = new ArrayList<>();
+        PassengerModel passenger1 = new PassengerModel("Rune", "Gårdsven");
+
+        passengers.add(passenger1);
+
+        FlightService flightService = new FlightService();
+
+        ReservationModel reservation = flightService.reservate(flightId, reservator, passengers);
+        
+        Assert.assertNotNull(reservation);      
     }
 }
