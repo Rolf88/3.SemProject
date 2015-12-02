@@ -23,7 +23,7 @@ public class FlightEntity implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date departure;
 
     @Column(nullable = false)
@@ -39,7 +39,7 @@ public class FlightEntity implements Serializable {
     private AirportEntity origin;
 
     @OneToOne
-    private AirlineEntity destination;
+    private AirportEntity destination;
 
     @OneToMany(mappedBy = "flight")
     private List<ReservationEntity> reservations;
@@ -92,11 +92,11 @@ public class FlightEntity implements Serializable {
         this.origin = origin;
     }
 
-    public AirlineEntity getDestination() {
+    public AirportEntity getDestination() {
         return destination;
     }
 
-    public void setDestination(AirlineEntity destination) {
+    public void setDestination(AirportEntity destination) {
         this.destination = destination;
     }
 
