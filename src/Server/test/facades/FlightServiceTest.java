@@ -111,4 +111,17 @@ public class FlightServiceTest {
 
         ReservationModel reservation = flightService.reservate(flightId, reservator, passengers);
     }
+
+    @Test(expected = Exception.class)
+    public void test_findFlights_fromToNotTheSame() throws ParseException {
+        String iataOrigin = "CPH";
+        String iataDestination = "CPH";
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        Date departure = sdf1.parse("01-01-2016 06:00:00");
+
+        FlightService flightService = new FlightService();
+
+        flightService.findFlights(iataOrigin, iataDestination, departure);
+
+    }
 }
