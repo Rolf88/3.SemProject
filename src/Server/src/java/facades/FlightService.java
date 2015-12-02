@@ -26,7 +26,7 @@ public class FlightService implements IFlightService{
     }
 
     public ReservationModel reservate(int flightId, ReservatorModel reservator, List<PassengerModel> passengers) {
-        ReservationModel reservation = new ReservationModel();
+        ReservationModel reservation = new ReservationModel(reservator);
 
         return reservation;
     }
