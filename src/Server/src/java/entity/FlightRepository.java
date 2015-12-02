@@ -67,4 +67,9 @@ public class FlightRepository implements IFlightRepository {
         return reservation;
     }
 
+    @Override
+    public FlightEntity getFlightById(int flightId) {
+        return this.entityManager.find(FlightEntity.class, (long)flightId);
+    }
+
 }

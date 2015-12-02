@@ -1,27 +1,15 @@
 package test;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class PersistenceHelper {
 
-    private static final EntityManager entityManager;
+    private static EntityManager entityManager;
 
     static {
         entityManager = Persistence.createEntityManagerFactory("ServerPU").createEntityManager();
-        resetDatabase();
     }
 
     public static EntityManager getEntityManager() {
@@ -57,7 +45,6 @@ public class PersistenceHelper {
 
             query.executeUpdate();
         }
-
         entityManager.getTransaction().commit();
     }
 

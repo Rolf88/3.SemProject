@@ -9,6 +9,7 @@ import models.ReservatorModel;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -146,10 +147,10 @@ public class FlightRepositoryTest {
         long flightId = 1;
         ReservatorModel reservator = new ReservatorModel("Kim", "Madsen", "kim@madsen.dk", "2131245");
         List<PassengerModel> passengers = new ArrayList<>();
-        
+
         PassengerModel passenger1 = new PassengerModel("Kim", "Madsen");
         passengers.add(passenger1);
-        
+
         PassengerModel passenger2 = new PassengerModel("Line", "Madsen");
         passengers.add(passenger2);
 
@@ -165,7 +166,7 @@ public class FlightRepositoryTest {
         PassengerEntity passengerEntity1 = reservation.getPasssengers().get(0);
         assertEquals(passenger1.getFirstname(), passengerEntity1.getFirstname());
         assertEquals(passenger1.getLastname(), passengerEntity1.getLastname());
-        
+
         PassengerEntity passengerEntity2 = reservation.getPasssengers().get(1);
         assertEquals(passenger2.getFirstname(), passengerEntity2.getFirstname());
         assertEquals(passenger2.getLastname(), passengerEntity2.getLastname());
@@ -185,6 +186,41 @@ public class FlightRepositoryTest {
         long after = PersistenceHelper.count("SELECT COUNT(1) FROM Reservation");
 
         assertEquals(before + 1, after);
+    }
+
+    @Test
+    public void test_getFlightById_ShouldReturnFlight_IfFound() {
+        PersistenceHelper.execute(new String[]{
+            "INSERT INTO airport (id, iataCode, `name`) VALUES (10, 'VIL', 'Vilstrup lufthavn');",
+            "INSERT INTO airport (id, iataCode, `name`) VALUES (24, 'ALS', 'Als lufthavn');",
+            "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (13, 100, '2015-12-02 10:20:24', 20, 1, 24, 10);"
+        });
+
+        int flightId = 13;
+        FlightEntity flight = this.flightRepository.getFlightById(flightId);
+
+        assertNotNull(flight);
+        assertEquals(100, flight.getCapacity());
+
+        assertNotNull(flight.getAirline());
+        assertEquals("42 Airlines", flight.getAirline().getName());
+
+        assertNotNull(flight.getOrigin());
+        assertEquals("VIL", flight.getOrigin().getIataCode());
+
+        assertNotNull(flight.getDestination());
+        assertEquals("ALS", flight.getDestination().getIataCode());
+
+        assertEquals((int)20, (int)flight.getPrice());
+    }
+
+    @Test
+    public void test_getFlightById_ShouldReturnNull_IfNotFound() {
+        int flightId = 1323423;
+        FlightEntity flight = this.flightRepository.getFlightById(flightId);
+
+        assertNull(flight);
     }
 
     private void setupReservationSchema() {
