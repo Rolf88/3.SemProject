@@ -1,5 +1,6 @@
 package facades;
 
+import infrastructure.IFlightService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ import models.PassengerModel;
 import models.ReservationModel;
 import models.ReservatorModel;
 
-public class FlightService {
+public class FlightService implements IFlightService{
 
     public List<FlightModel> findAllFlights() {
         List<FlightModel> flights = new ArrayList<>();
