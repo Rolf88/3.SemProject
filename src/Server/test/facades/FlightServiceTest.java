@@ -83,7 +83,32 @@ public class FlightServiceTest {
         FlightService flightService = new FlightService();
 
         ReservationModel reservation = flightService.reservate(flightId, reservator, passengers);
-        
-        Assert.assertNotNull(reservation);      
+
+        Assert.assertNotNull(reservation);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void test_findFlights_NullPointerException() throws ParseException {
+        String iataOrigin = null;
+        String iataDestination = null;
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        Date departure = sdf1.parse("01-01-2016 06:00:00");
+
+        FlightService flightService = new FlightService();
+
+        List<FlightModel> flights = flightService.findFlights(iataOrigin, iataDestination, departure);
+
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void test_reservate_NullPointerException() {
+        int flightId = 546;
+        ReservatorModel reservator = new ReservatorModel(null, null, null, null);
+
+        List<PassengerModel> passengers = new ArrayList<>();
+
+        FlightService flightService = new FlightService();
+
+        ReservationModel reservation = flightService.reservate(flightId, reservator, passengers);
     }
 }
