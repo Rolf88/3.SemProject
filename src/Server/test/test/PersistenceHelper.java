@@ -60,4 +60,8 @@ public class PersistenceHelper {
 
         entityManager.getTransaction().commit();
     }
+
+    public static Long count(String sql) {
+        return (Long) entityManager.createNativeQuery(sql).getSingleResult();
+    }
 }

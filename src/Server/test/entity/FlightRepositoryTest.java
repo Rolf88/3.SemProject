@@ -1,8 +1,11 @@
 package entity;
 
 import infrastructure.IFlightRepository;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import models.PassengerModel;
+import models.ReservatorModel;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -122,4 +125,74 @@ public class FlightRepositoryTest {
         }
     }
 
+    @Test
+    public void test_createReservation_ShouldNotReturnNull() {
+        setupReservationSchema();
+
+        int flightId = 1;
+        ReservatorModel reservator = new ReservatorModel("Kim", "Madsen", "kim@madsen.dk", "2131245");
+        List<PassengerModel> passengers = new ArrayList<>();
+        passengers.add(new PassengerModel("Kim", "Madsen"));
+
+        ReservationEntity reservation = this.flightRepository.createReservation(flightId, reservator, passengers);
+
+        assertNotNull(reservation);
+    }
+
+    @Test
+    public void test_createReservation_ShouldReturnMappedReservationEntity() {
+        setupReservationSchema();
+
+        long flightId = 1;
+        ReservatorModel reservator = new ReservatorModel("Kim", "Madsen", "kim@madsen.dk", "2131245");
+        List<PassengerModel> passengers = new ArrayList<>();
+        
+        PassengerModel passenger1 = new PassengerModel("Kim", "Madsen");
+        passengers.add(passenger1);
+        
+        PassengerModel passenger2 = new PassengerModel("Line", "Madsen");
+        passengers.add(passenger2);
+
+        ReservationEntity reservation = this.flightRepository.createReservation((int) flightId, reservator, passengers);
+
+        assertNotNull(reservation.getFlight());
+        assertEquals((long) reservation.getFlight().getId(), flightId);
+        assertEquals(reservator.getFirstname(), reservation.getFirstname());
+        assertEquals(reservator.getLastname(), reservation.getLastname());
+        assertEquals(reservator.getEmail(), reservation.getEmail());
+        assertEquals(reservator.getPhone(), reservation.getPhone());
+
+        PassengerEntity passengerEntity1 = reservation.getPasssengers().get(0);
+        assertEquals(passenger1.getFirstname(), passengerEntity1.getFirstname());
+        assertEquals(passenger1.getLastname(), passengerEntity1.getLastname());
+        
+        PassengerEntity passengerEntity2 = reservation.getPasssengers().get(1);
+        assertEquals(passenger2.getFirstname(), passengerEntity2.getFirstname());
+        assertEquals(passenger2.getLastname(), passengerEntity2.getLastname());
+    }
+
+    @Test
+    public void test_createReservation_ShouldCreateAReservation() {
+        setupReservationSchema();
+
+        int flightId = 1;
+        ReservatorModel reservator = new ReservatorModel("Kim", "Madsen", "kim@madsen.dk", "2131245");
+        List<PassengerModel> passengers = new ArrayList<>();
+        passengers.add(new PassengerModel("Kim", "Madsen"));
+
+        long before = PersistenceHelper.count("SELECT COUNT(1) FROM Reservation");
+        this.flightRepository.createReservation(flightId, reservator, passengers);
+        long after = PersistenceHelper.count("SELECT COUNT(1) FROM Reservation");
+
+        assertEquals(before + 1, after);
+    }
+
+    private void setupReservationSchema() {
+        PersistenceHelper.execute(new String[]{
+            "INSERT INTO airport (id, iataCode, `name`) VALUES (1, 'CPH', 'Kastrup lufthavn');",
+            "INSERT INTO airport (id, iataCode, `name`) VALUES (4, 'OSL', 'Oslo lufthavn');",
+            "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4);"
+        });
+    }
 }

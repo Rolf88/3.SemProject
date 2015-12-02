@@ -1,7 +1,9 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,8 +33,8 @@ public class ReservationEntity implements Serializable {
     @Column(nullable = false)
     private String phone;
 
-    @OneToMany
-    private List<PassengerEntity> passsengers;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<PassengerEntity> passsengers = new ArrayList<>();
 
     @ManyToOne
     private FlightEntity flight;
@@ -83,6 +85,18 @@ public class ReservationEntity implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public FlightEntity getFlight() {
+        return flight;
+    }
+
+    public void setFlight(FlightEntity flight) {
+        this.flight = flight;
+    }
+
+    public List<PassengerEntity> getPasssengers() {
+        return passsengers;
     }
 
     @Override
