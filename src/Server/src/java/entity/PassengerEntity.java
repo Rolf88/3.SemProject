@@ -22,6 +22,11 @@ public class PassengerEntity implements Serializable {
     @Column(nullable = false)
     private String lastname;
 
+    public PassengerEntity(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
     public Long getId() {
         return id;
     }

@@ -31,7 +31,7 @@ import rest.ApplicationConfig;
  * @author AlexanderSteen
  */
 public class FlightInfoTest {
-        
+
     static Server server;
 
     public FlightInfoTest() {
@@ -125,6 +125,16 @@ public class FlightInfoTest {
                 contentType("application/json").
                 when().
                 get("/flightinfo/AA/2001-07-04T12:08:56.235-0700/1").
+                then().
+                statusCode(200);
+    }
+
+    @Test
+    public void test_flightReservation_successRespone() {
+        given().
+                contentType("application/json").
+                when().
+                post("/flightreservation").
                 then().
                 statusCode(200);
     }

@@ -1,5 +1,7 @@
 package facades;
 
+import entity.FlightEntity;
+import entity.PassengerEntity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import junit.framework.Assert;
 import models.FlightModel;
-import models.PassengerModel;
 import models.ReservationModel;
 import models.ReservatorModel;
 import org.junit.After;
@@ -59,8 +60,7 @@ public class FlightServiceTest {
     public void test_findFlights_isNotEmpty() throws ParseException {
         String iataOrigin = "CBH";
         String iataDestination = "QAR";
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        Date departure = sdf1.parse("01-01-2016 06:00:00");
+        Date departure = new Date(116, 00, 01, 06, 00, 00);
 
         FlightService flightService = new FlightService();
 
@@ -90,8 +90,7 @@ public class FlightServiceTest {
     public void test_findFlights_NullPointerException() throws ParseException {
         String iataOrigin = null;
         String iataDestination = null;
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        Date departure = sdf1.parse("01-01-2016 06:00:00");
+        Date departure = new Date(116, 00, 01, 06, 00, 00);
 
         FlightService flightService = new FlightService();
 
@@ -101,22 +100,16 @@ public class FlightServiceTest {
 
     @Test(expected = NullPointerException.class)
     public void test_reservate_NullPointerException() {
-        int flightId = 546;
-        ReservatorModel reservator = new ReservatorModel(null, null, null, null);
-
-        List<PassengerModel> passengers = new ArrayList<>();
-
         FlightService flightService = new FlightService();
 
-        ReservationModel reservation = flightService.reservate(flightId, reservator, passengers);
+        ReservatorModel reservation = flightService.reservate(null);
     }
 
     @Test(expected = Exception.class)
     public void test_findFlights_fromToNotTheSame() throws ParseException {
         String iataOrigin = "CPH";
         String iataDestination = "CPH";
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        Date departure = sdf1.parse("01-01-2016 06:00:00");
+        Date departure = new Date(116, 00, 01, 06, 00, 00);
 
         FlightService flightService = new FlightService();
 
