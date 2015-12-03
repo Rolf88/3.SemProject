@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import junit.framework.Assert;
 import models.FlightModel;
+import models.PassengerModel;
 import models.ReservationModel;
 import models.ReservatorModel;
 import org.junit.After;
@@ -102,7 +103,7 @@ public class FlightServiceTest {
     public void test_reservate_NullPointerException() {
         FlightService flightService = new FlightService();
 
-        ReservatorModel reservation = flightService.reservate(null);
+        ReservationModel reservation = flightService.reservate(456, null, null);
     }
 
     @Test(expected = Exception.class)

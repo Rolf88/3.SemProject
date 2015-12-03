@@ -27,6 +27,9 @@ public class PassengerEntity implements Serializable {
         this.lastname = lastname;
     }
 
+    public PassengerEntity() {
+    }
+
     public Long getId() {
         return id;
     }

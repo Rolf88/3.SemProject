@@ -37,34 +37,34 @@ public class FlightReservationResource {
     }
 
     //HUSK AT SPØRGE!!
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response flightReservation(String json) {
-        FlightService flightService = new FlightService();
-
-        ReservatorModel resM = gson.fromJson(json, ReservatorModel.class);
-
-        resM = flightService.reservate(resM);
-
-        return Response.status(Response.Status.CREATED).entity(userToJson(resM)).build();
-
-    }
-
-    private static JsonObject userToJsonObject(ReservatorModel resM) {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("flightID", resM.getFlight().getId());
-        obj.addProperty("numberOfSeats", resM.getPassengers().size());
-        obj.addProperty("ReserveeName", resM.getFirstname() + resM.getLastname());
-        obj.addProperty("ReserveePhone", resM.getPhone());
-        obj.addProperty("ReserveeEmail", resM.getEmail());
-        if (resM.getPassengers() != null) {
-            obj.add("Passengers", (JsonElement) resM.getPassengers());
-        }
-        return obj;
-    }
-
-    public static String userToJson(ReservatorModel resM) {
-        return new Gson().toJson(userToJsonObject(resM));
-    }
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response flightReservation(String json) {
+//        FlightService flightService = new FlightService();
+//
+//        ReservatorModel resM = gson.fromJson(json, ReservatorModel.class);
+//
+//        resM = flightService.reservate(resM);
+//
+//        return Response.status(Response.Status.CREATED).entity(userToJson(resM)).build();
+//
+//    }
+//
+//    private static JsonObject userToJsonObject(ReservatorModel resM) {
+//        JsonObject obj = new JsonObject();
+//        obj.addProperty("flightID", resM.getFlight().getId());
+//        obj.addProperty("numberOfSeats", resM.getPassengers().size());
+//        obj.addProperty("ReserveeName", resM.getFirstname() + resM.getLastname());
+//        obj.addProperty("ReserveePhone", resM.getPhone());
+//        obj.addProperty("ReserveeEmail", resM.getEmail());
+//        if (resM.getPassengers() != null) {
+//            obj.add("Passengers", (JsonElement) resM.getPassengers());
+//        }
+//        return obj;
+//    }
+//
+//    public static String userToJson(ReservatorModel resM) {
+//        return new Gson().toJson(userToJsonObject(resM));
+//    }
 }
