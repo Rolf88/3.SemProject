@@ -49,7 +49,7 @@ public class FlightService implements IFlightService {
             throw new NotEnoughTicketsException("Flight is fully booked");
         }
 
-        ReservationModel reservation = new ReservationModel(reservator);
+        ReservationModel reservation = new ReservationModel(reservator, null, null);
 
         return reservation;
     }
