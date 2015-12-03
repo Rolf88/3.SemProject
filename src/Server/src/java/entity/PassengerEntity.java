@@ -22,6 +22,8 @@ public class PassengerEntity implements Serializable {
     @Column(nullable = false)
     private String lastname;
 
+    private ReservationEntity reservation;
+
     public PassengerEntity(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -52,6 +54,10 @@ public class PassengerEntity implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public ReservationEntity getReservation() {
+        return reservation;
     }
 
     @Override

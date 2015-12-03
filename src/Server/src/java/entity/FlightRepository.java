@@ -91,7 +91,10 @@ public class FlightRepository implements IFlightRepository {
 
     @Override
     public int getNumberOfPassengers(int flightId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query query = this.entityManager.createQuery("SELECT COUNT(p) FROM Passenger p WHERE p.reservation.flight.id = :flightId");
+        query.setParameter("flightId", flightId);
+
+        return ((Long) query.getSingleResult()).intValue();
     }
 
 }

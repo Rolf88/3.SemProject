@@ -286,6 +286,30 @@ public class FlightRepositoryTest {
         assertNull(flight);
     }
 
+    @Test
+    public void test_getNumberOfPassengers_ShouldReturnCorrectNumberOfPassengers() {
+        PersistenceHelper.execute(new String[]{
+            "INSERT INTO airport (id, iataCode, `name`) VALUES (1, 'CPH', 'Kastrup lufthavn');",
+            "INSERT INTO airport (id, iataCode, `name`) VALUES (2, 'BIL', 'Kastrup lufthavn');",
+            "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 2);",
+            "INSERT INTO reservation (id, firstname, lastname, email, phone, flight_id) VALUES (1, 'Oliver', 'Madsen', 'oliver@madsen.dk', '1231232', 1);",
+            "INSERT INTO passenger (id, firstname, lastname, reservation_id) VALUES (1, 'Oliver', 'Madsen', 1);",
+            "INSERT INTO passenger (id, firstname, lastname, reservation_id) VALUES (2, 'Rolf', 'Madsen', 1);",
+            "INSERT INTO reservation_passenger (reservation_id, passsengers_id) VALUES (1, 1);",
+            "INSERT INTO reservation_passenger (reservation_id, passsengers_id) VALUES (1, 2);",
+            "INSERT INTO reservation (id, firstname, lastname, email, phone, flight_id) VALUES (2, 'Lukas', 'Madsen', 'oliver@madsen.dk', '1231232', 1);",
+            "INSERT INTO passenger (id, firstname, lastname, reservation_id) VALUES (3, 'Lukas', 'Madsen', 2);",
+            "INSERT INTO passenger (id, firstname, lastname, reservation_id) VALUES (4, 'Alexander', 'Madsen', 2);",
+            "INSERT INTO reservation_passenger (reservation_id, passsengers_id) VALUES (2, 3);",
+            "INSERT INTO reservation_passenger (reservation_id, passsengers_id) VALUES (2, 4);"
+        });
+
+        int numberOfPassengers = this.flightRepository.getNumberOfPassengers(1);
+        
+        assertEquals(4, numberOfPassengers);
+    }
+
     private void setupReservationSchema() {
         PersistenceHelper.execute(new String[]{
             "INSERT INTO airport (id, iataCode, `name`) VALUES (1, 'CPH', 'Kastrup lufthavn');",
