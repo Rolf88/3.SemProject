@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class FlightEntity implements Serializable {
     private AirportEntity destination;
 
     @OneToMany(mappedBy = "flight")
-    private List<ReservationEntity> reservations;
+    private List<ReservationEntity> reservations = new ArrayList<>();
 
     public FlightEntity() {
 

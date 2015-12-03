@@ -65,7 +65,7 @@ public class FlightinfoResource {
             throw new InvalidDataException("Invalid ticket");
         }
         
-        IFlightService fs = new FlightService();
+        IFlightService fs = new FlightService(null);
         List<FlightModel> fm;
         
         fm = fs.findAllFlights();

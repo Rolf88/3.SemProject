@@ -5,8 +5,6 @@
  */
 package facades;
 
-import entity.AirlineEntity;
-import entity.AirportEntity;
 import entity.FlightEntity;
 import entity.ReservationEntity;
 import infrastructure.IFlightRepository;
@@ -15,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import models.PassengerModel;
 import models.ReservatorModel;
+import utils.FlightBuilder;
 
 /**
  *
@@ -22,44 +21,63 @@ import models.ReservatorModel;
  */
 public class FlightRepositorySub implements IFlightRepository {
 
+    private List<FlightEntity> flightsDataSource = new ArrayList<>();
+
+    public FlightRepositorySub() {
+        flightsDataSource.add(FlightBuilder.create()
+                .setFlight(231, new Date(116, 0, 1), 100, 230)
+                .withAirline("Flyv Flyv")
+                .withDestination(981, "QAR", "Rotterdam Airport")
+                .withOrigin(982, "CPH", "Copenhagen Airport")
+                .withReservation("Gert", "Jørgensen", "Gert@Jørgensen.dk", "45879556")
+                .build());
+
+        flightsDataSource.add(FlightBuilder.create()
+                .setFlight(2345, new Date(116, 0, 1), 100, 230)
+                .withAirline("Flyv Flyv")
+                .withDestination(981, "QAR", "Rotterdam Airport")
+                .withOrigin(982, "CPH", "Copenhagen Airport")
+                .withReservation("Brian", "Madsen", "brian@madsen.dk", "598494")
+                .build());
+
+        flightsDataSource.add(FlightBuilder.create()
+                .setFlight(231, new Date(116, 0, 1), 100, 230)
+                .withAirline("Flyv Flyv")
+                .withDestination(981, "QAR", "Rotterdam Airport")
+                .withOrigin(982, "CPH", "Copenhagen Airport")
+                .withReservation("Kim", "Larsen", "Kim@Larsen.dk", "342353")
+                .build());
+    }
+
     @Override
     public List<FlightEntity> findAllFlights() {
-        Long id = 23l;
-        Date departure = new Date(116, 00, 01, 06, 00, 00);
-        int capacity = 110;
-        double price = 230;
-        AirlineEntity airline = new AirlineEntity(25l, "Flyv Flyv");
-        AirportEntity origin = new AirportEntity(98l, "CPH", "Copenhagen Airport");
-        AirportEntity destination = new AirportEntity(98l, "QAR", "Rotterdam Airport");
-        List<ReservationEntity> reservations = new ArrayList<>();
-        reservations.add(new ReservationEntity(46l, "Gert", "Jørgensen", "Gert@Jørgensen.dk", "45879556"));
-
-        List<FlightEntity> flights = new ArrayList<>();
-        flights.add(new FlightEntity(id, departure, capacity, price, airline, origin, destination, reservations));
-
-        return flights;
+        return flightsDataSource;
     }
 
     @Override
     public List<FlightEntity> findFlights(String iataOrigin, String iataDestination, Date departure) {
-        Long id = 23l;
-        int capacity = 110;
-        double price = 230;
-        AirlineEntity airline = new AirlineEntity(25l, "Flyv Flyv");
-        AirportEntity origin = new AirportEntity(98l, iataOrigin, "Copenhagen Airport");
-        AirportEntity destination = new AirportEntity(98l, iataDestination, "Rotterdam Airport");
-        List<ReservationEntity> reservations = new ArrayList<>();
-        reservations.add(new ReservationEntity(46l, "Gert", "Jørgensen", "Gert@Jørgensen.dk", "45879556"));
-
         List<FlightEntity> flights = new ArrayList<>();
-        flights.add(new FlightEntity(id, departure, capacity, price, airline, origin, destination, reservations));
+
+        for (FlightEntity flight : flightsDataSource) {
+            if (flight.getDestination().getIataCode().equals(iataDestination) && flight.getOrigin().getIataCode().equals(iataOrigin)) {
+                flights.add(flight);
+            }
+        }
 
         return flights;
     }
 
     @Override
     public List<FlightEntity> findFlights(String iataOrigin, Date departure, int numberOfPassengers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<FlightEntity> flights = new ArrayList<>();
+
+        for (FlightEntity flight : flightsDataSource) {
+            if (flight.getOrigin().getIataCode().equals(iataOrigin)) {
+                flights.add(flight);
+            }
+        }
+
+        return flights;
     }
 
     @Override
@@ -69,7 +87,13 @@ public class FlightRepositorySub implements IFlightRepository {
 
     @Override
     public FlightEntity getFlightById(int flightId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
+        for (FlightEntity flight : flightsDataSource) {
+            if (flight.getId().equals((long) flightId)) {
+                return flight;
+            }
+        }
+
+        return null;
+    }
 }

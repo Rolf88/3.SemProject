@@ -1,7 +1,11 @@
 package facades;
 
+<<<<<<< ef06c7e606279f94b496e3b7547c1076b1b27f70
 import entity.FlightEntity;
 import entity.PassengerEntity;
+=======
+import infrastructure.IFlightService;
+>>>>>>> Refactor FlightServiceTests and make them pass
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +32,7 @@ public class FlightServiceTest {
 
     @Test
     public void test_findAllFlights_IsNotEmpty() {
-        FlightService flightService = new FlightService();
+        IFlightService flightService = new FlightService(new FlightRepositorySub());
 
         List<FlightModel> flights = flightService.findAllFlights();
 
@@ -37,7 +41,7 @@ public class FlightServiceTest {
 
     @Test
     public void test_findAllFlights_IsNotNull() {
-        FlightService flightService = new FlightService();
+        IFlightService flightService = new FlightService(new FlightRepositorySub());
 
         List<FlightModel> flights = flightService.findAllFlights();
 
@@ -50,7 +54,7 @@ public class FlightServiceTest {
         String iataDestination = "QAR";
         Date departure = new Date(116, 00, 01, 06, 00, 00);
 
-        FlightService flightService = new FlightService();
+        IFlightService flightService = new FlightService(new FlightRepositorySub());
 
         List<FlightModel> flights = flightService.findFlights(iataOrigin, iataDestination, departure);
 
@@ -59,11 +63,11 @@ public class FlightServiceTest {
 
     @Test
     public void test_findFlights_isNotEmpty() throws ParseException {
-        String iataOrigin = "CBH";
+        String iataOrigin = "CPH";
         String iataDestination = "QAR";
         Date departure = new Date(116, 00, 01, 06, 00, 00);
 
-        FlightService flightService = new FlightService();
+        FlightService flightService = new FlightService(new FlightRepositorySub());
 
         List<FlightModel> flights = flightService.findFlights(iataOrigin, iataDestination, departure);
 
@@ -72,7 +76,7 @@ public class FlightServiceTest {
 
     @Test
     public void test_reservate_isNotNull() {
-        int flightId = 546;
+        int flightId = 231;
         ReservatorModel reservator = new ReservatorModel("Hans", "Hansi", "Hans@Hansi.dk", "45879856");
 
         List<PassengerModel> passengers = new ArrayList<>();
@@ -80,7 +84,7 @@ public class FlightServiceTest {
 
         passengers.add(passenger1);
 
-        FlightService flightService = new FlightService();
+        FlightService flightService = new FlightService(new FlightRepositorySub());
 
         ReservationModel reservation = flightService.reservate(flightId, reservator, passengers);
 
@@ -93,28 +97,43 @@ public class FlightServiceTest {
         String iataDestination = null;
         Date departure = new Date(116, 00, 01, 06, 00, 00);
 
-        FlightService flightService = new FlightService();
+        FlightService flightService = new FlightService(new FlightRepositorySub());
 
-        List<FlightModel> flights = flightService.findFlights(iataOrigin, iataDestination, departure);
-
+        flightService.findFlights(iataOrigin, iataDestination, departure);
     }
 
     @Test(expected = NullPointerException.class)
     public void test_reservate_NullPointerException() {
-        FlightService flightService = new FlightService();
+        int flightId = 546;
+        ReservatorModel reservator = new ReservatorModel(null, null, null, null);
+
+        List<PassengerModel> passengers = new ArrayList<>();
+
+        FlightService flightService = new FlightService(new FlightRepositorySub());
 
         ReservationModel reservation = flightService.reservate(456, null, null);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void test_findFlights_fromToNotTheSame() throws ParseException {
         String iataOrigin = "CPH";
         String iataDestination = "CPH";
         Date departure = new Date(116, 00, 01, 06, 00, 00);
 
-        FlightService flightService = new FlightService();
+        FlightService flightService = new FlightService(new FlightRepositorySub());
 
         flightService.findFlights(iataOrigin, iataDestination, departure);
 
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void test_reservate_ShouldThrowException_IfFlightNotExists() {
+        IFlightService flightService = new FlightService(new FlightRepositorySub());
+
+        flightService.reservate(1312, new ReservatorModel("Bo", "Sørensen", "bo@sørensen.dk", "123123"), new ArrayList<PassengerModel>() {
+            {
+                add(new PassengerModel("Bo", "Sørensen"));
+            }
+        });
     }
 }
