@@ -36,11 +36,11 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public ReservationModel reservate(int flightId, ReservatorModel reservator, List<PassengerModel> passengers) {
+    public ReservationModel reservate(int flightId, ReservatorModel reservator, List<PassengerModel> passengers) throws NotEnoughTicketsException, NoFlightFoundException {
         FlightEntity flight = this.flightRepository.getFlightById(flightId);
 
         if (flight == null) {
-            throw new NullPointerException("Flight not found");
+            throw new NoFlightFoundException("Flight not found");
         }
 
         ReservationModel reservation = new ReservationModel(reservator);
@@ -49,7 +49,7 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public List<FlightModel> findFlights(String iataOrigin, Date departure, int numberOfPassengers) throws NotEnoughTicketsException, NoFlightFoundException {
+    public List<FlightModel> findFlights(String iataOrigin, Date departure, int numberOfPassengers) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

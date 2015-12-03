@@ -1,5 +1,6 @@
 package facades;
 
+import exceptions.NoFlightFoundException;
 import infrastructure.IFlightService;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -68,8 +69,31 @@ public class FlightServiceTest {
         Assert.assertFalse(flights.isEmpty());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void test_findFlights_NullPointerException() throws ParseException {
+        String iataOrigin = null;
+        String iataDestination = null;
+        Date departure = new Date(116, 00, 01, 06, 00, 00);
+
+        FlightService flightService = new FlightService(new FlightRepositorySub());
+
+        flightService.findFlights(iataOrigin, iataDestination, departure);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void test_findFlights_fromToNotTheSame() throws ParseException {
+        String iataOrigin = "CPH";
+        String iataDestination = "CPH";
+        Date departure = new Date(116, 00, 01, 06, 00, 00);
+
+        FlightService flightService = new FlightService(new FlightRepositorySub());
+
+        flightService.findFlights(iataOrigin, iataDestination, departure);
+
+    }
+
     @Test
-    public void test_reservate_isNotNull() {
+    public void test_reservate_isNotNull() throws Exception {
         int flightId = 231;
         ReservatorModel reservator = new ReservatorModel("Hans", "Hansi", "Hans@Hansi.dk", "45879856");
 
@@ -85,43 +109,8 @@ public class FlightServiceTest {
         Assert.assertNotNull(reservation);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void test_findFlights_NullPointerException() throws ParseException {
-        String iataOrigin = null;
-        String iataDestination = null;
-        Date departure = new Date(116, 00, 01, 06, 00, 00);
-
-        FlightService flightService = new FlightService(new FlightRepositorySub());
-
-        flightService.findFlights(iataOrigin, iataDestination, departure);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void test_reservate_NullPointerException() {
-        int flightId = 546;
-        ReservatorModel reservator = new ReservatorModel(null, null, null, null);
-
-        List<PassengerModel> passengers = new ArrayList<>();
-
-        FlightService flightService = new FlightService(new FlightRepositorySub());
-
-        ReservationModel reservation = flightService.reservate(456, null, null);
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void test_findFlights_fromToNotTheSame() throws ParseException {
-        String iataOrigin = "CPH";
-        String iataDestination = "CPH";
-        Date departure = new Date(116, 00, 01, 06, 00, 00);
-
-        FlightService flightService = new FlightService(new FlightRepositorySub());
-
-        flightService.findFlights(iataOrigin, iataDestination, departure);
-
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void test_reservate_ShouldThrowException_IfFlightNotExists() {
+    @Test(expected = NoFlightFoundException.class)
+    public void test_reservate_ShouldThrowException_IfFlightNotExists() throws Exception {
         IFlightService flightService = new FlightService(new FlightRepositorySub());
 
         flightService.reservate(1312, new ReservatorModel("Bo", "Sørensen", "bo@sørensen.dk", "123123"), new ArrayList<PassengerModel>() {
