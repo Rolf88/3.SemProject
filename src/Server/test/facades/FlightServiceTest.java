@@ -1,13 +1,7 @@
 package facades;
 
-<<<<<<< ef06c7e606279f94b496e3b7547c1076b1b27f70
-import entity.FlightEntity;
-import entity.PassengerEntity;
-=======
 import infrastructure.IFlightService;
->>>>>>> Refactor FlightServiceTests and make them pass
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
