@@ -1,6 +1,7 @@
 package facades;
 
 import entity.FlightEntity;
+import entity.ReservationEntity;
 import exceptions.NoFlightFoundException;
 import exceptions.NotEnoughTicketsException;
 import infrastructure.IFlightRepository;
@@ -49,9 +50,9 @@ public class FlightService implements IFlightService {
             throw new NotEnoughTicketsException("Flight is fully booked");
         }
 
-        ReservationModel reservation = new ReservationModel(reservator, null, null);
+        ReservationEntity source = this.flightRepository.createReservation(flight, reservator, passengers);
 
-        return reservation;
+        return new ReservationModel(new ReservatorModel(source.getFirstname(), source.getLastname(), source.getEmail(), source.getPhone()), null, null);
     }
 
     @Override

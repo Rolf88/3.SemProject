@@ -6,6 +6,7 @@
 package facades;
 
 import entity.FlightEntity;
+import entity.PassengerEntity;
 import entity.ReservationEntity;
 import infrastructure.IFlightRepository;
 import java.util.ArrayList;
@@ -90,7 +91,22 @@ public class FlightRepositorySub implements IFlightRepository {
 
     @Override
     public ReservationEntity createReservation(FlightEntity flight, ReservatorModel reservator, List<PassengerModel> passengers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ReservationEntity reservation = new ReservationEntity();
+        reservation.setFirstname(reservator.getFirstname());
+        reservation.setLastname(reservator.getLastname());
+        reservation.setEmail(reservator.getEmail());
+        reservation.setPhone(reservator.getPhone());
+        reservation.setFlight(flight);
+
+        for (PassengerModel passenger : passengers) {
+            PassengerEntity passengerEntity = new PassengerEntity();
+            passengerEntity.setFirstname(passenger.getFirstname());
+            passengerEntity.setLastname(passenger.getLastname());
+
+            reservation.getPasssengers().add(passengerEntity);
+        }
+
+        return reservation;
     }
 
     @Override
