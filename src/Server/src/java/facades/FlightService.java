@@ -23,13 +23,7 @@ public class FlightService implements IFlightService {
 
     @Override
     public List<FlightModel> findAllFlights() {
-        List<FlightModel> flights = new ArrayList<>();
-
-        for (FlightEntity flight : this.flightRepository.findAllFlights()) {
-            flights.add(new FlightModel(flight.getCapacity(), 10, flight.getId().toString()));
-        }
-
-        return flights;
+        return convertToFlightModels(this.flightRepository.findAllFlights());
     }
 
     @Override
@@ -38,13 +32,7 @@ public class FlightService implements IFlightService {
             throw new UnsupportedOperationException();
         }
 
-        List<FlightModel> flights = new ArrayList<>();
-
-        for (FlightEntity flight : this.flightRepository.findFlights(iataOrigin, iataDestination, departure)) {
-            flights.add(new FlightModel(flight.getCapacity(), 10, flight.getId().toString()));
-        }
-
-        return flights;
+        return convertToFlightModels(this.flightRepository.findFlights(iataOrigin, iataDestination, departure));
     }
 
     @Override
@@ -63,5 +51,15 @@ public class FlightService implements IFlightService {
     @Override
     public List<FlightModel> findFlights(String iataOrigin, Date departure, int numberOfPassengers) throws NotEnoughTicketsException, NoFlightFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private List<FlightModel> convertToFlightModels(List<FlightEntity> source) {
+        List<FlightModel> flights = new ArrayList<>();
+
+        for (FlightEntity flight : source) {
+            flights.add(new FlightModel(flight.getCapacity(), 10, flight.getId().toString()));
+        }
+
+        return flights;
     }
 }
