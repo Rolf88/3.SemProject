@@ -21,183 +21,36 @@
         <link rel="stylesheet" href="css/jquery-ui.min.css">
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="/resources/demos/style.css">
+        
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src='bower_components/angular-animate/angular-animate.min.js'></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="app.js"></script>        
+        <script src="flyList/flyList.js"></script>
+        <script src="reservation/reservation.js"></script>
+        <script src="components/authentication.js"></script>
+        <script src="components/filters.js"></script>
+        <script src="components/directives.js"></script>
+        <script src="components/factories.js"></script>
+        <script src="components/services.js"></script>
+        
         <link rel="stylesheet" href="css/style.css">
+        
         <script>
-            $(function () {
+            $(document).ready(function () {
                 $("#datepicker").datepicker();
             });
         </script>
     </head>
-    <body>
+    <body ng-app="myApp">
         <div class="container">
             <div class="logo">
                 <img src="graphics/yourlogohere.jpg" height="100" width="100" />
             </div>
-            <nav>
-                <div class="jumbotron">
-                    <form class="form-inline">
-                        <div class="row">
-                            <div class="col-md-11">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="From Destination">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="To Destination">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input id="datepicker" type="text" class="form-control" placeholder="Departure Date">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Number of Passenger</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                                <option>13</option>
-                                                <option>14</option>
-                                                <option>15</option>
-                                                <option>16</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <input class="btn btn-default" type="submit" value="Search">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </nav>
-
-            <!-- Main component for a primary marketing message or call to action -->
-            <div class="jumbotron">
-
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Date</th>
-                            <th>Travel Time</th>
-                            <th>From Destination</th>
-                            <th>To Destination</th>
-                            <th>Price</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>11/28/2015 2:51 AM</td>
-                            <td>2H 15M</td>
-                            <td>Islamabad</td>
-                            <td>Karachi</td>
-                            <td>15000 Rs</td>
-                            <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Order Now</button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>11/28/2015 2:51 AM</td>
-                            <td>2H 15M</td>
-                            <td>Islamabad</td>
-                            <td>Karachi</td>
-                            <td>15000 Rs</td>
-                            <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Order Now</button></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>11/28/2015 2:51 AM</td>
-                            <td>2H 15M</td>
-                            <td>Islamabad</td>
-                            <td>Karachi</td>
-                            <td>15000 Rs</td>
-                            <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Order Now</button></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>11/28/2015 2:51 AM</td>
-                            <td>2H 15M</td>
-                            <td>Islamabad</td>
-                            <td>Karachi</td>
-                            <td>15000 Rs</td>
-                            <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Order Now</button></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>11/28/2015 2:51 AM</td>
-                            <td>2H 15M</td>
-                            <td>Islamabad</td>
-                            <td>Karachi</td>
-                            <td>15000 Rs</td>
-                            <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Order Now</button></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>11/28/2015 2:51 AM</td>
-                            <td>2H 15M</td>
-                            <td>Islamabad</td>
-                            <td>Karachi</td>
-                            <td>15000 Rs</td>
-                            <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Order Now</button></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>11/28/2015 2:51 AM</td>
-                            <td>2H 15M</td>
-                            <td>Islamabad</td>
-                            <td>Karachi</td>
-                            <td>15000 Rs</td>
-                            <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Order Now</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- Small modal -->
-                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <form>
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-addon" id="sizing-addon1">@</span>
-                                    <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1">
-                                </div>
-                                <br>
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-addon" id="sizing-addon1">@</span>
-                                    <input type="text" class="form-control" placeholder="Phone" aria-describedby="sizing-addon1">
-                                </div>
-                                <br>
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-addon" id="sizing-addon1">@</span>
-                                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1">
-                                </div>
-                                <br>
-                                <div align="center">
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Order</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
+            <div ng-view></div>
+            
             <footer class="footer">
                 <div class="jumbotron">
                     <p class="text-muted">&copy; 2015 | mshahzeb43</p>
@@ -209,6 +62,5 @@
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/npm.js"></script>
     </body>
 </html>

@@ -7,6 +7,8 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import deploy.DeploymentConfiguration;
+import entity.FlightRepository;
 import exceptions.InvalidDataException;
 import exceptions.NoFlightFoundException;
 import exceptions.NotEnoughTicketsException;
@@ -17,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Persistence;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
