@@ -89,4 +89,9 @@ public class FlightRepository implements IFlightRepository {
         return this.entityManager.find(FlightEntity.class, (long) flightId);
     }
 
+    @Override
+    public int getNumberOfPassengers(int flightId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

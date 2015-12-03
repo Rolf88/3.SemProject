@@ -1,6 +1,7 @@
 package facades;
 
 import exceptions.NoFlightFoundException;
+import exceptions.NotEnoughTicketsException;
 import infrastructure.IFlightService;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -116,6 +117,19 @@ public class FlightServiceTest {
         flightService.reservate(1312, new ReservatorModel("Bo", "Sørensen", "bo@sørensen.dk", "123123"), new ArrayList<PassengerModel>() {
             {
                 add(new PassengerModel("Bo", "Sørensen"));
+            }
+        });
+    }
+
+    @Test(expected = NotEnoughTicketsException.class)
+    public void test_reservate_ShouldThrowException_FlightIsFullyBooked() throws Exception {
+        IFlightService flightService = new FlightService(new FlightRepositorySub());
+
+        flightService.reservate(234, new ReservatorModel("Bo", "Sørensen", "bo@sørensen.dk", "123123"), new ArrayList<PassengerModel>() {
+            {
+                add(new PassengerModel("Bo", "Sørensen"));
+                add(new PassengerModel("Bo2", "Sørensen2"));
+                add(new PassengerModel("Bo3", "Sørensen3"));
             }
         });
     }

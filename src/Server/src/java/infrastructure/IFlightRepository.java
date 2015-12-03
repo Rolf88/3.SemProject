@@ -18,4 +18,6 @@ public interface IFlightRepository {
     ReservationEntity createReservation(FlightEntity flight, ReservatorModel reservator, List<PassengerModel> passengers);
 
     FlightEntity getFlightById(int flightId);
+
+    int getNumberOfPassengers(int flightId);
 }

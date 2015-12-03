@@ -43,6 +43,12 @@ public class FlightService implements IFlightService {
             throw new NoFlightFoundException("Flight not found");
         }
 
+        int currentNumberOfPassengers = this.flightRepository.getNumberOfPassengers(flight.getId().intValue());
+
+        if (currentNumberOfPassengers + passengers.size() > flight.getCapacity()) {
+            throw new NotEnoughTicketsException("Flight is fully booked");
+        }
+
         ReservationModel reservation = new ReservationModel(reservator);
 
         return reservation;

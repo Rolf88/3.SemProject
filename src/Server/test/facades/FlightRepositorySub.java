@@ -41,7 +41,15 @@ public class FlightRepositorySub implements IFlightRepository {
                 .build());
 
         flightsDataSource.add(FlightBuilder.create()
-                .setFlight(231, new Date(116, 0, 1), 100, 230)
+                .setFlight(235, new Date(116, 0, 1), 100, 230)
+                .withAirline("Flyv Flyv")
+                .withDestination(981, "QAR", "Rotterdam Airport")
+                .withOrigin(982, "CPH", "Copenhagen Airport")
+                .withReservation("Kim", "Larsen", "Kim@Larsen.dk", "342353")
+                .build());
+
+        flightsDataSource.add(FlightBuilder.create()
+                .setFlight(234, new Date(116, 0, 1), 2, 230)
                 .withAirline("Flyv Flyv")
                 .withDestination(981, "QAR", "Rotterdam Airport")
                 .withOrigin(982, "CPH", "Copenhagen Airport")
@@ -95,5 +103,17 @@ public class FlightRepositorySub implements IFlightRepository {
         }
 
         return null;
+    }
+
+    @Override
+    public int getNumberOfPassengers(int flightId) {
+        FlightEntity flight = getFlightById(flightId);
+
+        int passengers = 0;
+        for (ReservationEntity reservation : flight.getReservations()) {
+            passengers = reservation.getPasssengers().size();
+        }
+
+        return passengers;
     }
 }
