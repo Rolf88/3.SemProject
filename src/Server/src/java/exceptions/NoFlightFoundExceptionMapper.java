@@ -17,12 +17,12 @@ import javax.ws.rs.ext.Provider;
  * @author RolfMoikjær
  */
 @Provider
-public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
+public class NoFlightFoundExceptionMapper implements ExceptionMapper<NoFlightFoundException> {
 
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
-    public Response toResponse(NotFoundException ex) {
+    public Response toResponse(NoFlightFoundException ex) {
         ErrorMessage em = new ErrorMessage(ex, 1, 404);
         return Response.status(Response.Status.NOT_FOUND).entity(gson.toJson(em)).type(MediaType.APPLICATION_JSON).build();
     }

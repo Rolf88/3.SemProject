@@ -5,8 +5,11 @@
  */
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import exceptions.InvalidDataException;
-import exceptions.NotFoundException;
+import exceptions.NoFlightFoundException;
+import exceptions.NotEnoughTicketsException;
 import facades.FlightService;
 import infrastructure.IFlightService;
 import java.text.DateFormat;
@@ -34,6 +37,7 @@ public class FlightinfoResource {
 
     @Context
     private UriInfo context;
+    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
 
     public FlightinfoResource() {
     }
@@ -41,7 +45,7 @@ public class FlightinfoResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{date}/{numTickets}")
-    public Response get(@PathParam("from") String from, @PathParam("date") String dateParam, @PathParam("numTickets") String numTickets) throws InvalidDataException, ParseException, NotFoundException {
+    public Response get(@PathParam("from") String from, @PathParam("date") String dateParam, @PathParam("numTickets") String numTickets) throws InvalidDataException, ParseException, NoFlightFoundException, NotEnoughTicketsException {
         Date date;
         int tickets;
 
@@ -64,15 +68,8 @@ public class FlightinfoResource {
         IFlightService fs = new FlightService();
         List<FlightModel> fm;
         
-        try{
-            fm = fs.findAllFlights(); // fs.findAllFlights(from, date, tickets);
-        }catch(NullPointerException e){
-            throw new NotFoundException("No flight found");
-        }catch(Exception e){
-            throw new NotFoundException("No seat found");
-        }
+        fm = fs.findAllFlights();
         
-        
-        return Response.ok(fm).build();
+        return Response.ok(gson.toJson(fm)).build();
     }
 }

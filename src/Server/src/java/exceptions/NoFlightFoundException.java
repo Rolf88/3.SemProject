@@ -9,9 +9,9 @@ package exceptions;
  *
  * @author RolfMoikjær
  */
-public class NotFoundException extends Exception {
+public class NoFlightFoundException extends Exception {
 
-    public NotFoundException(String string) {
+    public NoFlightFoundException(String string) {
         super(string);
     }
 }

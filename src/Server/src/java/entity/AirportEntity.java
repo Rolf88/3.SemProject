@@ -22,6 +22,10 @@ public class AirportEntity implements Serializable {
     @Column(nullable = false)
     private String name;
 
+    public AirportEntity() {
+
+    }
+
     public AirportEntity(Long id, String iataCode, String name) {
         this.id = id;
         this.iataCode = iataCode;
