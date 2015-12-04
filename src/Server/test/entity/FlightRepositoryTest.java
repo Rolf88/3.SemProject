@@ -44,9 +44,9 @@ public class FlightRepositoryTest {
             "INSERT INTO airport (id, iataCode, `name`) VALUES (3, 'ROM', 'Rom lufthavn');",
             "INSERT INTO airport (id, iataCode, `name`) VALUES (4, 'OSL', 'Oslo lufthavn');",
             "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, CURRENT_TIMESTAMP, 20, 1, 1, 2);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (2, 100, CURRENT_TIMESTAMP, 20, 1, 3, 2);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (3, 100, CURRENT_TIMESTAMP, 20, 1, 3, 4);"
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (1, 100, CURRENT_TIMESTAMP, 20, 1, 1, 2, 'sdfsdf');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (2, 100, CURRENT_TIMESTAMP, 20, 1, 3, 2, 'sdfsdf3s');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (3, 100, CURRENT_TIMESTAMP, 20, 1, 3, 4, 'sdfsdf2');"
         });
 
         List<FlightEntity> flights = this.flightRepository.findAllFlights();
@@ -84,9 +84,9 @@ public class FlightRepositoryTest {
             "INSERT INTO airport (id, iataCode, `name`) VALUES (3, 'ROM', 'Rom lufthavn');",
             "INSERT INTO airport (id, iataCode, `name`) VALUES (4, 'OSL', 'Oslo lufthavn');",
             "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (2, 100, '2015-12-02 22:59:59', 20, 1, 1, 3);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (3, 100, '2015-12-02 18:20:24', 20, 1, 1, 2);"
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4, 'sadagf');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (2, 100, '2015-12-02 22:59:59', 20, 1, 1, 3, 'sadagf3');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (3, 100, '2015-12-02 18:20:24', 20, 1, 1, 2, 'sadagf2');"
         });
 
         String iataOrigin = "CPH";
@@ -104,10 +104,10 @@ public class FlightRepositoryTest {
             "INSERT INTO airport (id, iataCode, `name`) VALUES (3, 'ROM', 'Rom lufthavn');",
             "INSERT INTO airport (id, iataCode, `name`) VALUES (4, 'OSL', 'Oslo lufthavn');",
             "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (2, 100, '2015-12-03 12:20:24', 20, 1, 1, 2);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (3, 100, '2015-12-01 09:20:24', 20, 1, 1, 3);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (4, 100, '2015-12-02 15:20:24', 20, 1, 1, 2);"
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4, 'sadagf');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (2, 100, '2015-12-03 12:20:24', 20, 1, 1, 2, 'sadagf5');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (3, 100, '2015-12-01 09:20:24', 20, 1, 1, 3, 'sadagf3');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (4, 100, '2015-12-02 15:20:24', 20, 1, 1, 2, 'sadagf2');"
         });
 
         String iataOrigin = "CPH";
@@ -142,9 +142,9 @@ public class FlightRepositoryTest {
             "INSERT INTO airport (id, iataCode, `name`) VALUES (3, 'ROM', 'Rom lufthavn');",
             "INSERT INTO airport (id, iataCode, `name`) VALUES (4, 'OSL', 'Oslo lufthavn');",
             "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (2, 100, '2015-12-02 22:59:59', 20, 1, 1, 4);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (3, 100, '2015-12-02 18:20:24', 20, 1, 1, 4);"
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4, 'tsfdf');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (2, 100, '2015-12-02 22:59:59', 20, 1, 1, 4, 'tsfdf2');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (3, 100, '2015-12-02 18:20:24', 20, 1, 1, 4, 'tsfdf3');"
         });
 
         String iataOrigin = "CPH";
@@ -163,10 +163,10 @@ public class FlightRepositoryTest {
             "INSERT INTO airport (id, iataCode, `name`) VALUES (3, 'ROM', 'Rom lufthavn');",
             "INSERT INTO airport (id, iataCode, `name`) VALUES (4, 'OSL', 'Oslo lufthavn');",
             "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (2, 100, '2015-12-03 12:20:24', 20, 1, 1, 4);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (3, 100, '2015-12-01 09:20:24', 20, 1, 1, 4);",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (4, 100, '2015-12-02 15:20:24', 20, 1, 1, 4);"
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4, 'tsfdf2');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (2, 100, '2015-12-03 12:20:24', 20, 1, 1, 4, 'tsfdfdsa');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (3, 100, '2015-12-01 09:20:24', 20, 1, 1, 4, 'tsfdf4');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (4, 100, '2015-12-02 15:20:24', 20, 1, 1, 4, 'tsfdf');"
         });
 
         String iataOrigin = "CPH";
@@ -257,10 +257,38 @@ public class FlightRepositoryTest {
             "INSERT INTO airport (id, iataCode, `name`) VALUES (10, 'VIL', 'Vilstrup lufthavn');",
             "INSERT INTO airport (id, iataCode, `name`) VALUES (24, 'ALS', 'Als lufthavn');",
             "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (13, 100, '2015-12-02 10:20:24', 20, 1, 24, 10);"
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (13, 100, '2015-12-02 10:20:24', 20, 1, 24, 10, '123123');"
         });
 
         int flightId = 13;
+        FlightEntity flight = this.flightRepository.getFlightById(flightId);
+
+        assertNotNull(flight);
+        assertEquals(100, flight.getCapacity());
+
+        assertNotNull(flight.getAirline());
+        assertEquals("42 Airlines", flight.getAirline().getName());
+
+        assertNotNull(flight.getOrigin());
+        assertEquals("VIL", flight.getOrigin().getIataCode());
+
+        assertNotNull(flight.getDestination());
+        assertEquals("ALS", flight.getDestination().getIataCode());
+
+        assertEquals((int) 20, (int) flight.getPrice());
+    }
+
+
+    @Test
+    public void test_getFlightById_ByFlightId_ShouldReturnFlight_IfFound() {
+        PersistenceHelper.execute(new String[]{
+            "INSERT INTO airport (id, iataCode, `name`) VALUES (10, 'VIL', 'Vilstrup lufthavn');",
+            "INSERT INTO airport (id, iataCode, `name`) VALUES (24, 'ALS', 'Als lufthavn');",
+            "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (13, 100, '2015-12-02 10:20:24', 20, 1, 24, 10, '123123');"
+        });
+
+        String flightId = "123123";
         FlightEntity flight = this.flightRepository.getFlightById(flightId);
 
         assertNotNull(flight);
@@ -292,7 +320,7 @@ public class FlightRepositoryTest {
             "INSERT INTO airport (id, iataCode, `name`) VALUES (1, 'CPH', 'Kastrup lufthavn');",
             "INSERT INTO airport (id, iataCode, `name`) VALUES (2, 'BIL', 'Kastrup lufthavn');",
             "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 2);",
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 2, 'fsdfsdf');",
             "INSERT INTO reservation (id, firstname, lastname, email, phone, flight_id) VALUES (1, 'Oliver', 'Madsen', 'oliver@madsen.dk', '1231232', 1);",
             "INSERT INTO passenger (id, firstname, lastname, reservation_id) VALUES (1, 'Oliver', 'Madsen', 1);",
             "INSERT INTO passenger (id, firstname, lastname, reservation_id) VALUES (2, 'Rolf', 'Madsen', 1);",
@@ -315,7 +343,7 @@ public class FlightRepositoryTest {
             "INSERT INTO airport (id, iataCode, `name`) VALUES (1, 'CPH', 'Kastrup lufthavn');",
             "INSERT INTO airport (id, iataCode, `name`) VALUES (4, 'OSL', 'Oslo lufthavn');",
             "INSERT INTO airline (id, `name`) VALUES (1, '42 Airlines');",
-            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4);"
+            "INSERT INTO flight (id, `capacity`, `departure`, price, airline_id, destination_id, origin_id, flightId) VALUES (1, 100, '2015-12-02 10:20:24', 20, 1, 1, 4, 'sdasdag');"
         });
     }
 }

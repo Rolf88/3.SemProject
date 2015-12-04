@@ -20,12 +20,13 @@ public class FlightBuilder {
     private AirlineEntity airline;
     private List<ReservationEntity> reservations = new ArrayList<>();
 
-    public FlightBuilder setFlight(int id, Date departure, int capacity, double price) {
+    public FlightBuilder setFlight(int id, Date departure, int capacity, double price, String flightId) {
         this.flightEntity = new FlightEntity();
         this.flightEntity.setId(Long.valueOf(id));
         this.flightEntity.setDeparture(departure);
         this.flightEntity.setCapacity(capacity);
         this.flightEntity.setPrice(price);
+        this.flightEntity.setFlightId(flightId);
 
         return this;
     }

@@ -44,7 +44,7 @@ public class FlightRepository implements IFlightRepository {
     }
 
     @Override
-    public List<FlightEntity> findFlights(String iataOrigin, Date departure, int numberOfPassengers){
+    public List<FlightEntity> findFlights(String iataOrigin, Date departure, int numberOfPassengers) {
         final String jpa = "SELECT f FROM Flight f "
                 + "INNER JOIN Airport origin "
                 + "WHERE origin.iataCode = :iataOrigin AND f.departure BETWEEN :departureFrom AND :departureTo";
@@ -93,11 +93,10 @@ public class FlightRepository implements IFlightRepository {
 
     @Override
     public FlightEntity getFlightById(String flightId) {
+        Query query = entityManager.createQuery("SELECT f FROM Flight f WHERE f.flightId = :flightId");
+        query.setParameter("flightId", flightId);
 
-        FlightEntity flightEntity = (FlightEntity) entityManager.createQuery("SELECT f FROM Flight f"
-                + "Where f.flightId = :id").setParameter("id", flightId).getSingleResult();
-
-        return flightEntity;
+        return (FlightEntity) query.getResultList().get(0);
     }
 
     @Override

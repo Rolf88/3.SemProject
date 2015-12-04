@@ -26,7 +26,7 @@ public class FlightRepositorySub implements IFlightRepository {
 
     public FlightRepositorySub() {
         flightsDataSource.add(FlightBuilder.create()
-                .setFlight(231, new Date(116, 0, 1), 100, 230)
+                .setFlight(231, new Date(116, 0, 1), 100, 230, "231")
                 .withAirline("Flyv Flyv")
                 .withDestination(981, "QAR", "Rotterdam Airport")
                 .withOrigin(982, "CPH", "Copenhagen Airport")
@@ -34,7 +34,7 @@ public class FlightRepositorySub implements IFlightRepository {
                 .build());
 
         flightsDataSource.add(FlightBuilder.create()
-                .setFlight(2345, new Date(116, 0, 1), 100, 230)
+                .setFlight(2345, new Date(116, 0, 1), 100, 230, "#12312")
                 .withAirline("Flyv Flyv")
                 .withDestination(981, "QAR", "Rotterdam Airport")
                 .withOrigin(982, "CPH", "Copenhagen Airport")
@@ -42,7 +42,7 @@ public class FlightRepositorySub implements IFlightRepository {
                 .build());
 
         flightsDataSource.add(FlightBuilder.create()
-                .setFlight(235, new Date(116, 0, 1), 100, 230)
+                .setFlight(235, new Date(116, 0, 1), 100, 230, "314")
                 .withAirline("Flyv Flyv")
                 .withDestination(981, "QAR", "Rotterdam Airport")
                 .withOrigin(982, "CPH", "Copenhagen Airport")
@@ -50,7 +50,7 @@ public class FlightRepositorySub implements IFlightRepository {
                 .build());
 
         flightsDataSource.add(FlightBuilder.create()
-                .setFlight(234, new Date(116, 0, 1), 2, 230)
+                .setFlight(234, new Date(116, 0, 1), 2, 230, "234")
                 .withAirline("Flyv Flyv")
                 .withDestination(981, "QAR", "Rotterdam Airport")
                 .withOrigin(982, "CPH", "Copenhagen Airport")
@@ -133,9 +133,14 @@ public class FlightRepositorySub implements IFlightRepository {
         return passengers;
     }
 
-    //remember to make test
     @Override
     public FlightEntity getFlightById(String flightId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (FlightEntity flight : flightsDataSource) {
+            if (flight.getFlightId().equals(flightId)) {
+                return flight;
+            }
+        }
+
+        return null;
     }
 }
