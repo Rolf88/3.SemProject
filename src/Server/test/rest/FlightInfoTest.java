@@ -35,7 +35,7 @@ public class FlightInfoTest {
     static Server server;
 
     public FlightInfoTest() {
-        baseURI = "http://localhost:8084/Server";
+        baseURI = "http://localhost:80804/Server";
         defaultParser = Parser.JSON;
         basePath = "/api";
     }

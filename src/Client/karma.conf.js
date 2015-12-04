@@ -10,8 +10,10 @@ module.exports = function(config){
       'app/components/**/*.js',
       'app/components/*.js',
       'app/view*/**/*.js',
+      'app/flyList*/**/*.js',
       'test/app/*.js',
       'test/app/view*/**/*.js',
+      'test/app/flyList*/**/*.js',
       'test/app/components/**/*.js'
     ],
 

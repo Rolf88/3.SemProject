@@ -54,28 +54,26 @@ public class FlightinfoResource {
         Date date;
         int tickets;
 
-        if(!(from.length() == 2 || from.length() == 3)){
+        if (!(from.length() == 2 || from.length() == 3)) {
             throw new InvalidDataException("Invalid from");
         }
-        try{
-            DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ"); 
+        try {
+            DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
             date = sdfISO.parse(dateParam);
-        }catch(ParseException e){
+        } catch (ParseException e) {
             throw new InvalidDataException("Invalid date");
         }
-        
-        try{
+
+        try {
             tickets = Integer.parseInt(numTickets);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new InvalidDataException("Invalid ticket");
         }
-        
-        
-        List<FlightModel> fm;
-        
-        fm = fs.findFlights(from, date, tickets);
-        
+
+        IFlightService fs = new FlightService(new FlightRepository(Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME).createEntityManager()));
+        List<FlightModel> fm = fs.findFlights(from, date, tickets);
+
         return Response.ok(gson.toJson(fm)).build();
     }
-   
+
 }

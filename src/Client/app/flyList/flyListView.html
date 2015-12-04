@@ -1,27 +1,27 @@
 <nav>
     <div class="jumbotron">
-        <form class="form-inline" ng-submit="searchFlight()">
+        <form class="form-inline" ng-submit="ctrl.searchFlight()">
             <div class="row">
                 <div class="col-md-11">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="From Destination" ng-model="from">
+                                <input type="text" class="form-control" placeholder="From Destination" ng-model="ctrl.origin">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="To Destination" ng-model="to">
+                                <input type="text" class="form-control" placeholder="To Destination" ng-model="ctrl.destination">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input id="datepicker" type="text" class="form-control" placeholder="Departure Date" ng-model="date">
+                                <input id="datepicker" type="text" class="form-control" placeholder="Departure Date" ng-model="ctrl.departureDate">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control" ng-init="numSeats = numSeats || '0'" ng-model="numSeats">
+                                <select class="form-control" ng-init="ctrl.numberOfPassengers = ctrl.numberOfPassengers || '0'" ng-model="ctrl.numberOfPassengers">
                                     <option value="0">Number of Passenger</option>
                                     <option>1</option>
                                     <option>2</option>
