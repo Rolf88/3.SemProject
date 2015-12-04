@@ -53,7 +53,7 @@ public class FlightService implements IFlightService {
         ReservationEntity source = this.flightRepository.createReservation(flight, reservator, passengers);
 
         FlightModel flightModel = convertToFlightModel(source.getFlight());
-        return new ReservationModel(new ReservatorModel(source.getFirstname(), source.getLastname(), source.getEmail(), source.getPhone()), null, null);
+        return new ReservationModel(new ReservatorModel(source.getFirstname(), source.getLastname(), source.getEmail(), source.getPhone()), flightModel, passengers);
     }
 
     @Override
@@ -96,6 +96,9 @@ public class FlightService implements IFlightService {
     private FlightModel convertToFlightModel(FlightEntity flight) {
         int currentNumberOfPassengers = this.flightRepository.getNumberOfPassengers(flight.getId().intValue());
 
-        return new FlightModel(flight.getCapacity(), flight.getCapacity() - currentNumberOfPassengers, flight.getId().toString());
+        return new FlightModel(flight.getDeparture(), flight.getCapacity(),
+                flight.getCapacity() - currentNumberOfPassengers,
+                flight.getPrice(), flight.getFlightId(), 120,
+                flight.getDestination().getName(), flight.getOrigin().getName());
     }
 }

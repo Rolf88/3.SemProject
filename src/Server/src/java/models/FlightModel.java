@@ -5,76 +5,55 @@ import java.util.Date;
 public class FlightModel {
 
     private Date date;
-    private int numberOfSeats;
+    private int capacity;
+    private int numberOfPassengers;
     private double totalPrice;
     private String flightID;
     private int traveltime;
     private String destination;
     private String origin;
 
-    public FlightModel() {
-    }
-
-    public FlightModel(int capacity, int numberOfSeats, String flightID) {
-        this.numberOfSeats = numberOfSeats;
+    public FlightModel(Date date, int capacity, int numberOfPassengers, double totalPrice, String flightID, int traveltime, String destination, String origin) {
+        this.date = date;
+        this.capacity = capacity;
+        this.numberOfPassengers = numberOfPassengers;
+        this.totalPrice = totalPrice;
         this.flightID = flightID;
+        this.traveltime = traveltime;
+        this.destination = destination;
+        this.origin = origin;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public int getNumberOfSeats() {
-        return numberOfSeats;
-    }
-
-    public void setNumberOfSeats(int numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
+    public int getNumberOfPassengers() {
+        return numberOfPassengers;
     }
 
     public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
     public String getFlightID() {
         return flightID;
-    }
-
-    public void setFlightID(String flightID) {
-        this.flightID = flightID;
     }
 
     public int getTraveltime() {
         return traveltime;
     }
 
-    public void setTraveltime(int traveltime) {
-        this.traveltime = traveltime;
-    }
-
     public String getDestination() {
         return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
     }
 
     public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-    
-    
 }

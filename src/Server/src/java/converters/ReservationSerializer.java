@@ -8,6 +8,11 @@ package converters;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import static entity.PassengerEntity_.reservation;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import models.PassengerModel;
 import models.ReservationModel;
@@ -18,15 +23,17 @@ import models.ReservationModel;
  */
 public class ReservationSerializer {
 
-    private static JsonObject reservationToJsonObject(ReservationModel reservation) {
+    private static JsonObject reservationToJsonObject(ReservationModel reservation) throws ParseException {
         JsonObject obj = new JsonObject();
 
         JsonArray passengerArr = new JsonArray();
 
+        String date1 = convertToJsonDate(reservation.getFlight().getDate());
+
         obj.addProperty("flightID", reservation.getFlight().getFlightID());
         obj.addProperty("Origin", reservation.getFlight().getOrigin());
         obj.addProperty("Destination", reservation.getFlight().getDestination());
-        obj.addProperty("Date", reservation.getFlight().getDate().toString());
+        obj.addProperty("Date", date1);
         obj.addProperty("FlightTime", reservation.getFlight().getTraveltime());
         obj.addProperty("numberOfSeats", reservation.getPassengers().size());
         obj.addProperty("ReserveeName", reservation.getReservator().getFirstname() + reservation.getReservator().getLastname());
@@ -44,16 +51,24 @@ public class ReservationSerializer {
         return obj;
     }
 
-    public static String reservationToJson(ReservationModel reservation) {
+    public static String reservationToJson(ReservationModel reservation) throws ParseException {
         return new Gson().toJson(reservationToJsonObject(reservation));
     }
 
-    public static String reservationToJson(List<ReservationModel> reservations) {
+    public static String reservationToJson(List<ReservationModel> reservations) throws ParseException {
         JsonArray reservationArr = new JsonArray();
         for (ReservationModel reservationModel : reservations) {
             reservationArr.add(reservationToJsonObject(reservationModel));
         }
 
         return new Gson().toJson(reservationArr);
+    }
+
+    private static String convertToJsonDate(Date date) throws ParseException {
+
+        DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+
+        return sdfISO.format(date);
+
     }
 }
