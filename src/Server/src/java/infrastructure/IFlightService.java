@@ -15,7 +15,7 @@ public interface IFlightService {
 
     List<FlightModel> findFlights(String iataOrigin, String iataDestination, Date departure);
 
-    List<FlightModel> findFlights(String iataOrigin, Date departure, int tickets);
+    List<FlightModel> findFlights(String iataOrigin, Date departure, int tickets) throws NotEnoughTicketsException, NoFlightFoundException;
 
     ReservationModel reservate(int flightId, ReservatorModel reservator, List<PassengerModel> passengers) throws NotEnoughTicketsException, NoFlightFoundException;
 }

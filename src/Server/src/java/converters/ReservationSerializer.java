@@ -17,11 +17,11 @@ public class ReservationSerializer {
 
     private static JsonObject reservationToJsonObject(ReservationModel reservation) {
         JsonObject obj = new JsonObject();
-        obj.addProperty("flightID", reservation.getFlight().getFlightNumber());
+        obj.addProperty("flightID", reservation.getFlight().getFlightID());
         obj.addProperty("Origin", reservation.getFlight().getOrigin());
         obj.addProperty("Destination", reservation.getFlight().getDestination());
-        obj.addProperty("Date", reservation.getFlight().getDate());
-        obj.addProperty("FlightTime", reservation.getFlight().getFlightTime());
+        obj.addProperty("Date", reservation.getFlight().getDate().toString());
+        obj.addProperty("FlightTime", reservation.getFlight().getTraveltime());
         obj.addProperty("numberOfSeats", reservation.getPassengers().size());
         obj.addProperty("ReserveeName", reservation.getReservator().getFirstname() + reservation.getReservator().getLastname());
 

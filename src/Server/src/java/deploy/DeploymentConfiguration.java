@@ -15,7 +15,7 @@ import javax.servlet.ServletContextListener;
  */
 public class DeploymentConfiguration implements ServletContextListener {
 
-    public static String PU_NAME = "serverPU"; //USE the RIGHT name here 
+    public static String PU_NAME = "ServerPU"; //USE the RIGHT name here 
 
     public void contextInitialized(ServletContextEvent sce) {
         Map<String, String> env = System.getenv();

@@ -12,6 +12,7 @@ import entity.FlightRepository;
 import exceptions.InvalidDataException;
 import exceptions.NoFlightFoundException;
 import exceptions.NotEnoughTicketsException;
+import facades.EntityFactory;
 import facades.FlightService;
 import infrastructure.IFlightService;
 import java.text.DateFormat;
@@ -41,6 +42,7 @@ public class FlightinfoResource {
     @Context
     private UriInfo context;
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
+    IFlightService fs = new FlightService(new FlightRepository(EntityFactory.getInstance().createEntityManager()));
 
     public FlightinfoResource() {
     }
@@ -68,11 +70,12 @@ public class FlightinfoResource {
             throw new InvalidDataException("Invalid ticket");
         }
         
-        IFlightService fs = new FlightService(null);
+        
         List<FlightModel> fm;
         
-        fm = fs.findAllFlights();
+        fm = fs.findFlights(from, date, tickets);
         
         return Response.ok(gson.toJson(fm)).build();
     }
+   
 }

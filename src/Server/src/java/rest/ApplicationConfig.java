@@ -25,6 +25,7 @@ public class ApplicationConfig extends Application {
         resources.add(rest.Admin.class);
         resources.add(rest.FlightReservationResource.class);
         resources.add(rest.FlightinfoResource.class);
+        resources.add(rest.InternalResource.class);
         resources.add(rest.User.class);
         resources.add(security.JWTAuthenticationFilter.class);
         resources.add(security.Login.class);

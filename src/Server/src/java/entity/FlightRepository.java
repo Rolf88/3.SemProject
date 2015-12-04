@@ -1,5 +1,7 @@
 package entity;
 
+import exceptions.NoFlightFoundException;
+import exceptions.NotEnoughTicketsException;
 import infrastructure.IFlightRepository;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +44,7 @@ public class FlightRepository implements IFlightRepository {
     }
 
     @Override
-    public List<FlightEntity> findFlights(String iataOrigin, Date departure, int numberOfPassengers) {
+    public List<FlightEntity> findFlights(String iataOrigin, Date departure, int numberOfPassengers){
         final String jpa = "SELECT f FROM Flight f "
                 + "INNER JOIN Airport origin "
                 + "WHERE origin.iataCode = :iataOrigin AND f.departure BETWEEN :departureFrom AND :departureTo";

@@ -1,81 +1,80 @@
 package models;
 
+import java.util.Date;
+
 public class FlightModel {
 
+    private Date date;
     private int numberOfSeats;
-    private int numberOfSeatsLeft;
-    private String flightNumber;
-    private String Origin;
-    private String Destination;
-    private String Date;
-    private int flightTime;
-
-    public FlightModel(int numberOfSeats, int numberOfSeatsLeft, String flightNumber) {
-        this.numberOfSeats = numberOfSeats;
-        this.numberOfSeatsLeft = numberOfSeatsLeft;
-        this.flightNumber = flightNumber;
-    }
+    private double totalPrice;
+    private String flightID;
+    private int traveltime;
+    private String destination;
+    private String origin;
 
     public FlightModel() {
     }
 
-    public String getOrigin() {
-        return Origin;
-    }
-
-    public void setOrigin(String Origin) {
-        this.Origin = Origin;
-    }
-
-    public String getDestination() {
-        return Destination;
-    }
-
-    public void setDestination(String Destination) {
-        this.Destination = Destination;
-    }
-
-    public String getDate() {
-        return Date;
-    }
-
-    public void setDate(String Date) {
-        this.Date = Date;
-    }
-
-    public int getFlightTime() {
-        return flightTime;
-    }
-
-    public void setFlightTime(int flightTime) {
-        this.flightTime = flightTime;
-    }
-
-    public FlightModel(int numberOfSeats) {
+    public FlightModel(int numberOfSeats, String flightID) {
         this.numberOfSeats = numberOfSeats;
+        this.flightID = flightID;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getNumberOfSeats() {
         return numberOfSeats;
     }
 
-    public int getNumberOfSeatsLeft() {
-        return numberOfSeatsLeft;
-    }
-
     public void setNumberOfSeats(int numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public void setNumberOfSeatsLeft(int numberOfSeatsLeft) {
-        this.numberOfSeatsLeft = numberOfSeatsLeft;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
+    public String getFlightID() {
+        return flightID;
     }
+
+    public void setFlightID(String flightID) {
+        this.flightID = flightID;
+    }
+
+    public int getTraveltime() {
+        return traveltime;
+    }
+
+    public void setTraveltime(int traveltime) {
+        this.traveltime = traveltime;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+    
+    
 }

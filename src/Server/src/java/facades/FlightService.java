@@ -56,15 +56,38 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public List<FlightModel> findFlights(String iataOrigin, Date departure, int numberOfPassengers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<FlightModel> findFlights(String iataOrigin, Date departure, int numberOfPassengers) throws NotEnoughTicketsException, NoFlightFoundException{
+        List<FlightEntity> flights = flightRepository.findFlights(iataOrigin, departure, numberOfPassengers);
+        List<FlightModel> fms = new ArrayList();
+
+        if(flights.size() <= 0)
+            throw new NoFlightFoundException("No flights found");
+        
+        for (FlightEntity flight : flights) {
+            int seatsLeft = flight.getCapacity() - flight.getReservations().size();
+            if(flight.getCapacity() - flight.getReservations().size() >= numberOfPassengers){
+                FlightModel fm = new FlightModel();
+                
+                fm.setDestination(flight.getDestination().getIataCode());
+                fm.setNumberOfSeats(flight.getCapacity());
+                fm.setNumberOfSeats(seatsLeft);
+                fm.setDate(departure);
+                
+                fms.add(fm);
+            }
+        }
+
+        if(fms.size() <= 0)
+            throw new NotEnoughTicketsException("No flight with the amount of tickets you need");
+
+        return fms;
     }
 
     private List<FlightModel> convertToFlightModels(List<FlightEntity> source) {
         List<FlightModel> flights = new ArrayList<>();
 
         for (FlightEntity flight : source) {
-            flights.add(new FlightModel(flight.getCapacity(), 10, flight.getId().toString()));
+            flights.add(new FlightModel(flight.getCapacity() - flight.getReservations().size(), flight.getId().toString()));
         }
 
         return flights;
