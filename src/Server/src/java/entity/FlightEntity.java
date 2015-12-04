@@ -36,6 +36,9 @@ public class FlightEntity implements Serializable {
     @Column(nullable = false)
     private double price;
 
+    @Column(nullable = false)
+    private int travelTime;
+
     @ManyToOne
     private AirlineEntity airline;
 
@@ -52,16 +55,24 @@ public class FlightEntity implements Serializable {
 
     }
 
-    public FlightEntity(Long id, String flightId, Date departure, int capacity, double price, AirlineEntity airline, AirportEntity origin, AirportEntity destination, List<ReservationEntity> reservations) {
+    public FlightEntity(Long id, String flightId, Date departure, int capacity, double price, int travelTime, AirlineEntity airline, AirportEntity origin, AirportEntity destination) {
         this.id = id;
         this.flightId = flightId;
         this.departure = departure;
         this.capacity = capacity;
         this.price = price;
+        this.travelTime = travelTime;
         this.airline = airline;
         this.origin = origin;
         this.destination = destination;
-        this.reservations = reservations;
+    }
+
+    public int getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(int travelTime) {
+        this.travelTime = travelTime;
     }
 
     public String getFlightId() {

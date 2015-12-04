@@ -98,7 +98,7 @@ public class FlightService implements IFlightService {
 
         return new FlightModel(flight.getDeparture(), flight.getCapacity(),
                 flight.getCapacity() - currentNumberOfPassengers,
-                flight.getPrice(), flight.getFlightId(), 120,
+                flight.getPrice(), flight.getFlightId(), flight.getTravelTime(),
                 flight.getDestination().getName(), flight.getOrigin().getName());
     }
 }
