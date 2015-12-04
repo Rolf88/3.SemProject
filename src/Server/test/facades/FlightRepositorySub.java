@@ -132,4 +132,10 @@ public class FlightRepositorySub implements IFlightRepository {
 
         return passengers;
     }
+
+    //remember to make test
+    @Override
+    public FlightEntity getFlightById(String flightId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

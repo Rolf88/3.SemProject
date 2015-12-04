@@ -37,7 +37,7 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public ReservationModel reservate(int flightId, ReservatorModel reservator, List<PassengerModel> passengers) throws NotEnoughTicketsException, NoFlightFoundException {
+    public ReservationModel reservate(String flightId, ReservatorModel reservator, List<PassengerModel> passengers) throws NotEnoughTicketsException, NoFlightFoundException {
         FlightEntity flight = this.flightRepository.getFlightById(flightId);
 
         if (flight == null) {
@@ -52,44 +52,50 @@ public class FlightService implements IFlightService {
 
         ReservationEntity source = this.flightRepository.createReservation(flight, reservator, passengers);
 
+        FlightModel flightModel = convertToFlightModel(source.getFlight());
         return new ReservationModel(new ReservatorModel(source.getFirstname(), source.getLastname(), source.getEmail(), source.getPhone()), null, null);
     }
 
     @Override
-    public List<FlightModel> findFlights(String iataOrigin, Date departure, int numberOfPassengers) throws NotEnoughTicketsException, NoFlightFoundException{
+    public List<FlightModel> findFlights(String iataOrigin, Date departure, int numberOfPassengers) throws NotEnoughTicketsException, NoFlightFoundException {
         List<FlightEntity> flights = flightRepository.findFlights(iataOrigin, departure, numberOfPassengers);
         List<FlightModel> fms = new ArrayList();
 
-        if(flights.size() <= 0)
+        if (flights.size() <= 0) {
             throw new NoFlightFoundException("No flights found");
-        
-        for (FlightEntity flight : flights) {
-            int seatsLeft = flight.getCapacity() - flight.getReservations().size();
-            if(flight.getCapacity() - flight.getReservations().size() >= numberOfPassengers){
-                FlightModel fm = new FlightModel();
-                
-                fm.setDestination(flight.getDestination().getIataCode());
-                fm.setNumberOfSeats(flight.getCapacity());
-                fm.setNumberOfSeats(seatsLeft);
-                fm.setDate(departure);
-                
-                fms.add(fm);
-            }
         }
 
-        if(fms.size() <= 0)
+        for (FlightEntity flight : flights) {
+            fms.add(convertToFlightModel(flight));
+        }
+
+        if (fms.size() <= 0) {
             throw new NotEnoughTicketsException("No flight with the amount of tickets you need");
+        }
 
         return fms;
+    }
+
+    public FlightModel getFlightById(String flightId) {
+        FlightEntity flight = this.flightRepository.getFlightById(flightId);
+        FlightModel flightModel = convertToFlightModel(flight);
+
+        return flightModel;
     }
 
     private List<FlightModel> convertToFlightModels(List<FlightEntity> source) {
         List<FlightModel> flights = new ArrayList<>();
 
         for (FlightEntity flight : source) {
-            flights.add(new FlightModel(flight.getCapacity() - flight.getReservations().size(), flight.getId().toString()));
+            flights.add(convertToFlightModel(flight));
         }
 
         return flights;
+    }
+
+    private FlightModel convertToFlightModel(FlightEntity flight) {
+        int currentNumberOfPassengers = this.flightRepository.getNumberOfPassengers(flight.getId().intValue());
+
+        return new FlightModel(flight.getCapacity(), flight.getCapacity() - currentNumberOfPassengers, flight.getId().toString());
     }
 }

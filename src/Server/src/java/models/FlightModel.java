@@ -15,7 +15,7 @@ public class FlightModel {
     public FlightModel() {
     }
 
-    public FlightModel(int numberOfSeats, String flightID) {
+    public FlightModel(int capacity, int numberOfSeats, String flightID) {
         this.numberOfSeats = numberOfSeats;
         this.flightID = flightID;
     }

@@ -24,6 +24,9 @@ public class FlightEntity implements Serializable {
     private Long id;
 
     @Column(nullable = false)
+    private String flightId;
+
+    @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date departure;
 
@@ -49,8 +52,9 @@ public class FlightEntity implements Serializable {
 
     }
 
-    public FlightEntity(Long id, Date departure, int capacity, double price, AirlineEntity airline, AirportEntity origin, AirportEntity destination, List<ReservationEntity> reservations) {
+    public FlightEntity(Long id, String flightId, Date departure, int capacity, double price, AirlineEntity airline, AirportEntity origin, AirportEntity destination, List<ReservationEntity> reservations) {
         this.id = id;
+        this.flightId = flightId;
         this.departure = departure;
         this.capacity = capacity;
         this.price = price;
@@ -58,6 +62,14 @@ public class FlightEntity implements Serializable {
         this.origin = origin;
         this.destination = destination;
         this.reservations = reservations;
+    }
+
+    public String getFlightId() {
+        return flightId;
+    }
+
+    public void setFlightId(String flightId) {
+        this.flightId = flightId;
     }
 
     public Long getId() {

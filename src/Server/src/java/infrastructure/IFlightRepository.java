@@ -19,5 +19,7 @@ public interface IFlightRepository {
 
     FlightEntity getFlightById(int flightId);
 
+    FlightEntity getFlightById(String flightId);
+
     int getNumberOfPassengers(int flightId);
 }

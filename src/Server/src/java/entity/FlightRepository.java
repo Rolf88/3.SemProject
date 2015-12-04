@@ -92,6 +92,15 @@ public class FlightRepository implements IFlightRepository {
     }
 
     @Override
+    public FlightEntity getFlightById(String flightId) {
+
+        FlightEntity flightEntity = (FlightEntity) entityManager.createQuery("SELECT f FROM Flight f"
+                + "Where f.flightId = :id").setParameter("id", flightId).getSingleResult();
+
+        return flightEntity;
+    }
+
+    @Override
     public int getNumberOfPassengers(int flightId) {
         Query query = this.entityManager.createQuery("SELECT COUNT(p) FROM Passenger p WHERE p.reservation.flight.id = :flightId");
         query.setParameter("flightId", flightId);

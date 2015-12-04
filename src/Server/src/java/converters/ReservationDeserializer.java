@@ -24,7 +24,7 @@ public class ReservationDeserializer {
 
     public ReservationDeserializer(String json) {
         JsonParser parser = new JsonParser();
-        JsonElement element = parser.parse("{    \"flightID\": \"MCA2345\",    \"numberOfSeats\": 2,    \"ReserveeName\": \"Peter Hansen\",    \"ReservePhone\": \"12345678\",    \"ReserveeEmail\": \"peter@peter.dk\",    \"Passengers\": [        {            \"firstName\": \"Peter\",            \"lastName\": \"Peterson\" },        {            \"firstName\": \"Jane\",            \"lastName\": \"Peterson\" } ]}");
+        JsonElement element = parser.parse(json);
         object = element.getAsJsonObject();
     }
 

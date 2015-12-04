@@ -95,8 +95,9 @@ public class FlightServiceTest {
 
     @Test
     public void test_reservate_isNotNull() throws Exception {
-        int flightId = 231;
+        String flightId = "231";
         ReservatorModel reservator = new ReservatorModel("Hans", "Hansi", "Hans@Hansi.dk", "45879856");
+        FlightModel flightModel = new FlightModel();
 
         List<PassengerModel> passengers = new ArrayList<>();
         PassengerModel passenger1 = new PassengerModel("Rune", "Gårdsven");
@@ -113,8 +114,9 @@ public class FlightServiceTest {
     @Test(expected = NoFlightFoundException.class)
     public void test_reservate_ShouldThrowException_IfFlightNotExists() throws Exception {
         IFlightService flightService = new FlightService(new FlightRepositorySub());
+        FlightModel flightModel = new FlightModel();
 
-        flightService.reservate(1312, new ReservatorModel("Bo", "Sørensen", "bo@sørensen.dk", "123123"), new ArrayList<PassengerModel>() {
+        flightService.reservate("1312", new ReservatorModel("Bo", "Sørensen", "bo@sørensen.dk", "123123"), new ArrayList<PassengerModel>() {
             {
                 add(new PassengerModel("Bo", "Sørensen"));
             }
@@ -125,7 +127,7 @@ public class FlightServiceTest {
     public void test_reservate_ShouldThrowException_FlightIsFullyBooked() throws Exception {
         IFlightService flightService = new FlightService(new FlightRepositorySub());
 
-        flightService.reservate(234, new ReservatorModel("Bo", "Sørensen", "bo@sørensen.dk", "123123"), new ArrayList<PassengerModel>() {
+        flightService.reservate("234", new ReservatorModel("Bo", "Sørensen", "bo@sørensen.dk", "123123"), new ArrayList<PassengerModel>() {
             {
                 add(new PassengerModel("Bo", "Sørensen"));
                 add(new PassengerModel("Bo2", "Sørensen2"));
