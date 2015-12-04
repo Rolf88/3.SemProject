@@ -14,6 +14,7 @@ import exceptions.NotEnoughTicketsException;
 import facades.EntityFactory;
 import facades.FlightService;
 import infrastructure.IFlightService;
+import java.text.ParseException;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -46,7 +47,7 @@ public class FlightReservationResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response flightReservation(String json) throws NotEnoughTicketsException, NoFlightFoundException {
+    public Response flightReservation(String json) throws NotEnoughTicketsException, NoFlightFoundException, ParseException {
         IFlightService flightService = new FlightService(new FlightRepository(EntityFactory.getInstance().createEntityManager()));
 
         ReservationDeserializer resDes = new ReservationDeserializer(json);
