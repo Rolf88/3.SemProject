@@ -16,6 +16,20 @@ angular.module('myApp.factories', []).
                             method: "GET",
                             url: "api/flightinfo/" + origin + "/" + destination + "/" + departureDate + "/" + numberOfPassengers
                         });
+                    },
+                    reservate: function(flightId, name, email, phone, passengers) {
+                        return $http({
+                            method: "POST",
+                            url: "api/flightreservation",
+                            data: {
+                                flightID: flightId,
+                                numberOfSeats: passengers.length,
+                                ReserveeName: name,
+                                ReservePhone: phone,
+                                ReserveeEmail: email,
+                                Passengers: passengers
+                            }
+                        })
                     }
                 };
             }]);

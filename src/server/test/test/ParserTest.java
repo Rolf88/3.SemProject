@@ -8,6 +8,10 @@ package test;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import models.ReservatorModel;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
@@ -42,6 +46,14 @@ public class ParserTest {
         assertEquals("Peter Hansen", reservator.getFirstname());
         assertEquals("peter@peter.dk", reservator.getEmail());
         assertEquals("12345678", reservator.getPhone());
+    }
+
+    @Test
+    public void test_CanCreateCorrectDateFormat() throws ParseException {
+        DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        Date date = sdfISO.parse("2015-12-04T00:00:00.235-0700");
+
+        assertEquals(11, date.getMonth());
     }
 
 }

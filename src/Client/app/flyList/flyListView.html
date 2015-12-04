@@ -54,7 +54,7 @@
 
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron" ng-show="ctrl.flights.length > 0">
-    
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -71,48 +71,57 @@
         <tbody>
             <tr ng-repeat="flight in ctrl.flights">
                 <td>{{$index + 1}}</td>
-                <td>{{flight.date | date : 'MM/dd/yyyy hh:mm a'}}</td>
-                <td>{{flight.traveltime | minutesToDateTime | date:'HH:mm'}}</td>
+                <td>{{flight.date| date : 'MM/dd/yyyy hh:mm a'}}</td>
+                <td>{{flight.traveltime| minutesToDateTime | date:'HH:mm'}}</td>
                 <td>{{flight.origin}}</td>
                 <td>{{flight.destination}}</td>
                 <td>{{flight.airline}}</td>
                 <td>{{flight.totalPrice}} €</td>
-                <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Order Now</button></td>
+                <td><a href="#/reservate/{{flight.flightID}}" class="btn btn-primary btn-sm">Order Now</a></td>
             </tr>
         </tbody>
     </table>
-    <!-- Small modal -->
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form>
+
+</div>
+<div class="modal fade in" ng-style="{ 'display': (ctrl.selectedFlight !== null) ? 'block' : 'none' }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" ng-controller="FlightReservationController as reservateCtrl">
+            <form ng-submit="reservateCtrl.reservate(ctrl.selectedFlight)">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Name" ng-model="reservateCtrl.name">
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Phone" ng-model="reservateCtrl.phone">
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Email" ng-model="reservateCtrl.email">
+                </div>
+                <br>
+                <div ng-repeat="i in reservateCtrl.createPassengers(ctrl.numberOfPassengers) track by i">
+                    <h4>Passenger #{{i+1}}</h4>
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="sizing-addon1">@</span>
-                        <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1">
+                        <input type="text" class="form-control"  ng-model="reservateCtrl.passengers[i].firstName">
+                        <input type="text" class="form-control"  ng-model="reservateCtrl.passengers[i].lastName">
                     </div>
                     <br>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1">@</span>
-                        <input type="text" class="form-control" placeholder="Phone" aria-describedby="sizing-addon1">
-                    </div>
-                    <br>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1">@</span>
-                        <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1">
-                    </div>
-                    <br>
-                    <div align="center">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Order</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div align="center">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Order</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 <script>
-    $(document).ready(function () {
-        $("#datepicker").datepicker({
-            dateFormat: "yy-mm-dd"
-        });
+            $(document).ready(function () {
+    $("#datepicker").datepicker({
+    dateFormat: "yy-mm-dd"
     });
-</script>
+    });</script>
