@@ -7,8 +7,25 @@ angular.module('myApp.flyList', ['ngRoute'])
                     controller: 'flyListCtrl'
                 });
             }])
-        .controller('flyListCtrl', function ($scope) {
+        .controller('flyListCtrl', function ($scope, flyListFactory) {
             $scope.searchFlight = function () {
-                console.log("From " + $scope.from + " to " + $scope.to + " at d. " + $scope.date + " with " + $scope.numSeats);
+                flyListFactory.searchflights($scope.from, $scope.date + "T00:00:00.000Z", $scope.numSeats).then(function (data) {
+                    var data = data.data;
+                    console.log(data);
+                }, function (error) {
+                    console.log(error);
+                });
             };
-        });
+        })
+        .factory('flyListFactory', ['$http', function ($http) {
+                var urlBase = 'api/internal';
+                var flyListFactory = {};
+
+                flyListFactory.searchflights = function (from, date, seats) {
+                    console.log("URL: " + urlBase + '/' + from + "/" + date + "/" + seats);
+                    return $http.get(urlBase + '/' + from + "/" + date + "/" + seats);
+                };
+
+                return flyListFactory;
+            }]);
+;
