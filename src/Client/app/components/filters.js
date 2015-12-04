@@ -7,4 +7,10 @@ angular.module('myApp.filters', []).
     return function(input) {
       return input ? '\u2713' : '\u2718';
     };
-  });
+    
+  })
+    .filter('minutesToDateTime', [function() {
+    return function(minutes) {
+        return new Date(1970, 0, 1).setMinutes(minutes);
+    };
+}]);

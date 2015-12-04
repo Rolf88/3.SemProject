@@ -8,19 +8,25 @@ angular.module('myApp.flyList', ['ngRoute'])
                 });
             }])
         .controller('FlightListController', ["FlightFactory", function (FlightFactory) {
-                var self = this;
-
-                self.flights = [];
-
-                self.origin = "";
-                self.destination = "";
-                self.date = "";
-                self.numberOfPassengers = 2;
-
-                self.searchFlight = function () {
-                    FlightFactory.search(self.origin, self.destination, self.date + "T00:00:00.000Z", self.numberOfPassengers)
-                            .then(function (response) {
-                                self.flights = response.data;
-                            });
-                };
-            }]);
+            var self = this;
+            self.flights = [];
+            
+            self.searchFlight = function () {
+                FlightFactory.searchEverywhere(self.origin, self.departureDate + "T00:00:00.000Z", self.numberOfPassengers).then(function (data) {
+                    var data = data.data;
+                    self.flights = [];
+                    
+                    for (var i = 0; i < data.length; i++){
+                        var flights = data[i].flights;
+                        
+                        for (var j = 0; j < flights.length; j++) {
+                            flights[j].airline = data[i].airline;
+                            self.flights.push(flights[j]);
+                        }
+                    }
+                    console.log(self.flights);
+                }, function (error) {
+                    console.log(error);
+                });
+            };
+        }]);

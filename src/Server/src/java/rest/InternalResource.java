@@ -46,7 +46,6 @@ public class InternalResource {
 
         List<String> urls = new ArrayList();
         urls.add("http://angularairline-plaul.rhcloud.com/");
-        urls.add("http://wildfly-x.cloudapp.net/airline/");
         
         ExecutorService pool = Executors.newFixedThreadPool(4);
         
