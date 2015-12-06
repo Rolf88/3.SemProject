@@ -7,6 +7,8 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import deploy.DeploymentConfiguration;
 import entity.FlightRepository;
 import exceptions.InvalidDataException;
@@ -58,7 +60,7 @@ public class FlightinfoResource {
             throw new InvalidDataException("Invalid from");
         }
         try {
-            DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+            DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             date = sdfISO.parse(dateParam);
         } catch (ParseException e) {
             throw new InvalidDataException("Invalid date");
@@ -73,7 +75,47 @@ public class FlightinfoResource {
         IFlightService fs = new FlightService(new FlightRepository(Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME).createEntityManager()));
         List<FlightModel> fm = fs.findFlights(from, date, tickets);
 
-        return Response.ok(gson.toJson(fm)).build();
+        JsonObject jo = new JsonObject();
+        jo.addProperty("airline", "Gruppe 42");
+        jo.add("flights", gson.toJsonTree(fm));
+
+        return Response.ok(gson.toJson(jo)).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{from}/{to}/{date}/{numTickets}")
+    public Response get(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String dateParam, @PathParam("numTickets") String numTickets) throws InvalidDataException, ParseException, NoFlightFoundException, NotEnoughTicketsException {
+        Date date;
+        int tickets;
+
+        if (!(from.length() == 2 || from.length() == 3)) {
+            throw new InvalidDataException("Invalid from");
+        }
+        if (!(to.length() == 2 || to.length() == 3)) {
+            throw new InvalidDataException("Invalid to");
+        }
+        
+        try {
+            DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            date = sdfISO.parse(dateParam);
+        } catch (ParseException e) {
+            throw new InvalidDataException("Invalid date");
+        }
+
+        try {
+            tickets = Integer.parseInt(numTickets);
+        } catch (NumberFormatException e) {
+            throw new InvalidDataException("Invalid ticket");
+        }
+
+        IFlightService fs = new FlightService(new FlightRepository(Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME).createEntityManager()));
+        List<FlightModel> fm = fs.findFlights(from, to, date, tickets);
+
+        JsonObject jo = new JsonObject();
+        jo.addProperty("airline", "Gruppe 42");
+        jo.add("flights", gson.toJsonTree(fm));
+
+        return Response.ok(gson.toJson(jo)).build();
+    }
 }

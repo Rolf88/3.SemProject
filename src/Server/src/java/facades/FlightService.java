@@ -52,7 +52,7 @@ public class FlightService implements IFlightService {
 
         ReservationEntity source = this.flightRepository.createReservation(flight, reservator, passengers);
 
-        FlightModel flightModel = convertToFlightModel(source.getFlight());
+        FlightModel flightModel = convertToFlightModel(source.getFlight(), passengers.size());
         return new ReservationModel(new ReservatorModel(source.getFirstname(), source.getLastname(), source.getEmail(), source.getPhone()), flightModel, passengers);
     }
 
@@ -66,7 +66,29 @@ public class FlightService implements IFlightService {
         }
 
         for (FlightEntity flight : flights) {
-            fms.add(convertToFlightModel(flight));
+            FlightModel fm = convertToFlightModel(flight, numberOfPassengers);
+            fms.add(convertToFlightModel(flight, numberOfPassengers));
+        }
+
+        if (fms.size() <= 0) {
+            throw new NotEnoughTicketsException("No flight with the amount of tickets you need");
+        }
+
+        return fms;
+    }
+    
+    @Override
+    public List<FlightModel> findFlights(String iataOrigin, String iataDestination, Date departure, int tickets) throws NotEnoughTicketsException, NoFlightFoundException {
+        List<FlightEntity> flights = flightRepository.findFlights(iataOrigin, iataDestination, departure, tickets);
+        List<FlightModel> fms = new ArrayList();
+
+        if (flights.size() <= 0) {
+            throw new NoFlightFoundException("No flights found");
+        }
+
+        for (FlightEntity flight : flights) {
+            FlightModel fm = convertToFlightModel(flight, tickets);
+            fms.add(convertToFlightModel(flight, tickets));
         }
 
         if (fms.size() <= 0) {
@@ -78,7 +100,7 @@ public class FlightService implements IFlightService {
 
     public FlightModel getFlightById(String flightId) {
         FlightEntity flight = this.flightRepository.getFlightById(flightId);
-        FlightModel flightModel = convertToFlightModel(flight);
+        FlightModel flightModel = convertToFlightModel(flight, 1);
 
         return flightModel;
     }
@@ -87,18 +109,15 @@ public class FlightService implements IFlightService {
         List<FlightModel> flights = new ArrayList<>();
 
         for (FlightEntity flight : source) {
-            flights.add(convertToFlightModel(flight));
+            flights.add(convertToFlightModel(flight, 1));
         }
 
         return flights;
     }
 
-    private FlightModel convertToFlightModel(FlightEntity flight) {
-        int currentNumberOfPassengers = this.flightRepository.getNumberOfPassengers(flight.getId().intValue());
-
-        return new FlightModel(flight.getDeparture(), flight.getCapacity(),
-                flight.getCapacity() - currentNumberOfPassengers,
-                flight.getPrice(), flight.getFlightId(), flight.getTravelTime(),
-                flight.getDestination().getName(), flight.getOrigin().getName());
+    private FlightModel convertToFlightModel(FlightEntity flight, int numberOfPassengers) {
+        return new FlightModel(flight.getDeparture(), numberOfPassengers,
+                flight.getPrice() * numberOfPassengers, flight.getFlightId(), flight.getTravelTime(),
+                flight.getDestination().getIataCode(), flight.getOrigin().getIataCode());
     }
 }

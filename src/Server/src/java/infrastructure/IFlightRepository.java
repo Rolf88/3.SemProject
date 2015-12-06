@@ -15,6 +15,8 @@ public interface IFlightRepository {
 
     List<FlightEntity> findFlights(String iataOrigin, Date departure, int numberOfPassengers);
 
+    List<FlightEntity> findFlights(String iataOrigin, String iataDestination, Date departure, int numberOfPassengers);
+
     ReservationEntity createReservation(FlightEntity flight, ReservatorModel reservator, List<PassengerModel> passengers);
 
     FlightEntity getFlightById(int flightId);

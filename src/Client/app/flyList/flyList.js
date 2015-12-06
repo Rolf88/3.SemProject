@@ -13,27 +13,46 @@ angular.module('myApp.flyList', ['ngRoute'])
             }])
         .controller('FlightListController', ["FlightFactory", "$routeParams", function (FlightFactory, $routeParams) {
                 var self = this;
-                self.origin = "STN";
-                self.date = "2015-01-15";
-                self.numberOfPassengers = 2;
+                self.origin = "";
+                self.destination = "";
+                self.date = "";
+                self.numberOfPassengers = 0;
                 self.flights = [];
 
                 self.searchFlight = function () {
-                    FlightFactory.searchEverywhere(self.origin, self.departureDate + "T00:00:00.235-0700", self.numberOfPassengers).then(function (response) {
-                        var data = response.data;
-                        self.flights = data;
-
-                       /* for (var i = 0; i < data.length; i++) {
-                            var flights = data[i].flights;
+                    if (self.destination.length != 0) {
+                        FlightFactory.search(self.origin, self.destination, self.departureDate + "T00:00:00.235Z", self.numberOfPassengers).then(function (response) {
+                            var data = response.data;
+                            self.flights = [];
+                            console.log(data);
+                            //for (var i = 0; i < data.length; i++) {
+                            var flights = data.flights;
 
                             for (var j = 0; j < flights.length; j++) {
-                                flights[j].airline = data[i].airline;
+                                flights[j].airline = data.airline;
                                 self.flights.push(flights[j]);
                             }
-                        }*/
-                    }, function (error) {
-                        alert("Could not find any flights");
-                    });
+                            //}
+                        }, function (error) {
+                            alert("Could not find any flights");
+                        });
+                    } else {
+                        FlightFactory.searchEverywhere(self.origin, self.departureDate + "T00:00:00.235Z", self.numberOfPassengers).then(function (response) {
+                            var data = response.data;
+                            self.flights = [];
+                            console.log(data);
+                            //for (var i = 0; i < data.length; i++) {
+                            var flights = data.flights;
+
+                            for (var j = 0; j < flights.length; j++) {
+                                flights[j].airline = data.airline;
+                                self.flights.push(flights[j]);
+                            }
+                            //}
+                        }, function (error) {
+                            alert("Could not find any flights");
+                        });
+                    }
                 };
 
                 if (typeof ($routeParams.flightId) !== "undefined") {

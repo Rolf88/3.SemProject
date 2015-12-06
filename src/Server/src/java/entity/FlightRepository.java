@@ -107,4 +107,22 @@ public class FlightRepository implements IFlightRepository {
         return ((Long) query.getSingleResult()).intValue();
     }
 
+    @Override
+    public List<FlightEntity> findFlights(String iataOrigin, String iataDestination, Date departure, int numberOfPassengers) {
+        final String jpa = "SELECT f FROM Flight f "
+                + "WHERE f.origin.iataCode = :iataOrigin AND f.destination.iataCode = :iataDestination "
+                + "AND f.departure BETWEEN :departureFrom AND :departureTo";
+
+        Query query = entityManager.createQuery(jpa);
+
+        query.setParameter("iataOrigin", iataOrigin);
+        query.setParameter("iataDestination", iataDestination);
+        query.setParameter("departureFrom", departure, TemporalType.TIMESTAMP);
+
+        Date nextDate = new Date(departure.getTime() + 1 * 24 * 60 * 60 * 1000);
+        query.setParameter("departureTo", nextDate, TemporalType.DATE);
+
+        return query.getResultList();
+    }
+
 }

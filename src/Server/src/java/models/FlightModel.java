@@ -5,18 +5,16 @@ import java.util.Date;
 public class FlightModel {
 
     private Date date;
-    private int capacity;
-    private int numberOfPassengers;
+    private int numberOfSeats;
     private double totalPrice;
     private String flightID;
     private int traveltime;
     private String destination;
     private String origin;
 
-    public FlightModel(Date date, int capacity, int numberOfPassengers, double totalPrice, String flightID, int traveltime, String destination, String origin) {
+    public FlightModel(Date date, int numberOfSeats, double totalPrice, String flightID, int traveltime, String destination, String origin) {
         this.date = date;
-        this.capacity = capacity;
-        this.numberOfPassengers = numberOfPassengers;
+        this.numberOfSeats = numberOfSeats;
         this.totalPrice = totalPrice;
         this.flightID = flightID;
         this.traveltime = traveltime;
@@ -28,12 +26,8 @@ public class FlightModel {
         return date;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
     public int getNumberOfPassengers() {
-        return numberOfPassengers;
+        return numberOfSeats;
     }
 
     public double getTotalPrice() {
@@ -55,5 +49,4 @@ public class FlightModel {
     public String getOrigin() {
         return origin;
     }
-
 }

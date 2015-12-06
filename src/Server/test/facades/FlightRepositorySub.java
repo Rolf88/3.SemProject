@@ -143,4 +143,9 @@ public class FlightRepositorySub implements IFlightRepository {
 
         return null;
     }
+
+    @Override
+    public List<FlightEntity> findFlights(String iataOrigin, String iataDestination, Date departure, int numberOfPassengers) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
