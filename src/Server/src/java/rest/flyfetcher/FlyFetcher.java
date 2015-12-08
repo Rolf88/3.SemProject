@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.AirlineInternalModel;
-import models.AirlineModel;
 
 
 public class FlyFetcher implements Runnable{
