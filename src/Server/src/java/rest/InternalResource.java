@@ -20,6 +20,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import models.AirlineInternalModel;
 import models.AirlineModel;
 import rest.flyfetcher.FlyFetcher;
 
@@ -46,14 +47,14 @@ public class InternalResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{date}/{numTickets}")
     public Response get(@PathParam("from") String from, @PathParam("date") String dateParam, @PathParam("numTickets") String numTickets) throws InterruptedException{
-        List<AirlineModel> airlines = new ArrayList();
+        List<AirlineInternalModel> airlines = new ArrayList();
 
         ExecutorService pool = Executors.newFixedThreadPool(4);
         
         for (String url : urls) {
             String apiUrl = url + "api/flightinfo/" + from + "/" + dateParam + "/" + numTickets;
                     
-            pool.execute(new FlyFetcher(apiUrl, airlines));
+            pool.execute(new FlyFetcher(apiUrl, airlines, url));
         }
         
         pool.shutdown();
@@ -66,14 +67,14 @@ public class InternalResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{to}/{date}/{numTickets}")
     public Response get(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String dateParam, @PathParam("numTickets") String numTickets) throws InterruptedException{
-        List<AirlineModel> airlines = new ArrayList();
+        List<AirlineInternalModel> airlines = new ArrayList();
 
         ExecutorService pool = Executors.newFixedThreadPool(4);
         
         for (String url : urls) {
             String apiUrl = url + "api/flightinfo/" + from + "/" + to + "/" + dateParam + "/" + numTickets;
                     
-            pool.execute(new FlyFetcher(apiUrl, airlines));
+            pool.execute(new FlyFetcher(apiUrl, airlines, url));
         }
         
         pool.shutdown();

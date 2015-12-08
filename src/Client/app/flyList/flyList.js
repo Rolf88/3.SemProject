@@ -30,6 +30,7 @@ angular.module('myApp.flyList', ['ngRoute'])
 
                                 for (var j = 0; j < flights.length; j++) {
                                     flights[j].airline = data[i].airline;
+                                    flights[j].url = data[i].url;
                                     self.flights.push(flights[j]);
                                 }
                             }

@@ -7,11 +7,7 @@ package rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import models.AirlineModel;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import models.AirlineInternalModel;
 import org.junit.Test;
 import rest.flyfetcher.FlyFetcher;
 import static org.junit.Assert.assertTrue;
@@ -27,9 +23,9 @@ public class FlyFetcherTest {
     
     @Test
     public void test_flyfetcher(){
-        List<AirlineModel> am = new ArrayList();
-        FlyFetcher ff = new FlyFetcher("http://angularairline-plaul.rhcloud.com/api/flightinfo/CPH/2016-01-22T00:00:00.000Z/4", am);
+        List<AirlineInternalModel> aim = new ArrayList();
+        FlyFetcher ff = new FlyFetcher("http://angularairline-plaul.rhcloud.com/api/flightinfo/CPH/2016-01-22T00:00:00.000Z/4", aim,"http://angularairline-plaul.rhcloud.com/");
         ff.run();
-        assertTrue(am.size() > 0);
+        assertTrue(aim.size() > 0);
     }
 }

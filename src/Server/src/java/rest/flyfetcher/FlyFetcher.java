@@ -9,18 +9,21 @@ import java.net.URL;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.AirlineInternalModel;
 import models.AirlineModel;
 
 
 public class FlyFetcher implements Runnable{
 
     private String url;
-    private volatile List<AirlineModel> airlines;
+    private String apiUrl;
+    private volatile List<AirlineInternalModel> airlines;
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
 
-    public FlyFetcher(String url, List<AirlineModel> airlines) {
+    public FlyFetcher(String url, List<AirlineInternalModel> airlines, String apiUrl) {
         this.url = url;
         this.airlines = airlines;
+        this.apiUrl = apiUrl;
     }
   
     
@@ -37,9 +40,10 @@ public class FlyFetcher implements Runnable{
                 json += inputLine;
             in.close();
             
-            AirlineModel am = gson.fromJson(json, AirlineModel.class);
-            if(!am.getAirline().equals(""))
-                airlines.add(am);
+            AirlineInternalModel aim = gson.fromJson(json, AirlineInternalModel.class);
+            aim.setUrl(apiUrl);
+            if(!aim.getAirline().equals(""))
+                airlines.add(aim);
             
         } catch (IOException ex) {
             Logger.getLogger(FlyFetcher.class.getName()).log(Level.SEVERE, null, ex);
