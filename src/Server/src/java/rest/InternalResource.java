@@ -34,8 +34,12 @@ public class InternalResource {
     @Context
     private UriInfo context;
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
+    List<String> urls = new ArrayList();
 
     public InternalResource() {
+        urls.add("http://angularairline-plaul.rhcloud.com/");
+        urls.add("http://timetravel-tocvfan.rhcloud.com/");
+        urls.add("http://flightsearch-cphol24.rhcloud.com/Server/");
     }
 
     @GET
@@ -44,11 +48,6 @@ public class InternalResource {
     public Response get(@PathParam("from") String from, @PathParam("date") String dateParam, @PathParam("numTickets") String numTickets) throws InterruptedException{
         List<AirlineModel> airlines = new ArrayList();
 
-        List<String> urls = new ArrayList();
-        urls.add("http://angularairline-plaul.rhcloud.com/");
-        urls.add("http://timetravel-tocvfan.rhcloud.com/");
-        urls.add("http://flightsearch-cphol24.rhcloud.com/Server/");
-        
         ExecutorService pool = Executors.newFixedThreadPool(4);
         
         for (String url : urls) {
@@ -69,11 +68,6 @@ public class InternalResource {
     public Response get(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String dateParam, @PathParam("numTickets") String numTickets) throws InterruptedException{
         List<AirlineModel> airlines = new ArrayList();
 
-        List<String> urls = new ArrayList();
-        urls.add("http://angularairline-plaul.rhcloud.com/");
-        urls.add("http://timetravel-tocvfan.rhcloud.com/");
-        urls.add("http://flightsearch-cphol24.rhcloud.com/Server/");
-        
         ExecutorService pool = Executors.newFixedThreadPool(4);
         
         for (String url : urls) {

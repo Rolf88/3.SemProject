@@ -65,7 +65,8 @@ angular.module('myApp.flyList', ['ngRoute'])
             }])
         .controller("FlightReservationController", ["FlightFactory", "$location", function (FlightFactory, $location) {
                 var self = this;
-
+                
+                self.numberOfPassengers = $location.search().passengers;
                 self.name = "";
                 self.email = "";
                 self.phone = "";
