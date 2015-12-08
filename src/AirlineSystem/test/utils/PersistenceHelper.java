@@ -9,7 +9,7 @@ public class PersistenceHelper {
     private static EntityManager entityManager;
 
     static {
-        entityManager = Persistence.createEntityManagerFactory("ServerPU").createEntityManager();
+        entityManager = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
     }
 
     public static EntityManager getEntityManager() {
