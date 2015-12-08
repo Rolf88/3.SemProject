@@ -40,6 +40,12 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String phone;
 
+    @Column(nullable = false)
+    private String firstname;
+
+    @Column(nullable = false)
+    private String lastname;
+
     public UserEntity() {
     }
 
@@ -98,6 +104,22 @@ public class UserEntity implements Serializable {
 
     public void addRole(String role) {
         this.roles.add(role);
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     @Override

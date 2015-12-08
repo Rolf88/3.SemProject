@@ -7,24 +7,20 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import facades.EntityFactory;
 import facades.MomondoService;
+import facades.UserFacade;
 import infrastructure.IMomondoService;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import models.AirlineInternalModel;
-import rest.flyfetcher.FlyFetcher;
 
 /**
  * REST Web Service
@@ -42,7 +38,7 @@ public class InternalResource {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
 
     public InternalResource() {
-        momondoService = new MomondoService();
+        momondoService = new MomondoService(new UserFacade(EntityFactory.getInstance()));
     }
 
     @GET

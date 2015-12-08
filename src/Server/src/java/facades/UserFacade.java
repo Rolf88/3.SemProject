@@ -1,5 +1,6 @@
 package facades;
 
+import infrastructure.IUserService;
 import entity.UserEntity;
 import exceptions.DataAllreadyExistException;
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import security.PasswordHash;
 
-public class UserFacade {
+public class UserFacade implements IUserService {
 
     private final EntityManager entityManager;
 
@@ -19,16 +20,19 @@ public class UserFacade {
 
     }
 
+    @Override
     public UserEntity getUserByUserId(String id) {
         return this.entityManager.find(UserEntity.class, Long.parseLong(id));
     }
 
+    @Override
     public List<UserEntity> getUsers() {
         Query createQuery = this.entityManager.createQuery("SELECT u FROM User u");
 
         return createQuery.getResultList();
     }
 
+    @Override
     public UserEntity getUserByEmail(String email) {
         Query createQuery = this.entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email");
         createQuery.setParameter("email", email);
@@ -40,11 +44,13 @@ public class UserFacade {
         }
     }
 
+    @Override
     public List<String> authenticateUser(String email, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         UserEntity user = getUserByEmail(email);
         return user != null && PasswordHash.validatePassword(password, user.getPassword()) ? user.getRoles() : null;
     }
 
+    @Override
     public UserEntity createUser(UserEntity user) throws DataAllreadyExistException, NoSuchAlgorithmException, InvalidKeySpecException {
         if (user == null) {
             throw new NullPointerException("User cannot be null");
@@ -64,6 +70,7 @@ public class UserFacade {
         return user;
     }
 
+    @Override
     public void deleteUser(UserEntity user) {
         if (user == null) {
             throw new NullPointerException("user cannot be null");

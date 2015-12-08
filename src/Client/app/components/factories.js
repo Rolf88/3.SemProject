@@ -17,17 +17,12 @@ angular.module('myApp.factories', []).
                             url: "api/internal/" + origin + "/" + destination + "/" + departureDate + "/" + numberOfPassengers
                         });
                     },
-                    reservate: function(flightId, name, email, phone, passengers) {
+                    reservate: function (flightId, passengers) {
                         return $http({
                             method: "POST",
-                            url: "api/booking/reservate",
+                            url: "api/booking/reservate/" + flightId,
                             data: {
-                                flightID: flightId,
-                                numberOfSeats: passengers.length,
-                                ReserveeName: name,
-                                ReservePhone: phone,
-                                ReserveeEmail: email,
-                                Passengers: passengers
+                                passengers: passengers
                             }
                         })
                     }
