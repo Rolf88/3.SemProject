@@ -4,3 +4,4 @@ dist/
 *~
 src/Server/nbproject/private/
 src/Client/nbproject/private/
+/src/AirlineSystem/nbproject/private/

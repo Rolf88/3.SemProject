@@ -24,8 +24,6 @@ public class ApplicationConfig extends Application {
         resources.add(exceptions.NoFlightFoundExceptionMapper.class);
         resources.add(rest.Admin.class);
         resources.add(rest.CreateUserResource.class);
-        resources.add(rest.FlightReservationResource.class);
-        resources.add(rest.FlightinfoResource.class);
         resources.add(rest.InternalResource.class);
         resources.add(rest.UserResource.class);
         resources.add(security.JWTAuthenticationFilter.class);

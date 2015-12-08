@@ -36,8 +36,8 @@ public class ReservationEntity implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PassengerEntity> passsengers = new ArrayList<>();
 
-    @ManyToOne
-    private FlightEntity flight;
+    @Column(nullable = false)
+    private String flightId;
 
     public ReservationEntity() {
 
@@ -91,12 +91,8 @@ public class ReservationEntity implements Serializable {
         this.phone = phone;
     }
 
-    public FlightEntity getFlight() {
-        return flight;
-    }
-
-    public void setFlight(FlightEntity flight) {
-        this.flight = flight;
+    public String getFlightId() {
+        return flightId;
     }
 
     public List<PassengerEntity> getPasssengers() {
