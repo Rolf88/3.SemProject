@@ -77,11 +77,10 @@
                 <td>{{flight.destination}}</td>
                 <td>{{flight.airline}}</td>
                 <td>{{flight.totalPrice}} €</td>
-                <td><a href="#/reservate/{{flight.flightID}}" class="btn btn-primary btn-sm">Order Now</a></td>
+                <td><a href="#/reservate/{{flight.flightID}}?passengers={{ctrl.numberOfPassengers}}" class="btn btn-primary btn-sm">Order Now</a></td>
             </tr>
         </tbody>
     </table>
-
 </div>
 <div class="modal fade in" ng-style="{ 'display': (ctrl.selectedFlight !== null) ? 'block' : 'none' }">
     <div class="modal-dialog modal-lg">
@@ -102,7 +101,7 @@
                     <input type="text" class="form-control" placeholder="Email" ng-model="reservateCtrl.email">
                 </div>
                 <br>
-                <div ng-repeat="i in reservateCtrl.createPassengers(ctrl.numberOfPassengers) track by i">
+                <div ng-repeat="i in reservateCtrl.createPassengers(reservateCtrl.numberOfPassengers) track by i">
                     <h4>Passenger #{{i+1}}</h4>
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="sizing-addon1">@</span>
