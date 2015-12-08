@@ -16,3 +16,4 @@ INSERT INTO flight (id, flightId, `capacity`, `departure`, price, traveltime, ai
 INSERT INTO flight (id, flightId, `capacity`, `departure`, price, traveltime, airline_id, destination_id, origin_id) VALUES (4, 'TOl4569', 100, CURRENT_TIMESTAMP, 520, 100, 1, 5, 1);
 
 INSERT INTO flight (id, flightId, `capacity`, `departure`, price, traveltime, airline_id, destination_id, origin_id) VALUES (5, 'HUJ4587', 100, CURRENT_TIMESTAMP, 1020, 100, 1, 6, 1);
+

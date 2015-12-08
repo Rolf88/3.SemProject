@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("demouser")
 @RolesAllowed("User")
-public class User {
+public class UserResource {
   
   @GET
   @Produces(MediaType.APPLICATION_JSON)

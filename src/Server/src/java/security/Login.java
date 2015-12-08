@@ -10,8 +10,10 @@ import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import facades.EntityFactory;
 import facades.UserFacade;
-import java.util.ArrayList;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -22,68 +24,65 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import security.Secrets;
 
 @Path("login")
 public class Login {
-  
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  public String gt(){
-    return "{\"txt\" : \"TEST\"}";
-    
-  }
-  
 
-  @POST
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response login(String jsonString) throws JOSEException {
-    JsonObject json = new JsonParser().parse(jsonString).getAsJsonObject();
-    String username =  json.get("username").getAsString(); 
-    String password =  json.get("password").getAsString();
-    JsonObject responseJson = new JsonObject();
-    List<String> roles;  
-    
-    if ((roles=authenticate(username, password))!=null) { 
-      String token = createToken(username,roles);    
-      responseJson.addProperty("username", username);
-      responseJson.addProperty("token", token);  
-      return Response.ok(new Gson().toJson(responseJson)).build();
-    }  
-    throw new NotAuthorizedException("Ilegal username or password",Response.Status.UNAUTHORIZED);
-  }
-  
-  private List<String>  authenticate(String userName, String password){
-    UserFacade facade = new UserFacade();
-    return facade.authenticateUser(userName, password);
-  }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String gt() {
+        return "{\"txt\" : \"TEST\"}";
 
-  private String createToken(String subject, List<String> roles) throws JOSEException {
-     StringBuilder res = new StringBuilder();
-    for(String string : roles) {
-        res.append(string);
-        res.append(",");
     }
-    String rolesAsString =  res.length() > 0 ? res.substring(0, res.length() - 1): "";
-    
-    
-     String issuer = "semester3demo-cphbusiness.dk-computerScience";
-    JWSSigner signer = new MACSigner(Secrets.ADMIN.getBytes());
-    
-    JWTClaimsSet claimsSet = new JWTClaimsSet();
-    claimsSet.setSubject(subject); 
-    claimsSet.setClaim("username", subject);
-    claimsSet.setCustomClaim("roles", rolesAsString);
-    Date date = new Date();
-    claimsSet.setIssueTime(date);
-    claimsSet.setExpirationTime(new Date(date.getTime() + 1000*60*60));
-    claimsSet.setIssuer(issuer);
 
-    SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
-    signedJWT.sign(signer);
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(String jsonString) throws JOSEException, NoSuchAlgorithmException, InvalidKeySpecException {
+        JsonObject json = new JsonParser().parse(jsonString).getAsJsonObject();
+        String email = json.get("email").getAsString();
+        String password = json.get("password").getAsString();
+        JsonObject responseJson = new JsonObject();
+        List<String> roles;
 
-    return signedJWT.serialize(); 
+        if ((roles = authenticate(email, password)) != null) {
+            String token = createToken(email, roles);
+            responseJson.addProperty("email", email);
+            responseJson.addProperty("token", token);
+            return Response.ok(new Gson().toJson(responseJson)).build();
+        }
+        throw new NotAuthorizedException("Ilegal username or password", Response.Status.UNAUTHORIZED);
+    }
 
-  }
+    private List<String> authenticate(String email, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        UserFacade facade = new UserFacade(EntityFactory.getInstance());
+        return facade.authenticateUser(email, password);
+    }
+
+    private String createToken(String subject, List<String> roles) throws JOSEException {
+        StringBuilder res = new StringBuilder();
+        for (String string : roles) {
+            res.append(string);
+            res.append(",");
+        }
+        String rolesAsString = res.length() > 0 ? res.substring(0, res.length() - 1) : "";
+
+        String issuer = "semester3demo-cphbusiness.dk-computerScience";
+        JWSSigner signer = new MACSigner(Secrets.ADMIN.getBytes());
+
+        JWTClaimsSet claimsSet = new JWTClaimsSet();
+        claimsSet.setSubject(subject);
+        claimsSet.setClaim("email", subject);
+        claimsSet.setCustomClaim("roles", rolesAsString);
+        Date date = new Date();
+        claimsSet.setIssueTime(date);
+        claimsSet.setExpirationTime(new Date(date.getTime() + 1000 * 60 * 60));
+        claimsSet.setIssuer(issuer);
+
+        SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
+        signedJWT.sign(signer);
+
+        return signedJWT.serialize();
+
+    }
 }

@@ -19,13 +19,15 @@ public class ApplicationConfig extends Application {
      * out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(exceptions.DataAllreadyExistExceptionMapper.class);
         resources.add(exceptions.InvalidDataExceptionMapper.class);
         resources.add(exceptions.NoFlightFoundExceptionMapper.class);
         resources.add(rest.Admin.class);
+        resources.add(rest.CreateUserResource.class);
         resources.add(rest.FlightReservationResource.class);
         resources.add(rest.FlightinfoResource.class);
         resources.add(rest.InternalResource.class);
-        resources.add(rest.User.class);
+        resources.add(rest.UserResource.class);
         resources.add(security.JWTAuthenticationFilter.class);
         resources.add(security.Login.class);
         resources.add(security.NotAuthorizedExceptionMapper.class);
