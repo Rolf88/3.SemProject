@@ -25,15 +25,17 @@ angular.module('myApp.flyList', ['ngRoute'])
                             var data = response.data;
                             self.flights = [];
                             console.log(data);
-                            //for (var i = 0; i < data.length; i++) {
-                            var flights = data.flights;
+                            for (var i = 0; i < data.length; i++) {
+                                var flights = data[i].flights;
 
-                            for (var j = 0; j < flights.length; j++) {
-                                flights[j].airline = data.airline;
-                                self.flights.push(flights[j]);
+                                for (var j = 0; j < flights.length; j++) {
+                                    flights[j].airline = data[i].airline;
+                                    self.flights.push(flights[j]);
+                                }
                             }
-                            //}
                         }, function (error) {
+                            self.flights = [];
+
                             alert("Could not find any flights");
                         });
                     } else {
@@ -41,14 +43,14 @@ angular.module('myApp.flyList', ['ngRoute'])
                             var data = response.data;
                             self.flights = [];
                             console.log(data);
-                            //for (var i = 0; i < data.length; i++) {
-                            var flights = data.flights;
+                            for (var i = 0; i < data.length; i++) {
+                                var flights = data[i].flights;
 
-                            for (var j = 0; j < flights.length; j++) {
-                                flights[j].airline = data.airline;
-                                self.flights.push(flights[j]);
+                                for (var j = 0; j < flights.length; j++) {
+                                    flights[j].airline = data[i].airline;
+                                    self.flights.push(flights[j]);
+                                }
                             }
-                            //}
                         }, function (error) {
                             alert("Could not find any flights");
                         });

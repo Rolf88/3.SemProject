@@ -8,13 +8,13 @@ angular.module('myApp.factories', []).
                     searchEverywhere: function (origin, departureDate, numberOfPassengers) {
                         return $http({
                             method: "GET",
-                            url: "api/flightinfo/" + origin + "/" + departureDate + "/" + numberOfPassengers
+                            url: "api/internal/" + origin + "/" + departureDate + "/" + numberOfPassengers
                         });
                     },
                     search: function (origin, destination, departureDate, numberOfPassengers) {
                         return $http({
                             method: "GET",
-                            url: "api/flightinfo/" + origin + "/" + destination + "/" + departureDate + "/" + numberOfPassengers
+                            url: "api/internal/" + origin + "/" + destination + "/" + departureDate + "/" + numberOfPassengers
                         });
                     },
                     reservate: function(flightId, name, email, phone, passengers) {

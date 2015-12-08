@@ -46,6 +46,8 @@ public class InternalResource {
 
         List<String> urls = new ArrayList();
         urls.add("http://angularairline-plaul.rhcloud.com/");
+        urls.add("http://timetravel-tocvfan.rhcloud.com/");
+        urls.add("http://flightsearch-cphol24.rhcloud.com/Server/");
         
         ExecutorService pool = Executors.newFixedThreadPool(4);
         
@@ -61,5 +63,29 @@ public class InternalResource {
         return Response.ok(gson.toJson(airlines)).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{from}/{to}/{date}/{numTickets}")
+    public Response get(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String dateParam, @PathParam("numTickets") String numTickets) throws InterruptedException{
+        List<AirlineModel> airlines = new ArrayList();
+
+        List<String> urls = new ArrayList();
+        urls.add("http://angularairline-plaul.rhcloud.com/");
+        urls.add("http://timetravel-tocvfan.rhcloud.com/");
+        urls.add("http://flightsearch-cphol24.rhcloud.com/Server/");
+        
+        ExecutorService pool = Executors.newFixedThreadPool(4);
+        
+        for (String url : urls) {
+            String apiUrl = url + "api/flightinfo/" + from + "/" + to + "/" + dateParam + "/" + numTickets;
+                    
+            pool.execute(new FlyFetcher(apiUrl, airlines));
+        }
+        
+        pool.shutdown();
+        pool.awaitTermination(1, TimeUnit.DAYS);
+        
+        return Response.ok(gson.toJson(airlines)).build();
+    }
    
 }
