@@ -23,6 +23,7 @@ public class ApplicationConfig extends Application {
         resources.add(exceptions.InvalidDataExceptionMapper.class);
         resources.add(exceptions.NoFlightFoundExceptionMapper.class);
         resources.add(rest.Admin.class);
+        resources.add(rest.BookingResource.class);
         resources.add(rest.CreateUserResource.class);
         resources.add(rest.InternalResource.class);
         resources.add(rest.UserResource.class);

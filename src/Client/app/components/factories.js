@@ -20,7 +20,7 @@ angular.module('myApp.factories', []).
                     reservate: function(flightId, name, email, phone, passengers) {
                         return $http({
                             method: "POST",
-                            url: "api/flightreservation",
+                            url: "api/booking/reservate",
                             data: {
                                 flightID: flightId,
                                 numberOfSeats: passengers.length,
