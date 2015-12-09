@@ -10,7 +10,7 @@
         <class>entity.UserEntity</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/semester3-project?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/semester3-project-airline?zeroDateTimeBehavior=convertToNull"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.password" value="test"/>
@@ -29,7 +29,7 @@
         <class>entity.UserEntity</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/semester3-project?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/semester3-project-airline?zeroDateTimeBehavior=convertToNull"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.password" value="test"/>
