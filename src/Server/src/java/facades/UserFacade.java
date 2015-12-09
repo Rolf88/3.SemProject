@@ -34,7 +34,7 @@ public class UserFacade implements IUserService {
 
     @Override
     public UserEntity getUserByEmail(String email) {
-        Query createQuery = this.entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email");
+        Query createQuery = this.entityManager.createQuery("SELECT u FROM UserProfile u WHERE u.email = :email");
         createQuery.setParameter("email", email);
 
         try {
