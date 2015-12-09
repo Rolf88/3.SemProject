@@ -33,6 +33,7 @@ import javax.crypto.SecretKeyFactory;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import javax.persistence.Persistence;
 
 /*
  * PBKDF2 salted password hashing.
@@ -186,6 +187,7 @@ public class PasswordHash {
      * @param args ignored
      */
     public static void main(String[] args) {
+        Persistence.generateSchema("ServerPU", null);
         try {
             // Print out 10 hashes
             for (int i = 0; i < 10; i++) {

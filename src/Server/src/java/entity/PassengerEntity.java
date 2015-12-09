@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "Passenger")
 public class PassengerEntity implements Serializable {
@@ -21,7 +22,8 @@ public class PassengerEntity implements Serializable {
 
     @Column(nullable = false)
     private String lastname;
-
+    
+    @ManyToOne
     private ReservationEntity reservation;
 
     public PassengerEntity(String firstname, String lastname) {

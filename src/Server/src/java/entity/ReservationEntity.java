@@ -33,7 +33,7 @@ public class ReservationEntity implements Serializable {
     @Column(nullable = false)
     private String phone;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "reservation")
     private List<PassengerEntity> passsengers = new ArrayList<>();
 
     @Column(nullable = false)
