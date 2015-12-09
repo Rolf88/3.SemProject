@@ -5,19 +5,21 @@ import infrastructure.IUserService;
 import entity.UserEntity;
 import infrastructure.IMomondoService;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.ws.rs.client.Entity.json;
 import models.AirlineInternalModel;
 import models.PassengerModel;
 import models.ReservationModel;
@@ -42,39 +44,38 @@ public class MomondoService implements IMomondoService {
         UserEntity user = userService.getUserByUserId(reservatorUserId);
 
         String response = "";
-        
+
         try {
-            URL reservationApiUrl = new URL(baseApiUrl + "/api/flightreservation");
+            URL reservationApiUrl = new URL(baseApiUrl + "api/flightreservation");
 
-            byte[] requestBody = ReservateParser.serialize(flightId, user, passengers).getBytes(StandardCharsets.UTF_8);
+            HttpURLConnection con = (HttpURLConnection) reservationApiUrl.openConnection();
+            con.setRequestProperty("Content-Type", "application/json;");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestProperty("Method", "POST");
+            con.setDoOutput(true);
 
-            HttpURLConnection conn = (HttpURLConnection) reservationApiUrl.openConnection();
-            conn.setDoOutput(true);
-            conn.setUseCaches(false);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Content-Length", Integer.toString(requestBody.length));
-            conn.setRequestProperty("charset", "utf-8");
-
-            try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
-                wr.write(requestBody);
+            try (OutputStream os = con.getOutputStream()) {
+                String strRequestBody = ReservateParser.serialize(flightId, user, passengers);
+                
+                os.write(strRequestBody.getBytes("UTF-8"));
             }
 
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(reservationApiUrl.openStream()))) {
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    response += line;
+            int HttpResult = con.getResponseCode();
+            try (InputStreamReader is = HttpResult < 400 ? new InputStreamReader(con.getInputStream(), "utf-8") : new InputStreamReader(con.getErrorStream(), "utf-8")) {
+                try (Scanner responseReader = new Scanner(is)) {
+                    while (responseReader.hasNext()) {
+                        response += responseReader.nextLine();
+                    }
                 }
             }
         } catch (IOException ex) {
             Logger.getLogger(MomondoService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        System.out.println(response);
+
         //TODO: Parse response to Reservation model
-        
         //TODO: Save data from reservation model to our db and hook up with user
-        
         return null;
     }
 

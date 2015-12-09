@@ -27,6 +27,6 @@ public class ReservateParser {
 
         obj.add("Passengers", passengerObjects);
 
-        return obj.getAsString();
+        return obj.toString();
     }
 }

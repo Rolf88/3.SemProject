@@ -11,7 +11,7 @@ angular.module('myApp.flyList', ['ngRoute'])
                             controller: "FlightListController as ctrl"
                         });
             }])
-        .controller('FlightListController', ["FlightFactory", "$routeParams", function (FlightFactory, $routeParams) {
+        .controller('FlightListController', ["FlightFactory", "$routeParams", "$location", function (FlightFactory, $routeParams, $location) {
                 var self = this;
                 self.origin = "";
                 self.destination = "";
@@ -30,7 +30,7 @@ angular.module('myApp.flyList', ['ngRoute'])
 
                                 for (var j = 0; j < flights.length; j++) {
                                     flights[j].airline = data[i].airline;
-                                    flights[j].url = data[i].url;
+                                    flights[j].baseApiUrl = data[i].url;
                                     self.flights.push(flights[j]);
                                 }
                             }
@@ -49,6 +49,7 @@ angular.module('myApp.flyList', ['ngRoute'])
 
                                 for (var j = 0; j < flights.length; j++) {
                                     flights[j].airline = data[i].airline;
+                                    flights[j].baseApiUrl = data[i].url;
                                     self.flights.push(flights[j]);
                                 }
                             }
@@ -59,18 +60,15 @@ angular.module('myApp.flyList', ['ngRoute'])
                 };
 
                 if (typeof ($routeParams.flightId) !== "undefined") {
-                    self.selectedFlight = $routeParams.flightId;
+                    self.selectedFlight = $routeParams.flightId
                 } else {
                     self.selectedFlight = null;
                 }
             }])
         .controller("FlightReservationController", ["FlightFactory", "$location", function (FlightFactory, $location) {
                 var self = this;
-                
+
                 self.numberOfPassengers = $location.search().passengers;
-                self.name = "";
-                self.email = "";
-                self.phone = "";
                 self.passengers = [];
 
                 self.createPassengers = function (number) {
@@ -84,7 +82,7 @@ angular.module('myApp.flyList', ['ngRoute'])
                 }
 
                 self.reservate = function (flightId) {
-                    FlightFactory.reservate(flightId, self.name, self.email, self.phone, self.passengers)
+                    FlightFactory.reservate(flightId, $location.search().source, self.passengers)
                             .then(function (response) {
                                 alert("Reservated!");
 

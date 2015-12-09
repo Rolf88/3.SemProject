@@ -77,7 +77,7 @@
                 <td>{{flight.destination}}</td>
                 <td>{{flight.airline}}</td>
                 <td>{{flight.totalPrice}} €</td>
-                <td><a ng-show="isAuthenticated" href="#/reservate/{{flight.flightID}}?passengers={{ctrl.numberOfPassengers}}" class="btn btn-primary btn-sm">Order Now</a></td>
+                <td><a ng-show="isAuthenticated" href="#/reservate/{{flight.flightID}}?passengers={{ctrl.numberOfPassengers}}&source={{flight.baseApiUrl}}" class="btn btn-primary btn-sm">Order Now</a></td>
             </tr>
         </tbody>
     </table>
@@ -86,27 +86,16 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" ng-controller="FlightReservationController as reservateCtrl">
             <form ng-submit="reservateCtrl.reservate(ctrl.selectedFlight)">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Name" ng-model="reservateCtrl.name">
-                </div>
-                <br>
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Phone" ng-model="reservateCtrl.phone">
-                </div>
-                <br>
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Email" ng-model="reservateCtrl.email">
-                </div>
-                <br>
+
                 <div ng-repeat="i in reservateCtrl.createPassengers(reservateCtrl.numberOfPassengers) track by i">
                     <h4>Passenger #{{i + 1}}</h4>
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1">@</span>
-                        <input type="text" class="form-control"  ng-model="reservateCtrl.passengers[i].firstName">
-                        <input type="text" class="form-control"  ng-model="reservateCtrl.passengers[i].lastName">
+                        <span class="input-group-addon">First name</span>
+                        <input type="text" class="form-control"  ng-model="reservateCtrl.passengers[i].firstname">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">Last name</span>
+                        <input type="text" class="form-control"  ng-model="reservateCtrl.passengers[i].lastname">
                     </div>
                     <br>
                 </div>

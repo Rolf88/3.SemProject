@@ -35,12 +35,32 @@ public class BookingResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{flightId}")
-    public Response post(@PathParam("fligthId") String flightId) {
-        String reservatorUserId = "123123"; // Den online brugers id
-        List<PassengerModel> passengers = new ArrayList<>(); // Liste af fornavne og efternavne på passengerne
+    public Response post(@PathParam("flightId") String flightId, String requestBody) {
+        ReservationRequestBodyModel request = gson.fromJson(requestBody, ReservationRequestBodyModel.class);
 
-        ReservationModel reservation = momondoService.reservate("http://angularairline-plaul.rhcloud.com/", flightId, reservatorUserId, passengers);
+        String reservatorUserId = "1"; // Den online brugers id
+
+        List<PassengerModel> passengers = new ArrayList<>(); // Liste af fornavne og efternavne på passengerne
+        for (ReservationRequestBodyModel.PassengerRequestBodyModel passenger : request.passengers) {
+            passengers.add(new PassengerModel(passenger.firstname, passenger.lastname));
+        }
+
+        ReservationModel reservation = momondoService.reservate(request.baseApiUrl, flightId, reservatorUserId, passengers);
 
         return Response.ok(gson.toJson(reservation)).build();
+    }
+
+    private class ReservationRequestBodyModel {
+
+        private String baseApiUrl;
+
+        private List<PassengerRequestBodyModel> passengers;
+
+        private class PassengerRequestBodyModel {
+
+            private String firstname;
+
+            private String lastname;
+        }
     }
 }
