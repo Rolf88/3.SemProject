@@ -10,6 +10,7 @@ import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import entity.UserEntity;
 import facades.EntityFactory;
 import facades.UserFacade;
 import java.security.NoSuchAlgorithmException;
@@ -46,8 +47,11 @@ public class Login {
         List<String> roles;
 
         if ((roles = authenticate(email, password)) != null) {
-            String token = createToken(email, roles);
-            responseJson.addProperty("email", email);
+            UserFacade facade = new UserFacade(EntityFactory.getInstance());
+            UserEntity user = facade.getUserByEmail(email);
+            Long userId = user.getId();
+            String token = createToken(userId, email, roles);
+            responseJson.addProperty("userId", userId);
             responseJson.addProperty("token", token);
             return Response.ok(new Gson().toJson(responseJson)).build();
         }
@@ -59,7 +63,7 @@ public class Login {
         return facade.authenticateUser(email, password);
     }
 
-    private String createToken(String subject, List<String> roles) throws JOSEException {
+    private String createToken(Long userId, String email, List<String> roles) throws JOSEException {
         StringBuilder res = new StringBuilder();
         for (String string : roles) {
             res.append(string);
@@ -71,8 +75,9 @@ public class Login {
         JWSSigner signer = new MACSigner(Secrets.ADMIN.getBytes());
 
         JWTClaimsSet claimsSet = new JWTClaimsSet();
-        claimsSet.setSubject(subject);
-        claimsSet.setClaim("email", subject);
+        claimsSet.setSubject(userId.toString());
+        claimsSet.setClaim("userId", userId);
+        claimsSet.setClaim("email", email);
         claimsSet.setCustomClaim("roles", rolesAsString);
         Date date = new Date();
         claimsSet.setIssueTime(date);

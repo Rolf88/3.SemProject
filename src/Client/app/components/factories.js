@@ -27,4 +27,13 @@ angular.module('myApp.factories', []).
                         })
                     }
                 };
-            }]);
+            }]).factory('AdminFactory', ["$http", function ($http) {
+                return {
+                    getResevasions: function () {
+                        return $http({
+                            method: "GET",
+                            url: "api/admin"
+                        });
+                    }
+                };
+            }]);;

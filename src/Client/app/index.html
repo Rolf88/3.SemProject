@@ -28,6 +28,7 @@
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
         <script src="app.js"></script>        
         <script src="flyList/flyList.js"></script>
+        <script src="admin/admin.js"></script>
         <script src="createUser/createUser.js"></script>
         <script src="reservation/reservation.js"></script>
         <script src="components/authentication.js"></script>
@@ -60,6 +61,10 @@
 
                     <button class="btn btn-default navbar-btn"  ng-click="logout()">Logout
                     </button>
+                    
+                    <div ng-show="isAdmin">
+                        <a href="#/admin">Admin</a>
+                    </div>
                 </div>
             </div>
 

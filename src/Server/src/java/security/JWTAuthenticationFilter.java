@@ -51,8 +51,8 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
                     throw new NotAuthorizedException("Your authorization token has timed out, please login again", Response.Status.UNAUTHORIZED);
                 }
 
-                String username = getUsernameFromToken(token);
-                final UserPrincipal user = getPricipalByUserId(username);
+                String userId = getUsernameFromToken(token);
+                final UserPrincipal user = getPricipalByUserId(userId);
                 if (user == null) {
                     throw new NotAuthorizedException("User could not be authenticated via the provided token", Response.Status.FORBIDDEN);
                 }

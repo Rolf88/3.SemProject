@@ -12,7 +12,8 @@ angular.module('myApp', [
     'myApp.services',
     'myApp.flyList',
     'myApp.createUser',
-    'myApp.reservation'
+    'myApp.reservation',
+    'myApp.admin'
 ]).
         config(['$routeProvider', function ($routeProvider) {
                 $routeProvider.otherwise({redirectTo: '/flyList'});
