@@ -88,8 +88,9 @@ public class UserFacade implements IUserService {
 
     @Override
     public List<ReservationModel> getReservations(Long userId) {
-        Query query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.user.userid = :id");
+        Query query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.user.id = :id");
         query.setParameter("id", userId);
+        
         return query.getResultList();
     }
 }
