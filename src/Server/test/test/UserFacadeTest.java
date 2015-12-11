@@ -28,7 +28,7 @@ public class UserFacadeTest {
 
     @Before
     public void setUp() {
-        userFacade = new UserFacade(Persistence.createEntityManagerFactory("ServerPUTest"));
+        userFacade = new UserFacade(Persistence.createEntityManagerFactory("ServerPUTest").createEntityManager());
     }
 
     @Test
