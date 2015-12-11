@@ -4,7 +4,6 @@ import converters.ReservateParser;
 import entity.PassengerEntity;
 import entity.ReservationEntity;
 import entity.UserEntity;
-import static entity.deploy.ReservationEntity_.user;
 import infrastructure.IReservationRepository;
 import infrastructure.IReservationService;
 import java.io.IOException;
