@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -52,6 +53,20 @@ public class UserEntity implements Serializable {
     public UserEntity(String email, String password) {
         this.password = password;
         this.email = email;
+    }
+
+    public UserEntity(String email, String password, List<String> roles) {
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public UserEntity(String password, String email, String phone, String firstname, String lastname) {
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public UserEntity(Long id, String password, String email, String phone, List<String> roles) {

@@ -11,7 +11,6 @@ public class UserSecurityHelper {
         token = token.substring("Bearer ".length());
         
         SignedJWT signedJWT = SignedJWT.parse(token);
-        JWSVerifier verifier = new MACVerifier(Secrets.ADMIN);
 
         return Long.parseLong(signedJWT.getJWTClaimsSet().getSubject());
     }

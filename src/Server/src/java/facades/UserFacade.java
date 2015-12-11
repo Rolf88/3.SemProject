@@ -28,7 +28,7 @@ public class UserFacade implements IUserService {
 
     @Override
     public List<UserEntity> getUsers() {
-        Query createQuery = this.entityManager.createQuery("SELECT u FROM User u");
+        Query createQuery = this.entityManager.createQuery("SELECT u FROM UserProfile u");
 
         return createQuery.getResultList();
     }

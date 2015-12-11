@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/Server">
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="3.semproject" password="rollerolf88" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/3.semproject?zeroDateTimeBehavior=convertToNull" username="cph-rh110"/>
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="3.semproject-test" password="rollerolf88" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/3.semproject-test?zeroDateTimeBehavior=convertToNull" username="cph-rh110"/>
 </Context>
