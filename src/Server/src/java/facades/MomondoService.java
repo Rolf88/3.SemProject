@@ -29,7 +29,7 @@ public class MomondoService implements IMomondoService {
         //TODO: This need to be loaded from a database
         FLIGHT_API_URLS.add("http://angularairline-plaul.rhcloud.com/");
         FLIGHT_API_URLS.add("http://timetravel-tocvfan.rhcloud.com/");
-        FLIGHT_API_URLS.add("http://flightsearch-cphol24.rhcloud.com/Server/");
+        FLIGHT_API_URLS.add("http://flightsearch-cphol24.rhcloud.com/AirlineSystem/");
     }
 
     @Override
