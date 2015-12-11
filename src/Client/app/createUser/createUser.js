@@ -16,7 +16,7 @@ angular.module('myApp.createUser', ['ngRoute'])
                             $location.path("/flyList");
                         })
                         .error(function (data, status, headers, config) {
-                            $scope.error = "user allready exist";
+                            $scope.error = "user allready exist, please find another email";
                         });
                 ;
             };

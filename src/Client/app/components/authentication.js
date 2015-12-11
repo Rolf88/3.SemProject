@@ -55,7 +55,6 @@ angular.module('myApp.security', [])
                  }
               });
               $scope.error = null;
-              $location.path("#/view1");
             })
             .error(function (data, status, headers, config) {
               // Erase the token if the user fails to log in
@@ -74,7 +73,7 @@ angular.module('myApp.security', [])
     $scope.isAdmin = false;
     $scope.isUser = false;
     delete $window.sessionStorage.token;
-    $location.path("#/view1");
+    $location.path("#/flyList");
   };
 
   //This sets the login data from session store if user pressed F5 (You are still logged in)
