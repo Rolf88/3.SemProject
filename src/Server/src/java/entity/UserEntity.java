@@ -47,6 +47,9 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String lastname;
 
+    @OneToMany(mappedBy = "user")
+    private List<ReservationEntity> reservations;
+
     public UserEntity() {
     }
 

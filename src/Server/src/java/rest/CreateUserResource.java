@@ -47,7 +47,7 @@ public class CreateUserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createUser(String json) throws InvalidDataException, DataAllreadyExistException, NoSuchAlgorithmException, InvalidKeySpecException {
-        UserFacade facade = new UserFacade(EntityFactory.getInstance());
+        UserFacade facade = new UserFacade(EntityFactory.getInstance().createEntityManager());
         UserEntity user = gson.fromJson(json, UserEntity.class);
 
         if (user.getEmail().isEmpty() || user.getPassword().isEmpty() || user.getPhone().isEmpty()) {

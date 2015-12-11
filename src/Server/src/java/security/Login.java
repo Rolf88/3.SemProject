@@ -47,7 +47,7 @@ public class Login {
         List<String> roles;
 
         if ((roles = authenticate(email, password)) != null) {
-            UserFacade facade = new UserFacade(EntityFactory.getInstance());
+            UserFacade facade = new UserFacade(EntityFactory.getInstance().createEntityManager());
             UserEntity user = facade.getUserByEmail(email);
             Long userId = user.getId();
             String token = createToken(userId, email, roles);
@@ -59,7 +59,7 @@ public class Login {
     }
 
     private List<String> authenticate(String email, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        UserFacade facade = new UserFacade(EntityFactory.getInstance());
+        UserFacade facade = new UserFacade(EntityFactory.getInstance().createEntityManager());
         return facade.authenticateUser(email, password);
     }
 

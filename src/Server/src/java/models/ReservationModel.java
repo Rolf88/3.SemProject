@@ -4,12 +4,10 @@ import java.util.List;
 
 public class ReservationModel {
 
-    private final ReservatorModel reservator;
     private final FlightModel flight;
     private final List<PassengerModel> passengers;
 
-    public ReservationModel(ReservatorModel reservator, FlightModel flight, List<PassengerModel> passengers) {
-        this.reservator = reservator;
+    public ReservationModel(FlightModel flight, List<PassengerModel> passengers) {
         this.flight = flight;
         this.passengers = passengers;
     }
@@ -20,9 +18,5 @@ public class ReservationModel {
 
     public FlightModel getFlight() {
         return flight;
-    }
-
-    public ReservatorModel getReservator() {
-        return reservator;
     }
 }

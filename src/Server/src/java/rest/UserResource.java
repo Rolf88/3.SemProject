@@ -2,12 +2,16 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import entity.ReservationRepository;
 import facades.EntityFactory;
+import facades.MomondoService;
+import facades.ReservationService;
 import facades.UserFacade;
 import infrastructure.IUserService;
 import java.text.ParseException;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
+import javax.persistence.EntityManager;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
@@ -25,10 +29,11 @@ public class UserResource {
     private IUserService service;
 
     public UserResource() {
-        service = new UserFacade(EntityFactory.getInstance());
+        EntityManager entityManager = EntityFactory.getInstance().createEntityManager();
+
+        service = new UserFacade(entityManager);
     }
-    
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@HeaderParam("Authorization") String authorization) throws ParseException {

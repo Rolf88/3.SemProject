@@ -16,8 +16,8 @@ public class UserFacade implements IUserService {
 
     private final EntityManager entityManager;
 
-    public UserFacade(EntityManagerFactory factory) {
-        this.entityManager = factory.createEntityManager();
+    public UserFacade(EntityManager entityManager) {
+        this.entityManager = entityManager;
 
     }
 

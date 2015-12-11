@@ -7,11 +7,14 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import entity.ReservationRepository;
 import facades.EntityFactory;
 import facades.MomondoService;
+import facades.ReservationService;
 import facades.UserFacade;
 import infrastructure.IMomondoService;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -38,7 +41,9 @@ public class InternalResource {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
 
     public InternalResource() {
-        momondoService = new MomondoService(new UserFacade(EntityFactory.getInstance()));
+        EntityManager entityManager = EntityFactory.getInstance().createEntityManager();
+
+        this.momondoService = new MomondoService(new UserFacade(entityManager), new ReservationService(new ReservationRepository(entityManager)));
     }
 
     @GET

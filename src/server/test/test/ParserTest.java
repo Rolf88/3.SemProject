@@ -51,8 +51,9 @@ public class ParserTest {
     @Test
     public void test_CanCreateCorrectDateFormat() throws ParseException {
         DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        Date date = sdfISO.parse("2015-12-04T00:00:00.235-0700");
-
+//        Date date = sdfISO.parse("2015-12-04T00:00:00.235-0700");
+        Date date = sdfISO.parse("2015-12-08T03:40:14.000-0500");
+        
         assertEquals(11, date.getMonth());
     }
 

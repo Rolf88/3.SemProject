@@ -2,12 +2,18 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import entity.ReservationRepository;
 import facades.EntityFactory;
 import facades.MomondoService;
+import facades.ReservationService;
 import facades.UserFacade;
 import infrastructure.IMomondoService;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
+import javax.persistence.EntityManager;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
@@ -18,6 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import models.PassengerModel;
 import models.ReservationModel;
+import security.UserSecurityHelper;
 
 @Path("booking/reservate")
 public class BookingResource {
@@ -29,16 +36,19 @@ public class BookingResource {
     private final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
 
     public BookingResource() {
-        this.momondoService = new MomondoService(new UserFacade(EntityFactory.getInstance()));
+        EntityManager entityManager = EntityFactory.getInstance().createEntityManager();
+        
+        this.momondoService = new MomondoService(new UserFacade(entityManager), new ReservationService(new ReservationRepository(entityManager)));
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{flightId}")
-    public Response post(@PathParam("flightId") String flightId, String requestBody) {
+    @RolesAllowed("User")
+    public Response post(@HeaderParam("Authorization") String authorization, @PathParam("flightId") String flightId, String requestBody) throws ParseException {
         ReservationRequestBodyModel request = gson.fromJson(requestBody, ReservationRequestBodyModel.class);
 
-        String reservatorUserId = "1"; // Den online brugers id
+        String reservatorUserId = UserSecurityHelper.GetUserIdFromToken(authorization).toString(); // Den online brugers id
 
         List<PassengerModel> passengers = new ArrayList<>(); // Liste af fornavne og efternavne på passengerne
         for (ReservationRequestBodyModel.PassengerRequestBodyModel passenger : request.passengers) {
