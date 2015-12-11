@@ -5,6 +5,7 @@ import exceptions.DataAllreadyExistException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
+import models.ReservationModel;
 
 public interface IUserService {
 
@@ -20,4 +21,5 @@ public interface IUserService {
 
     List<UserEntity> getUsers();
     
+    List<ReservationModel> getReservations(Long userId);
 }

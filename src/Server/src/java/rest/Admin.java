@@ -35,9 +35,7 @@ public class Admin {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@HeaderParam("Authorization") String authorization) throws ParseException, JOSEException {
-        Long userId = UserSecurityHelper.GetUserIdFromToken(authorization);
-        
+    public Response get() throws ParseException, JOSEException {
         List<ReservationModel> reservations = service.getReservations();
         
         return Response.ok(gson.toJson(reservations)).build();
