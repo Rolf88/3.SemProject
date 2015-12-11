@@ -10,8 +10,9 @@ angular.module('myApp.admin', ['ngRoute'])
         .controller('adminCtrl', ['AdminFactory', function (AdminFactory) {
                 var self = this;
 
-                AdminFactory.getResevasions().then(function (response) {
+                AdminFactory.getReservations().then(function (response) {
                     var data = response.data;
+                    self.reservations = data;
                     console.log(data);
                 }, function (error) {
                     alert("Could not anything: " + error);

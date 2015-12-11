@@ -7,6 +7,14 @@ angular.module('myApp.reservation', ['ngRoute'])
                     controller: 'reservationCtrl'
                 });
             }])
-        .controller('reservationCtrl', function () {
+        .controller('reservationCtrl', ['UserReservationFactory', function (UserReservationFactory) {
+                var self = this;
 
-        });
+                UserReservationFactory.getReservations().then(function (response) {
+                    var data = response.data;
+                    self.reservations = data;
+                    console.log(data);
+                }, function (error) {
+                    alert("Could not anything: " + error);
+                });
+            }]);

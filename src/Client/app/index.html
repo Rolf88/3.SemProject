@@ -63,8 +63,12 @@
                     </button>
                     
                     <div ng-show="isAdmin">
-                        <a href="#/admin">Admin</a>
+                        <a href="#/admin">See all reservations</a>
                     </div>
+                    <div ng-show="isUser && !isAdmin">
+                        <a href="#/reservation">See your reservations</a>
+                    </div>
+                    
                 </div>
             </div>
 
