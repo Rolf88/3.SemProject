@@ -1,6 +1,8 @@
 package facades;
 
 import converters.ReservateParser;
+import entity.PassengerEntity;
+import entity.ReservationEntity;
 import entity.UserEntity;
 import static entity.deploy.ReservationEntity_.user;
 import infrastructure.IReservationRepository;
@@ -11,12 +13,17 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Query;
+import models.FlightModel;
 import models.PassengerModel;
+import models.ReservateModel;
 import models.ReservationModel;
+import models.ReservatorModel;
 
 public class ReservationService implements IReservationService {
 
@@ -27,7 +34,7 @@ public class ReservationService implements IReservationService {
     }
 
     @Override
-    public ReservationModel reservate(String baseApiUrl, String flightId, UserEntity reservatorUser, List<PassengerModel> passengers) {
+    public ReservateModel reservate(String baseApiUrl, String flightId, UserEntity reservatorUser, List<PassengerModel> passengers) {
         String response = "";
 
         try {
@@ -55,7 +62,7 @@ public class ReservationService implements IReservationService {
             }
 
             // Deserialize the response from the api
-            ReservationModel reservation = ReservateParser.deserialize(response);
+            ReservateModel reservation = ReservateParser.deserialize(response);
 
             // Save the reservation to the database
             reservationRepository.add(reservatorUser.getId(), reservation);
@@ -66,6 +73,40 @@ public class ReservationService implements IReservationService {
         }
 
         return null;
+    }
+
+    @Override
+    public List<ReservationModel> getByUserId(Long userId) {
+        List<ReservationEntity> reservations = this.reservationRepository.getByUserId(userId);
+        
+        return MapReservations(reservations);
+    }
+    
+    @Override
+    public List<ReservationModel> findAll(){
+        List<ReservationEntity> reservations = this.reservationRepository.findAll();
+        
+        return MapReservations(reservations);
+    }
+
+    private List<ReservationModel> MapReservations(List<ReservationEntity> reservationEntities) {
+        List<ReservationModel> reservations = new ArrayList<>(reservationEntities.size());
+
+        for (ReservationEntity reservationEntity : reservationEntities) {
+            FlightModel flight = new FlightModel(reservationEntity.getFlightId(), reservationEntity.getDepartureDate(), -1, reservationEntity.getFlightTime(), reservationEntity.getDestination(), reservationEntity.getOrigin());
+
+            List<PassengerModel> passengers = new ArrayList<>(reservationEntity.getPasssengers().size());
+
+            for (PassengerEntity passengerEntity : reservationEntity.getPasssengers()) {
+                passengers.add(new PassengerModel(passengerEntity.getFirstname(), passengerEntity.getLastname()));
+            }
+
+            ReservatorModel reservator = new ReservatorModel(reservationEntity.getUser().getFirstname(), reservationEntity.getUser().getLastname(), reservationEntity.getUser().getEmail(), reservationEntity.getUser().getPhone());
+
+            reservations.add(new ReservationModel(reservator, flight, passengers));
+        }
+        
+        return reservations;
     }
 
 }

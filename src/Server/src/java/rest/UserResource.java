@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entity.ReservationRepository;
 import facades.EntityFactory;
-import facades.MomondoService;
 import facades.ReservationService;
-import facades.UserFacade;
-import infrastructure.IUserService;
+import infrastructure.IReservationService;
 import java.text.ParseException;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -26,19 +24,21 @@ import security.UserSecurityHelper;
 public class UserResource {
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
-    private IUserService service;
+    private IReservationService reservationService;
 
     public UserResource() {
         EntityManager entityManager = EntityFactory.getInstance().createEntityManager();
 
-        service = new UserFacade(entityManager);
+        reservationService = new ReservationService(new ReservationRepository(entityManager));
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@HeaderParam("Authorization") String authorization) throws ParseException {
         Long userId = UserSecurityHelper.GetUserIdFromToken(authorization);
-        List<ReservationModel> reservations = service.getReservations(userId);
+
+        List<ReservationModel> reservations = reservationService.getByUserId(userId);
+
         return Response.ok(gson.toJson(reservations)).build();
     }
 }

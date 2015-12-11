@@ -1,8 +1,14 @@
 package infrastructure;
 
-import models.ReservationModel;
+import entity.ReservationEntity;
+import java.util.List;
+import models.ReservateModel;
 
 public interface IReservationRepository {
 
-    void add(Long userId, ReservationModel reservation);
+    List<ReservationEntity> findAll();
+    
+    List<ReservationEntity> getByUserId(Long userId);
+    
+    void add(Long userId, ReservateModel reservation);
 }

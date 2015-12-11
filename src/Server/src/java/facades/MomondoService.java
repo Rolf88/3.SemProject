@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.AirlineInternalModel;
 import models.PassengerModel;
-import models.ReservationModel;
+import models.ReservateModel;
 import rest.flyfetcher.FlyFetcher;
 
 public class MomondoService implements IMomondoService {
@@ -33,7 +33,7 @@ public class MomondoService implements IMomondoService {
     }
 
     @Override
-    public ReservationModel reservate(String baseApiUrl, String flightId, String reservatorUserId, List<PassengerModel> passengers) {
+    public ReservateModel reservate(String baseApiUrl, String flightId, String reservatorUserId, List<PassengerModel> passengers) {
         UserEntity user = userService.getUserByUserId(reservatorUserId);
 
         return this.reservationService.reservate(baseApiUrl, flightId, user, passengers);

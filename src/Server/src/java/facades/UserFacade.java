@@ -7,9 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import models.ReservationModel;
 import security.PasswordHash;
 
 public class UserFacade implements IUserService {
@@ -84,13 +82,5 @@ public class UserFacade implements IUserService {
 
     public void close() {
         this.entityManager.close();
-    }
-
-    @Override
-    public List<ReservationModel> getReservations(Long userId) {
-        Query query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.user.id = :id");
-        query.setParameter("id", userId);
-        
-        return query.getResultList();
     }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import models.FlightModel;
 import models.PassengerModel;
-import models.ReservationModel;
+import models.ReservateModel;
 
 public class ReservateParser {
 
@@ -41,14 +41,14 @@ public class ReservateParser {
         return obj.toString();
     }
 
-    public static ReservationModel deserialize(String json) throws ParseException {
+    public static ReservateModel deserialize(String json) throws ParseException {
         JsonParser parser = new JsonParser();
 
         JsonObject root = parser.parse(json).getAsJsonObject();
 
         FlightModel flight = deserializeFlight(root);
         List<PassengerModel> passengers = deserializePassengers(root);
-        return new ReservationModel(flight, passengers);
+        return new ReservateModel(flight, passengers);
     }
 
     private static List<PassengerModel> deserializePassengers(JsonObject root) {
@@ -58,6 +58,7 @@ public class ReservateParser {
 
             passengers.add(new PassengerModel(passengerObject.get("firstName").getAsString(), passengerObject.get("lastName").getAsString()));
         }
+
         return passengers;
     }
 
@@ -68,7 +69,7 @@ public class ReservateParser {
         int flightTime = root.get("FlightTime").getAsInt();
         String origin = root.get("Origin").getAsString();
         String destination = root.get("Destination").getAsString();
-        FlightModel flight = new FlightModel(flightId, departureDate, numberOfSeats, flightTime, origin, destination);
-        return flight;
+
+        return new FlightModel(flightId, departureDate, numberOfSeats, flightTime, destination, origin);
     }
 }

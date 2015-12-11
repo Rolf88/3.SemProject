@@ -23,7 +23,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import models.PassengerModel;
-import models.ReservationModel;
+import models.ReservateModel;
 import security.UserSecurityHelper;
 
 @Path("booking/reservate")
@@ -55,7 +55,7 @@ public class BookingResource {
             passengers.add(new PassengerModel(passenger.firstname, passenger.lastname));
         }
 
-        ReservationModel reservation = momondoService.reservate(request.baseApiUrl, flightId, reservatorUserId, passengers);
+        ReservateModel reservation = momondoService.reservate(request.baseApiUrl, flightId, reservatorUserId, passengers);
 
         return Response.ok(gson.toJson(reservation)).build();
     }

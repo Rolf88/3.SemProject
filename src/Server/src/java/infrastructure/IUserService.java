@@ -20,6 +20,4 @@ public interface IUserService {
     UserEntity getUserByUserId(String id);
 
     List<UserEntity> getUsers();
-    
-    List<ReservationModel> getReservations(Long userId);
 }

@@ -1,9 +1,11 @@
 package entity;
 
 import infrastructure.IReservationRepository;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import models.PassengerModel;
-import models.ReservationModel;
+import models.ReservateModel;
 
 public class ReservationRepository implements IReservationRepository {
 
@@ -14,7 +16,7 @@ public class ReservationRepository implements IReservationRepository {
     }
 
     @Override
-    public void add(Long userId, ReservationModel reservation) {
+    public void add(Long userId, ReservateModel reservation) {
         this.entityManager.getTransaction().begin();
 
         ReservationEntity reservationEntity = new ReservationEntity();
@@ -30,10 +32,25 @@ public class ReservationRepository implements IReservationRepository {
         for (PassengerModel passenger : reservation.getPassengers()) {
             reservationEntity.addPassenger(passenger.getFirstname(), passenger.getLastname());
         }
-        
+
         this.entityManager.persist(reservationEntity);
 
         this.entityManager.getTransaction().commit();
+    }
+
+    @Override
+    public List<ReservationEntity> findAll() {
+        Query query = entityManager.createQuery("SELECT r FROM Reservation r");
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ReservationEntity> getByUserId(Long userId) {
+        Query query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.user.id = :id");
+        query.setParameter("id", userId);
+
+        return query.getResultList();
     }
 
 }
