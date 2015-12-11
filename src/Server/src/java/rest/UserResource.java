@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 import models.ReservationModel;
 import security.UserSecurityHelper;
 
-@Path("demouser")
+@Path("user")
 @RolesAllowed("User")
 public class UserResource {
 
