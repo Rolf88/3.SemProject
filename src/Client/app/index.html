@@ -42,7 +42,7 @@
     <body ng-app="myApp">
         <div class="container">
             <div class="logo" ng-controller="AppLoginCtrl">
-                <img src="graphics/yourlogohere.jpg" height="100" width="100" />
+                <a href="#/flyList"><img src="graphics/yourlogohere.jpg" height="100" width="100"/></a>
                 <form class="navbar-form navbar-right" role="form" ng-show="!isAuthenticated" ng-submit="login()"  >
                     <div class="form-group">
                         <input type="text" style="width:10em;" placeholder="Email" class="form-control"
@@ -61,14 +61,14 @@
 
                     <button class="btn btn-default navbar-btn"  ng-click="logout()">Logout
                     </button>
-                    
+
                     <div ng-show="isAdmin">
                         <a href="#/admin">See all reservations</a>
                     </div>
                     <div ng-show="isUser && !isAdmin">
                         <a href="#/reservation">See your reservations</a>
                     </div>
-                    
+
                 </div>
             </div>
 
