@@ -46,19 +46,8 @@ public class ReservationEntity implements Serializable {
     @Column(nullable = false)
     private int flightTime;
 
-    @Column(nullable = false)
-    private int totalPrice;
-
     public ReservationEntity() {
 
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public Long getId() {
