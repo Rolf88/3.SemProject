@@ -37,7 +37,7 @@ public class BookingResource {
 
     public BookingResource() {
         EntityManager entityManager = EntityFactory.getInstance().createEntityManager();
-        
+
         this.momondoService = new MomondoService(new UserFacade(entityManager), new ReservationService(new ReservationRepository(entityManager)));
     }
 
@@ -56,6 +56,10 @@ public class BookingResource {
         }
 
         ReservateModel reservation = momondoService.reservate(request.baseApiUrl, flightId, reservatorUserId, passengers);
+
+        if (reservation == null) {
+            return Response.status(Response.Status.BAD_GATEWAY).build();
+        }
 
         return Response.ok(gson.toJson(reservation)).build();
     }
