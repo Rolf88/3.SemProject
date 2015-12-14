@@ -70,6 +70,6 @@ public class ReservateParser {
         String origin = root.get("Origin").getAsString();
         String destination = root.get("Destination").getAsString();
 
-        return new FlightModel(flightId, departureDate, numberOfSeats, flightTime, destination, origin);
+        return new FlightModel(flightId, departureDate, numberOfSeats, flightTime, destination, origin, 0);
     }
 }

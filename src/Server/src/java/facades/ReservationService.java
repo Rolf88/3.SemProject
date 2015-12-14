@@ -92,7 +92,7 @@ public class ReservationService implements IReservationService {
         List<ReservationModel> reservations = new ArrayList<>(reservationEntities.size());
 
         for (ReservationEntity reservationEntity : reservationEntities) {
-            FlightModel flight = new FlightModel(reservationEntity.getFlightId(), reservationEntity.getDepartureDate(), -1, reservationEntity.getFlightTime(), reservationEntity.getDestination(), reservationEntity.getOrigin());
+            FlightModel flight = new FlightModel(reservationEntity.getFlightId(), reservationEntity.getDepartureDate(), -1, reservationEntity.getFlightTime(), reservationEntity.getDestination(), reservationEntity.getOrigin(), 0);
 
             List<PassengerModel> passengers = new ArrayList<>(reservationEntity.getPasssengers().size());
 
