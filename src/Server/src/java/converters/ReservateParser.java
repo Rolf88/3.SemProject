@@ -69,7 +69,8 @@ public class ReservateParser {
         int flightTime = root.get("FlightTime").getAsInt();
         String origin = root.get("Origin").getAsString();
         String destination = root.get("Destination").getAsString();
+        int totalPrice = root.get("totalPrice").getAsInt();
 
-        return new FlightModel(flightId, departureDate, numberOfSeats, flightTime, destination, origin, 0);
+        return new FlightModel(flightId, departureDate, numberOfSeats, flightTime, destination, origin, totalPrice);
     }
 }

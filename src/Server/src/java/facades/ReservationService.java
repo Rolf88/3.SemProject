@@ -77,14 +77,14 @@ public class ReservationService implements IReservationService {
     @Override
     public List<ReservationModel> getByUserId(Long userId) {
         List<ReservationEntity> reservations = this.reservationRepository.getByUserId(userId);
-        
+
         return MapReservations(reservations);
     }
-    
+
     @Override
-    public List<ReservationModel> findAll(){
+    public List<ReservationModel> findAll() {
         List<ReservationEntity> reservations = this.reservationRepository.findAll();
-        
+
         return MapReservations(reservations);
     }
 
@@ -92,7 +92,8 @@ public class ReservationService implements IReservationService {
         List<ReservationModel> reservations = new ArrayList<>(reservationEntities.size());
 
         for (ReservationEntity reservationEntity : reservationEntities) {
-            FlightModel flight = new FlightModel(reservationEntity.getFlightId(), reservationEntity.getDepartureDate(), -1, reservationEntity.getFlightTime(), reservationEntity.getDestination(), reservationEntity.getOrigin(), 0);
+
+            FlightModel flight = new FlightModel(reservationEntity.getFlightId(), reservationEntity.getDepartureDate(), -1, reservationEntity.getFlightTime(), reservationEntity.getDestination(), reservationEntity.getOrigin(), reservationEntity.getTotalPrice());
 
             List<PassengerModel> passengers = new ArrayList<>(reservationEntity.getPasssengers().size());
 
@@ -104,7 +105,7 @@ public class ReservationService implements IReservationService {
 
             reservations.add(new ReservationModel(reservator, flight, passengers));
         }
-        
+
         return reservations;
     }
 

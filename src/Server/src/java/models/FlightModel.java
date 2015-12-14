@@ -8,11 +8,11 @@ public class FlightModel {
     private final int numberOfSeats;
     private String flightID;
     private final int traveltime;
-    private final double totalPrice;
+    private final int totalPrice;
     private final String destination;
     private final String origin;
 
-    public FlightModel(String flightID, Date date, int numberOfSeats, int traveltime, String destination, String origin, double totalPrice) {
+    public FlightModel(String flightID, Date date, int numberOfSeats, int traveltime, String destination, String origin, int totalPrice) {
         this.date = date;
         this.numberOfSeats = numberOfSeats;
         this.flightID = flightID;
@@ -50,7 +50,7 @@ public class FlightModel {
         return numberOfSeats;
     }
 
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 }

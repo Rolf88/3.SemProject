@@ -46,8 +46,19 @@ public class ReservationEntity implements Serializable {
     @Column(nullable = false)
     private int flightTime;
 
+    @Column(nullable = false)
+    private int totalPrice;
+
     public ReservationEntity() {
 
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Long getId() {
@@ -139,7 +150,7 @@ public class ReservationEntity implements Serializable {
         PassengerEntity passenger = new PassengerEntity();
         passenger.setFirstname(firstname);
         passenger.setLastname(lastname);
-        
+
         this.passsengers.add(passenger);
     }
 
