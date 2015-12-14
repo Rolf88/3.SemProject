@@ -29,15 +29,23 @@ angular.module('myApp.factories', []).
                     }
                 };
             }]).factory('AdminFactory', ["$http", function ($http) {
+        return {
+            getReservations: function () {
+                return $http({
+                    method: "GET",
+                    url: "api/admin"
+                });
+            }
+        };
+    }])
+        .factory("UserFactory", ["$http", function ($http) {
                 return {
-                    getReservations: function () {
-                        return $http({
-                            method: "GET",
-                            url: "api/admin"
-                        });
+                    create: function (user) {
+                        return $http.post("api/createuser", user);
                     }
                 };
-            }]).factory('UserReservationFactory', ["$http", function ($http) {
+            }])
+        .factory('UserReservationFactory', ["$http", function ($http) {
                 return {
                     getReservations: function () {
                         return $http({

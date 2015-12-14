@@ -7,17 +7,20 @@ angular.module('myApp.createUser', ['ngRoute'])
                     controller: 'createUserCtrl'
                 });
             }])
-        .controller('createUserCtrl', function ($http, $scope, $location) {
-            $scope.error = null;
-            $scope.save = function () {
-                $http.post("http://localhost:8084/Server/api/createuser", $scope.newuser)
-                        .success(function (data, status, headers, config) {
-                            $scope.error = null;
-                            $location.path("/flyList");
-                        })
-                        .error(function (data, status, headers, config) {
-                            $scope.error = "user allready exist, please find another email";
-                        });
-                ;
-            };
-        });
+        .controller('createUserCtrl', ["$scope", "$location", "UserFactory", function ($scope, $location, UserFactory) {
+                $scope.error = null;
+                $scope.save = function () {
+                    UserFactory.create({
+                        firstname: $scope.newuser.firstname,
+                        lastname: $scope.newuser.lastname,
+                        email: $scope.newuser.email,
+                        phone: $scope.newuser.phone,
+                        password: $scope.newuser.password
+                    }).then(function () {
+                        $scope.error = null;
+                        $location.path("/flyList");
+                    }, function () {
+                        $scope.error = "user allready exist, please find another email";
+                    });
+                };
+            }]);
