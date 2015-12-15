@@ -30,8 +30,8 @@ public class ReservationSerializer {
         String date1 = convertToJsonDate(reservation.getFlight().getDate());
 
         obj.addProperty("flightID", reservation.getFlight().getFlightID());
-        obj.addProperty("Origin", reservation.getFlight().getOrigin());
-        obj.addProperty("Destination", reservation.getFlight().getDestination());
+        obj.addProperty("Origin", reservation.getFlight().getOrigin().getName() + " (" + reservation.getFlight().getOrigin().getIataCode() + ")");
+        obj.addProperty("Destination", reservation.getFlight().getDestination().getName() + " (" + reservation.getFlight().getDestination().getIataCode() + ")");
         obj.addProperty("Date", date1);
         obj.addProperty("FlightTime", reservation.getFlight().getTraveltime());
         obj.addProperty("numberOfSeats", reservation.getPassengers().size());

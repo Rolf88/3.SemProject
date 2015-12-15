@@ -9,6 +9,7 @@ import infrastructure.IFlightService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import models.AirportModel;
 import models.FlightModel;
 import models.PassengerModel;
 import models.ReservationModel;
@@ -118,6 +119,6 @@ public class FlightService implements IFlightService {
     private FlightModel convertToFlightModel(FlightEntity flight, int numberOfPassengers) {
         return new FlightModel(flight.getDeparture(), numberOfPassengers,
                 flight.getPrice() * numberOfPassengers, flight.getFlightId(), flight.getTravelTime(),
-                flight.getDestination().getIataCode(), flight.getOrigin().getIataCode());
+                new AirportModel(flight.getDestination().getIataCode(), flight.getDestination().getName()), new AirportModel(flight.getOrigin().getIataCode(), flight.getOrigin().getName()));
     }
 }
