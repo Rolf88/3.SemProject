@@ -9,10 +9,10 @@ public class FlightModel {
     private double totalPrice;
     private String flightID;
     private int traveltime;
-    private String destination;
-    private String origin;
+    private AirportModel destination;
+    private AirportModel origin;
 
-    public FlightModel(Date date, int numberOfSeats, double totalPrice, String flightID, int traveltime, String destination, String origin) {
+    public FlightModel(Date date, int numberOfSeats, double totalPrice, String flightID, int traveltime, AirportModel destination, AirportModel origin) {
         this.date = date;
         this.numberOfSeats = numberOfSeats;
         this.totalPrice = totalPrice;
@@ -42,11 +42,11 @@ public class FlightModel {
         return traveltime;
     }
 
-    public String getDestination() {
+    public AirportModel getDestination() {
         return destination;
     }
 
-    public String getOrigin() {
+    public AirportModel getOrigin() {
         return origin;
     }
 }
