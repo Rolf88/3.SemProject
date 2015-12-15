@@ -5,13 +5,14 @@
                 <div class="col-md-11">
                     <div class="row">
                         <div class="col-md-3">
+
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="From Destination" ng-model="ctrl.origin">
+                                <autocomplete ng-model="ctrl.origin" data="ctrl.originAirports" on-type="ctrl.updateOriginAirports"></autocomplete>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="To Destination" ng-model="ctrl.destination">
+                                <autocomplete ng-model="ctrl.destination" data="ctrl.destinationAirports" on-type="ctrl.updateDestinationAirports"></autocomplete>
                             </div>
                         </div>
                         <div class="col-md-3">

@@ -25,7 +25,13 @@ angular.module('myApp.factories', []).
                                 baseApiUrl: source,
                                 passengers: passengers
                             }
-                        })
+                        });
+                    },
+                    searchAirports: function (query) {
+                        return $http({
+                            method: "GET",
+                            url: "api/airports/search/" + query
+                        });
                     }
                 };
             }]).factory('AdminFactory', ["$http", function ($http) {

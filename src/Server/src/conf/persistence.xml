@@ -7,10 +7,10 @@
         <class>entity.PassengerEntity</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/3.semproject?zeroDateTimeBehavior=convertToNull"/>
-            <property name="javax.persistence.jdbc.user" value="cph-rh110"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/semester3-project?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.password" value="rollerolf88"/>
+            <property name="javax.persistence.jdbc.password" value="test"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="eclipselink.canonicalmodel.subpackage" value="development"/>      
             <property name="javax.persistence.sql-load-script-source" value="scripts/FillInUser.sql"/>
