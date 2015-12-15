@@ -17,7 +17,7 @@ import models.ReservateModel;
 
 public class ReservateParser {
 
-    private static DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    private static DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     public static String serialize(String flightId, UserEntity reservator, List<PassengerModel> passengers) {
         JsonObject obj = new JsonObject();
