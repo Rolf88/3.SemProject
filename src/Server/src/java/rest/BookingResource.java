@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entity.ReservationRepository;
+import entity.SearchRepository;
 import facades.EntityFactory;
 import facades.MomondoService;
 import facades.ReservationService;
@@ -38,7 +39,7 @@ public class BookingResource {
     public BookingResource() {
         EntityManager entityManager = EntityFactory.getInstance().createEntityManager();
 
-        this.momondoService = new MomondoService(new UserFacade(entityManager), new ReservationService(new ReservationRepository(entityManager)));
+        this.momondoService = new MomondoService(new UserFacade(entityManager), new ReservationService(new ReservationRepository(entityManager)), new SearchRepository(entityManager));
     }
 
     @POST

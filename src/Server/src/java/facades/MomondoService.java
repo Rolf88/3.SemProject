@@ -6,7 +6,12 @@ import entity.UserEntity;
 import infrastructure.IAirportProvider;
 import infrastructure.IMomondoService;
 import infrastructure.IReservationService;
+import infrastructure.ISearchRepository;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,14 +30,17 @@ public class MomondoService implements IMomondoService {
     private final IUserService userService;
     private final IReservationService reservationService;
     private final IAirportProvider airportProvider;
+    private final ISearchRepository searchRepository;
     private FlightApiUrlsFacade facade;
     private List<FlightApiUrls> flightUrlsList = new ArrayList<>();
 
-    public MomondoService(IUserService userService, IReservationService reservationService) {
+    public MomondoService(IUserService userService, IReservationService reservationService, ISearchRepository searchRepository) {
         this.userService = userService;
         this.reservationService = reservationService;
         this.airportProvider = new AeroAirportProvider("cfbdd6018b8a2e369bd541cc68950bad");
+        this.searchRepository = searchRepository;
         this.facade = new FlightApiUrlsFacade(EntityFactory.getInstance().createEntityManager());
+
         //TODO: This need to be loaded from a database
         flightUrlsList = facade.getFlightApiUrls();
 
@@ -53,38 +61,23 @@ public class MomondoService implements IMomondoService {
     }
 
     @Override
-    public List<AirlineInternalModel> findFlights(String origin, String date, int numberOfPassengers) {
-        List<AirlineInternalModel> airlines = new ArrayList();
-
-        try {
-            ExecutorService pool = Executors.newFixedThreadPool(4);
-
-            for (String url : FLIGHT_API_URLS) {
-                String apiUrl = url + "api/flightinfo/" + origin + "/" + date + "/" + numberOfPassengers;
-
-                pool.execute(new FlyFetcher(apiUrl, airlines, url));
-            }
-
-            pool.shutdown();
-            pool.awaitTermination(1, TimeUnit.DAYS);
-
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MomondoService.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return airlines;
+    public List<AirlineInternalModel> findFlights(String origin, String departureDate, int numberOfPassengers) {
+        return findFlights(origin, null, departureDate, numberOfPassengers);
     }
 
     @Override
-    public List<AirlineInternalModel> findFlights(String origin, String destination, String date, int numberOfPassengers) {
+    public List<AirlineInternalModel> findFlights(String origin, String destination, String departureDate, int numberOfPassengers) {
         List<AirlineInternalModel> airlines = new ArrayList();
 
         try {
             ExecutorService pool = Executors.newFixedThreadPool(4);
 
+            String apiEndpointPath = (destination == null)
+                    ? "api/flightinfo/" + origin + "/" + departureDate + "/" + numberOfPassengers
+                    : "api/flightinfo/" + origin + "/" + destination + "/" + departureDate + "/" + numberOfPassengers;
+
             for (String url : FLIGHT_API_URLS) {
-                String apiUrl = url + "api/flightinfo/" + origin + "/" + destination + "/" + date + "/" + numberOfPassengers;
+                String apiUrl = url + apiEndpointPath;
 
                 pool.execute(new FlyFetcher(apiUrl, airlines, url));
             }
@@ -93,8 +86,15 @@ public class MomondoService implements IMomondoService {
             pool.awaitTermination(1, TimeUnit.DAYS);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(MomondoService.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MomondoService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Log the search
+        try {
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            this.searchRepository.add(origin, destination, dateFormatter.parse(departureDate), numberOfPassengers, new Date());
+        } catch (ParseException ex) {
+            Logger.getLogger(MomondoService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return airlines;
