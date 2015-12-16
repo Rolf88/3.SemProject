@@ -1,5 +1,6 @@
 package facades;
 
+import entity.FlightApiUrls;
 import infrastructure.IUserService;
 import entity.UserEntity;
 import infrastructure.IAirportProvider;
@@ -24,16 +25,24 @@ public class MomondoService implements IMomondoService {
     private final IUserService userService;
     private final IReservationService reservationService;
     private final IAirportProvider airportProvider;
+    private FlightApiUrlsFacade facade;
+    private List<FlightApiUrls> flightUrlsList = new ArrayList<>();
 
     public MomondoService(IUserService userService, IReservationService reservationService) {
         this.userService = userService;
         this.reservationService = reservationService;
         this.airportProvider = new AeroAirportProvider("cfbdd6018b8a2e369bd541cc68950bad");
-
+        this.facade = new FlightApiUrlsFacade(EntityFactory.getInstance().createEntityManager());
         //TODO: This need to be loaded from a database
-        FLIGHT_API_URLS.add("http://angularairline-plaul.rhcloud.com/");
-        FLIGHT_API_URLS.add("http://timetravel-tocvfan.rhcloud.com/");
-        FLIGHT_API_URLS.add("http://flightairline-cphol24.rhcloud.com/AirlineSystem/");
+        flightUrlsList = facade.getFlightApiUrls();
+
+        for (int i = 0; i < flightUrlsList.size(); i++) {
+            FLIGHT_API_URLS.add(flightUrlsList.get(i).getUrl());
+        }
+
+//        FLIGHT_API_URLS.add("http://angularairline-plaul.rhcloud.com/");
+//        FLIGHT_API_URLS.add("http://timetravel-tocvfan.rhcloud.com/");
+//        FLIGHT_API_URLS.add("http://flightairline-cphol24.rhcloud.com/AirlineSystem/");
     }
 
     @Override
