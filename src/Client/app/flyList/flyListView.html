@@ -5,9 +5,8 @@
                 <div class="col-md-11">
                     <div class="row">
                         <div class="col-md-3">
-
                             <div class="form-group">
-                                <autocomplete ng-model="ctrl.origin" data="ctrl.originAirports" on-type="ctrl.updateOriginAirports"></autocomplete>
+                                <autocomplete ng-model="ctrl.origin" data="ctrl.originAirports" on-type="ctrl.updateOriginAirports" required></autocomplete>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -17,13 +16,13 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input id="datepicker" type="text" class="form-control" placeholder="Departure Date" ng-model="ctrl.departureDate">
+                                <input id="datepicker" type="text" class="form-control" placeholder="Departure Date" ng-model="ctrl.departureDate" required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control" ng-init="ctrl.numberOfPassengers = ctrl.numberOfPassengers || '0'" ng-model="ctrl.numberOfPassengers">
-                                    <option value="0">Number of Passenger</option>
+                                <select class="form-control" ng-init="ctrl.numberOfPassengers = ctrl.numberOfPassengers || ''" ng-model="ctrl.numberOfPassengers" required>
+                                    <option value="">Number of Passenger</option>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>

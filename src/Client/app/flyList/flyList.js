@@ -17,9 +17,8 @@ angular.module('myApp.flyList', ['ngRoute'])
                 self.origin = "";
                 self.destination = "";
                 self.date = "";
-                self.numberOfPassengers = 0;
+                self.numberOfPassengers = null;
                 self.flights = [];
-
 
                 self.originAirports = [];
                 self.updateOriginAirports = function (typed) {
@@ -27,7 +26,7 @@ angular.module('myApp.flyList', ['ngRoute'])
                         self.originAirports = [];
                         return;
                     }
-                    
+
                     FlightFactory.searchAirports(typed).then(function (response) {
                         self.originAirports = response.data.map(function (airport) {
                             var name = airport.city + " (" + airport.code + ")";
@@ -44,7 +43,7 @@ angular.module('myApp.flyList', ['ngRoute'])
                         self.destinationAirports = [];
                         return;
                     }
-                    
+
                     FlightFactory.searchAirports(typed).then(function (response) {
                         self.destinationAirports = response.data.map(function (airport) {
                             var name = airport.city + " (" + airport.code + ")";
@@ -56,11 +55,17 @@ angular.module('myApp.flyList', ['ngRoute'])
                 };
 
                 self.searchFlight = function () {
+                    if (self.origin.length == 0) {
+                        alert("Enter an origin");
+                        return;
+                    }
+
+
                     if (self.destination.length != 0) {
                         FlightFactory.search(airports[self.origin], airports[self.destination], self.departureDate + "T00:00:00.235Z", self.numberOfPassengers).then(function (response) {
                             var data = response.data;
                             self.flights = [];
-                            
+
                             for (var i = 0; i < data.length; i++) {
                                 var flights = data[i].flights;
 
@@ -81,7 +86,7 @@ angular.module('myApp.flyList', ['ngRoute'])
                         FlightFactory.searchEverywhere(airports[self.origin], self.departureDate + "T00:00:00.235Z", self.numberOfPassengers).then(function (response) {
                             var data = response.data;
                             self.flights = [];
-                            
+                            console.log("WYW");
                             for (var i = 0; i < data.length; i++) {
                                 var flights = data[i].flights;
 
