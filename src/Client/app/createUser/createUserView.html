@@ -1,26 +1,26 @@
-<form class="well center" style="font-size: small">
+<form class="well center" style="font-size: small" ng-submit="save()">
     <label>Email:</label><br/>
     <div class="form-group">
-        <input type="text" class="form-control" id="email" placeholder="Email" ng-model="newuser.email"/><br/>
+        <input type="email" class="form-control" id="email" placeholder="Email" ng-model="newuser.email" required/><br/>
     </div>
     <label>Password:</label><br/>
     <div class="form-group">
-        <input type="password" class="form-control" id="password" placeholder="Password" ng-model="newuser.password"/><br/>
+        <input type="password" class="form-control" id="password" placeholder="Password" ng-model="newuser.password" required/><br/>
     </div>
     <label>Firstname:</label><br/>
     <div class="form-group">
-        <input type="text" class="form-control" id="firstname" placeholder="Firstname" ng-model="newuser.firstname"/><br/>
+        <input type="text" class="form-control" id="firstname" placeholder="Firstname" ng-model="newuser.firstname" required/><br/>
     </div>
     <label>Lastname:</label><br/>
     <div class="form-group">
-        <input type="text" class="form-control" id="lastname" placeholder="Lastname" ng-model="newuser.lastname"/><br/>
+        <input type="text" class="form-control" id="lastname" placeholder="Lastname" ng-model="newuser.lastname" required/><br/>
     </div>
     <label>Phone:</label><br/>
     <div class="form-group">
-        <input type="text" class="form-control" id="phone" placeholder="Phone" ng-model="newuser.phone"/><br/>
+        <input type="tel" class="form-control" id="phone" placeholder="Phone" ng-model="newuser.phone" required/><br/>
     </div>
     <div class="form-group">
-        <input type="submit" value="Save" ng-click="save()" class="btn btn-primary"/>
+        <input type="submit" value="Save" class="btn btn-primary"/>
     </div>
     <div class="alert-danger"><span class="alert-danger">{{error}}</span></div>
 </form>
