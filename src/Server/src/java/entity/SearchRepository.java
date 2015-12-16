@@ -1,8 +1,12 @@
 package entity;
 
 import infrastructure.ISearchRepository;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import models.HighscoreModel;
 
 public class SearchRepository implements ISearchRepository {
 
@@ -26,6 +30,22 @@ public class SearchRepository implements ISearchRepository {
         this.entityManager.persist(searchLogEntity);
 
         this.entityManager.getTransaction().commit();
+    }
+
+    @Override
+    public List<HighscoreModel<String>> getTopDestination(int size) {
+        Query query = this.entityManager.createQuery("SELECT s.destination as destination, COUNT(s) AS numbers FROM SearchLog s "
+                + "GROUP BY s.destination "
+                + "ORDER BY COUNT(s) DESC")
+                .setMaxResults(size);
+
+        List<HighscoreModel<String>> results = new ArrayList<>();
+
+        for (Object[] response : (List<Object[]>) query.getResultList()) {
+            results.add(new HighscoreModel<>((String) response[0], ((Number) response[1]).intValue()));
+        }
+
+        return results;
     }
 
 }

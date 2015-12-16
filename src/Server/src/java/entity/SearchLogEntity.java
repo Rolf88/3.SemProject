@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
+@Entity(name = "SearchLog")
 public class SearchLogEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

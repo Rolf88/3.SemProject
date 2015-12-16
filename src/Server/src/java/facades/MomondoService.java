@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.AirlineInternalModel;
 import models.AirportModel;
+import models.HighscoreModel;
 import models.PassengerModel;
 import models.ReservateModel;
 import rest.flyfetcher.FlyFetcher;
@@ -103,6 +104,15 @@ public class MomondoService implements IMomondoService {
     @Override
     public List<AirportModel> searchAirports(String query) {
         return this.airportProvider.search(query);
+    }
+
+    @Override
+    public List<HighscoreModel<String>> getDestinationHighscore(int size) {
+        if (size <= 0) {
+            return null;
+        }
+
+        return this.searchRepository.getTopDestination(size);
     }
 
 }
