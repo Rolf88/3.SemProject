@@ -51,10 +51,11 @@
         </form>
     </div>
 </nav>
+    
+<h1 ng-show="ctrl.noresult">Ingen resultater</h1>
 
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron" ng-show="ctrl.flights.length > 0" ng-controller="AppLoginCtrl">
-
     <table class="table table-hover">
         <thead>
             <tr>

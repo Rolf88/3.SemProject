@@ -19,6 +19,7 @@ angular.module('myApp.flyList', ['ngRoute'])
                 self.date = "";
                 self.numberOfPassengers = null;
                 self.flights = [];
+                self.noresult = false;
 
                 self.originAirports = [];
                 self.updateOriginAirports = function (typed) {
@@ -63,8 +64,14 @@ angular.module('myApp.flyList', ['ngRoute'])
 
                     if (self.destination.length != 0) {
                         FlightFactory.search(airports[self.origin], airports[self.destination], self.departureDate + "T00:00:00.235Z", self.numberOfPassengers).then(function (response) {
+                            self.noresult = false;
                             var data = response.data;
                             self.flights = [];
+
+                            if(data.length == 0){
+                                self.noresult = true;
+                                return;
+                            }
 
                             for (var i = 0; i < data.length; i++) {
                                 var flights = data[i].flights;
@@ -77,16 +84,22 @@ angular.module('myApp.flyList', ['ngRoute'])
                             }
                         }, function (error) {
                             self.flights = [];
-
-                            alert("Could not find any flights");
+                            self.noresult = true;
                         });
                     } else {
                         console.log(airports, self.origin, airports[self.origin]);
 
                         FlightFactory.searchEverywhere(airports[self.origin], self.departureDate + "T00:00:00.235Z", self.numberOfPassengers).then(function (response) {
+                            self.noresult = false;
+                            
                             var data = response.data;
                             self.flights = [];
-                            console.log("WYW");
+                            
+                            if(data.length == 0){
+                                self.noresult = true;
+                                return;
+                            }
+                            
                             for (var i = 0; i < data.length; i++) {
                                 var flights = data[i].flights;
 
@@ -97,7 +110,7 @@ angular.module('myApp.flyList', ['ngRoute'])
                                 }
                             }
                         }, function (error) {
-                            alert("Could not find any flights");
+                            self.noresult = false;
                         });
                     }
                 };

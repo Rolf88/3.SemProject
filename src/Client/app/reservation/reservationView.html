@@ -1,4 +1,6 @@
-<div class="jumbotron">
+<h2 ng-show="ctrl.reservations.length == 0">Ingen reservationer</h2>
+
+<div class="jumbotron" ng-show="ctrl.reservations.length > 0">
 
     <h2>Reservations</h2>
     
