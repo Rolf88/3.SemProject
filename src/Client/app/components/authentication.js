@@ -70,7 +70,8 @@ angular.module('myApp.security', [])
                         });
             };
 
-            $rootScope.logout = function () {
+            $scope.logout = function () {
+                $scope.user = {};
                 $scope.isAuthenticated = false;
                 $scope.isAdmin = false;
                 $scope.isUser = false;
@@ -86,10 +87,12 @@ angular.module('myApp.security', [])
                     var encodedProfile = token.split('.')[1];
                     var profile = JSON.parse(url_base64_decode(encodedProfile));
                     $scope.email = profile.email;
-                    
-                    var roles = profile.roles.split(","); 
-                    $scope.isAdmin = roles.indexOf("Admin") >= 0;;
-                    $scope.isUser = roles.indexOf("User") >= 0;;
+
+                    var roles = profile.roles.split(",");
+                    $scope.isAdmin = roles.indexOf("Admin") >= 0;
+                    ;
+                    $scope.isUser = roles.indexOf("User") >= 0;
+                    ;
                     $scope.error = null;
                 }
             };
