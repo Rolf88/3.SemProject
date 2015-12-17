@@ -32,7 +32,7 @@ public class BackendTest {
     static Server server;
 
     public BackendTest() {
-        baseURI = "http://localhost:8082";
+        baseURI = "http://flightsearch-cphol24.rhcloud.com/Server";
         defaultParser = Parser.JSON;
         basePath = "/api";
     }
@@ -60,7 +60,7 @@ public class BackendTest {
     public void LoginWrongUsername() {
         given().
                 contentType("application/json").
-                body("{'username':'john','password':'test'}").
+                body("{'email':'json','password':'testas'}").
                 when().
                 post("/login").
                 then().
@@ -73,7 +73,7 @@ public class BackendTest {
         //wrong username and password
         given().
                 contentType("application/json").
-                body("{'username':'john','password':'doe'}").
+                body("{'email':'john','password':'doe'}").
                 when().
                 post("/login").
                 then().
@@ -86,7 +86,7 @@ public class BackendTest {
         //Successful login
         given().
                 contentType("application/json").
-                body("{'username':'user','password':'test'}").
+                body("{'email':'test','password':'test'}").
                 when().
                 post("/login").
                 then().
@@ -99,7 +99,7 @@ public class BackendTest {
         given().
                 contentType("application/json").
                 when().
-                get("/demouser").
+                get("/user").
                 then().
                 statusCode(401);
     }
@@ -109,7 +109,7 @@ public class BackendTest {
         //First, make a login to get the token for the Authorization, saving the response body in String json
         String json = given().
                 contentType("application/json").
-                body("{'username':'user','password':'test'}").
+                body("{'email':'test2','password':'test'}").
                 when().
                 post("/login").
                 then().
@@ -120,7 +120,7 @@ public class BackendTest {
                 contentType("application/json").
                 header("Authorization", "Bearer " + from(json).get("token")).
                 when().
-                get("/demouser").
+                get("/user").
                 then().
                 statusCode(200);
         //And test that the user cannot access /demoadmin rest service
@@ -128,7 +128,7 @@ public class BackendTest {
                 contentType("application/json").
                 header("Authorization", "Bearer " + from(json).get("token")).
                 when().
-                get("/demoadmin").
+                get("/admin").
                 then().
                 statusCode(403).
                 body("error.message", equalTo("You are not authorized to perform the requested operation"));

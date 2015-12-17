@@ -65,7 +65,7 @@ public class InternalTest {
         given().
                 contentType("application/json").
                 when().
-                get("/internal/CPH/2016-01-29T00:00:00.000Z/7").
+                get("/internal/CPH/2015-12-12T00:00:00.000Z/2").
                 then().
                 statusCode(200);
     }
