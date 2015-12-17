@@ -60,4 +60,15 @@ angular.module('myApp.factories', []).
                         });
                     }
                 };
+            }])
+
+        .factory("HighscoreFactory", ["$http", function ($http) {
+                return {
+                    getDestinationHighscore: function (size) {
+                        return $http({
+                            method: "GET",
+                            url: "api/statistics/highscores/destinations"
+                        });
+                    }
+                }
             }]);
