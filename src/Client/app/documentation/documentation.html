@@ -4,9 +4,9 @@
 
 <p>Admin bruger:</p>
 <dl class="dl-horizontal">
-    <dt>Username</dt>
+    <dt>Email:</dt>
     <dd>test</dd>
-    <dt>Password</dt>
+    <dt>Password:</dt>
     <dd>test</dd>
 </dl>
 
@@ -23,82 +23,35 @@
 <ol>
     <li>Indtast din email og password i øverste højre hjørne</li>
     <li>Tryk på knappen 'Sign in'</li>
-    <ol>
-        <li>Hvis der kommer en alert er username og password ikke rigtig</li>
-        <li>Hvis username og password input boxe forsvinder er du blevet loggede ind</li>
-    </ol>
+    <li>Hvis der kommer en alert er username og password ikke rigtig</li>
+    <li>Hvis username og password input boxe forsvinder er du blevet logget ind</li>
     <li>Du kan så nu bruge systemet</li>
 </ol>
 
 <h4>Se Fly liste</h4>
 <ol>
     <li>Login som bruger eller admin</li>
-    <li>indtast søge data f.eks.: copenhagen i </li>
-    <li>Du kan nu se exchange rates og convertere fra en valuta til en anden</li>
+    <li>indtast søge data f.eks.: copenhagen i origin feltet, 15. Januar i Departure Date feltet, samt et antal Passengers i Number of Passengers feltet</li>
+    <li>Du kan nu se en liste af fly der flyver til den ønskede destination</li>
 </ol>
 
-<h4>Se Company Info</h4>
+<h4>Book fly</h4>
 <ol>
-    <li>Login som bruger</li>
-    <li>Tryk på fanen 'Company Info'</li>
-    <li>Indtast enten navn eller cvr på et firma</li>
-    <li>Tryk på 'Search'</li>
-    <li>Hvis et firma blev fundet vil det blive vist med alle dens afdelinger nedenfor</li>
+    <li>Efter at have fulgt instruktionerne i "Se Fly liste", vælg det ønskede fly og tryk på order knappen.</li>
+    <li>Udfyld fornavn og efternavn på medpassagerne og tryk order</li>
+    <li>De vil se en besked poppe op med Reservated! Og blive sendt tilbage til startsiden, Tillykke du har nu lave en reservation.</li>
 </ol>
 
-<h4>Se alle brugere</h4>
+<h4>Se reservationer</h4>
 <ol>
-    <li>Login som admin</li>
-    <li>Tryk på fanen 'All Users'</li>
-    <li>Du vil du se en tabel over alle brugere og det er muligt at slette brugere hvis det ønskes</li>
+    <li>Login som bruger eller admin.</li>
+    <li>Tryk på "See your reservations" hvis du er user, eller "See all reservations" hvis du er admin oppe i højre hjørne.</li>
+    <li>Du vil nu se en liste over dine resrvationer.</li>
 </ol>
 
-<h4>Hvem har lavet hvad</h4>
-<ul>
-    <li>Opgave 1:
-        <ul>
-            <li>Rolf</li>
-            <li>Lukasz</li>
-        </ul>
-    </li>
-    <li>Opgave 2:<ul>
-            <li>Alexander</li>
-        </ul>
-    </li>
-    <li>Opgave 3:<ul>
-            <li>Oliver</li>
-            <li>Lukasz</li>
-        </ul>
-    </li>
-    <li>Opgave 4:<ul>
-            <li>Oliver</li>
-            <li>Lukasz</li>
-            <li>Rolf</li>
-        </ul>
-    </li>
-    <li>Opgave 5:<ul>
-            <li>Oliver</li>
-            <li>Alexander</li>
-            <li>Rolf</li>
-        </ul>
-    </li>
-    <li>Opgave 6:<ul>
-            <li>Alexander</li>
-            <li>Rolf</li>
-            <li>Oliver</li>
-            <li>Lukasz</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>OpenShift problem</h4>
-<p>
-    We can't get the site uploaded to openshift: We have created a question: <a href="http://qa-salcphbusiness.rhcloud.com/index.php/169/blank-page-when-uploading-to-openshift">http://qa-salcphbusiness.rhcloud.com/index.php/169/blank-page-when-uploading-to-openshift</a>
-</p>
-
-<h4>Test results</h4>
-<p>
-    We also had problems with testing: <a href="http://qa-salcphbusiness.rhcloud.com/index.php/159/how-to-test-promises-and-controller">http://qa-salcphbusiness.rhcloud.com/index.php/159/how-to-test-promises-and-controller</a>
-</p>
-<img src="Images/3.semCa.3 frontendtestpic.png" />
-<img src="Images/backgroundtestpic.PNG" />
+<h4>Se mest søgte destinationer</h4>
+<ol>
+    <li>Login som admin.</li>
+    <li>Tryk på "Destination highscore" i højre hjørne.</li>
+    <li>Du vil nu se en liste over mest søgte destinationer.</li>
+</ol>
