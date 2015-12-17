@@ -29,12 +29,18 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public List<FlightModel> findFlights(String iataOrigin, String iataDestination, Date departure) {
+    public List<FlightModel> findFlights(String iataOrigin, String iataDestination, Date departure) throws NoFlightFoundException {
         if (iataDestination.equals(iataOrigin)) {
             throw new UnsupportedOperationException();
         }
 
-        return convertToFlightModels(this.flightRepository.findFlights(iataOrigin, iataDestination, departure));
+        List<FlightEntity> flights = this.flightRepository.findFlights(iataOrigin, iataDestination, departure);
+
+        if (flights.isEmpty()) {
+            throw new NoFlightFoundException("No flights found");
+        }
+
+        return convertToFlightModels(flights);
     }
 
     @Override
@@ -62,7 +68,7 @@ public class FlightService implements IFlightService {
         List<FlightEntity> flights = flightRepository.findFlights(iataOrigin, departure, numberOfPassengers);
         List<FlightModel> fms = new ArrayList();
 
-        if (flights.size() <= 0) {
+        if (flights.isEmpty()) {
             throw new NoFlightFoundException("No flights found");
         }
 
@@ -77,7 +83,7 @@ public class FlightService implements IFlightService {
 
         return fms;
     }
-    
+
     @Override
     public List<FlightModel> findFlights(String iataOrigin, String iataDestination, Date departure, int tickets) throws NotEnoughTicketsException, NoFlightFoundException {
         List<FlightEntity> flights = flightRepository.findFlights(iataOrigin, iataDestination, departure, tickets);
@@ -99,6 +105,7 @@ public class FlightService implements IFlightService {
         return fms;
     }
 
+    @Override
     public FlightModel getFlightById(String flightId) {
         FlightEntity flight = this.flightRepository.getFlightById(flightId);
         FlightModel flightModel = convertToFlightModel(flight, 1);

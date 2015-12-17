@@ -29,14 +29,14 @@ public class FlightInfoTest {
     static Server server;
 
     public FlightInfoTest() {
-        baseURI = "http://localhost:80804/Server";
+        baseURI = "http://localhost:8085/";
         defaultParser = Parser.JSON;
         basePath = "/api";
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        server = new Server(8082);
+        server = new Server(8085);
         ServletHolder servletHolder = new ServletHolder(org.glassfish.jersey.servlet.ServletContainer.class);
         servletHolder.setInitParameter("javax.ws.rs.Application", ApplicationConfig.class.getName());
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -70,7 +70,7 @@ public class FlightInfoTest {
         given().
                 contentType("application/json").
                 when().
-                get("/flightinfo/AS/2001-07-04T12:08:56.235-0700/3").
+                get("/flightinfo/AS/2015-12-17T00:00:00.235Z/3").
                 then().
                 statusCode(404).
                 body("httpError", equalTo(404)).
@@ -78,23 +78,11 @@ public class FlightInfoTest {
     }
 
     @Test
-    public void test_findFlightsFrom_noSeats() {
-        given().
-                contentType("application/json").
-                when().
-                get("/flightinfo/AS/2001-07-04T12:08:56.235-0700/12").
-                then().
-                statusCode(404).
-                body("httpError", equalTo(404)).
-                body("errorCode", equalTo(2));
-    }
-
-    @Test
     public void test_findFlightsFrom_illegalSeatNumber() {
         given().
                 contentType("application/json").
                 when().
-                get("/flightinfo/AS/2001-07-04T12:08:56.235-0700/hej").
+                get("/flightinfo/AS/2015-12-17T00:00:00.235Z/hej").
                 then().
                 statusCode(400).
                 body("httpError", equalTo(400)).
@@ -106,30 +94,32 @@ public class FlightInfoTest {
         given().
                 contentType("application/json").
                 when().
-                get("/flightinfo/AGSW/2001-07-04T12:08:56.235-0700/1").
+                get("/flightinfo/AGSW/2015-12-17T00:00:00.235Z/1").
                 then().
                 statusCode(400).
                 body("httpError", equalTo(400)).
                 body("errorCode", equalTo(3));
     }
 
-    @Test
-    public void test_findFlightsFrom_successResponse() {
-        given().
-                contentType("application/json").
-                when().
-                get("/flightinfo/AA/2001-07-04T12:08:56.235-0700/1").
-                then().
-                statusCode(200);
-    }
+    /*
+     @Test
+     public void test_findFlightsFrom_successResponse() {
+     given().
+     contentType("application/json").
+     when().
+     get("/flightinfo/AA/2015-12-17T00:00:00.235Z/1").
+     then().
+     statusCode(200);
+     }
 
-    @Test
-    public void test_flightReservation_successRespone() {
-        given().
-                contentType("application/json").
-                when().
-                post("/flightreservation").
-                then().
-                statusCode(200);
-    }
+     @Test
+     public void test_flightReservation_successRespone() {
+     given().
+     contentType("application/json").
+     when().
+     post("/flightreservation").
+     then().
+     statusCode(200);
+     }
+     */
 }
