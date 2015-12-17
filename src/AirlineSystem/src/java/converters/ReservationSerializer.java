@@ -65,7 +65,7 @@ public class ReservationSerializer {
 
     private static String convertToJsonDate(Date date) throws ParseException {
 
-        DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         return sdfISO.format(date);
 

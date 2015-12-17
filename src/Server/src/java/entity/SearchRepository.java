@@ -35,14 +35,16 @@ public class SearchRepository implements ISearchRepository {
     @Override
     public List<HighscoreModel<String>> getTopDestination(int size) {
         Query query = this.entityManager.createQuery("SELECT s.destination as destination, COUNT(s) AS numbers FROM SearchLog s "
+                + "WHERE s.destination IS NOT NULL "
                 + "GROUP BY s.destination "
                 + "ORDER BY COUNT(s) DESC")
                 .setMaxResults(size);
 
         List<HighscoreModel<String>> results = new ArrayList<>();
 
+        int position = 1;
         for (Object[] response : (List<Object[]>) query.getResultList()) {
-            results.add(new HighscoreModel<>((String) response[0], ((Number) response[1]).intValue()));
+            results.add(new HighscoreModel<>(position++, (String) response[0], ((Number) response[1]).intValue()));
         }
 
         return results;

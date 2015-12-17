@@ -1,0 +1,29 @@
+<div class="jumbotron">
+    <h2>Highscore</h2>
+
+    <div ng-show="ctrl.isLoading">
+        Henter highscopre
+    </div>
+
+    <div ng-show="!ctrl.isLoading">
+
+        <div ng-show="ctrl.highscores.length == 0">Ingen søgninger er fortaget endnu</div>
+
+        <table ng-show="ctrl.highscores.length > 0" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Destination</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="highscoreItem in ctrl.highscores">
+                    <td>#{{highscoreItem.position}}</td>
+                    <td>{{highscoreItem.model}}</td>
+                    <td>{{highscoreItem.amount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
