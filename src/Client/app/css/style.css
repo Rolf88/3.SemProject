@@ -28,3 +28,6 @@ footer .jumbotron .text-muted{
 .modal-content{
 	padding:20px;
 }
+href{
+    cursor: pointer;
+}

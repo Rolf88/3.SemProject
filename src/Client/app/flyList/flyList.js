@@ -20,6 +20,8 @@ angular.module('myApp.flyList', ['ngRoute'])
                 self.numberOfPassengers = null;
                 self.flights = [];
                 self.noresult = false;
+                self.orderByField = "";
+                self.reverseSort = false;
 
                 self.originAirports = [];
                 self.updateOriginAirports = function (typed) {

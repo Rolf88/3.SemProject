@@ -61,23 +61,23 @@
             <tr>
                 <th>#</th>
                 <th>Date</th>
-                <th>Travel Time</th>
-                <th>From Destination</th>
-                <th>To Destination</th>
-                <th>Airline</th>
-                <th>Price</th>
+                <th style="cursor: pointer;" ng-click="ctrl.orderByField='taveltime'; ctrl.reverseSort = !ctrl.reverseSort">Travel Time</th>
+                <th style="cursor: pointer;" href="" ng-click="ctrl.orderByField='fromdestination'; ctrl.reverseSort = !ctrl.reverseSort">From Destination</th>
+                <th style="cursor: pointer;" href="" ng-click="ctrl.orderByField='todestination'; ctrl.reverseSort = !ctrl.reverseSort">To Destination</th>
+                <th style="cursor: pointer;" href="" ng-click="ctrl.orderByField='airline'; ctrl.reverseSort = !ctrl.reverseSort">Airline</th>
+                <th style="cursor: pointer;" href="" ng-click="ctrl.orderByField='price'; ctrl.reverseSort = !ctrl.reverseSort">Price</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="flight in ctrl.flights">
+            <tr ng-repeat="flight in ctrl.flights | orderBy:ctrl.orderByField:ctrl.reverseSort">
                 <td>{{$index + 1}}</td>
                 <td>{{flight.date| date : 'MM/dd/yyyy hh:mm a'}}</td>
                 <td>{{flight.traveltime| minutesToDateTime | date:'HH:mm'}}</td>
                 <td>{{flight.origin}}</td>
                 <td>{{flight.destination}}</td>
                 <td>{{flight.airline}}</td>
-                <td>{{flight.totalPrice}} €</td>
+                <td>{{flight.totalPrice|currency:"€"}}</td>
                 <td><a ng-show="isAuthenticated" href="#/reservate/{{flight.flightID}}?passengers={{ctrl.numberOfPassengers}}&source={{flight.baseApiUrl}}" class="btn btn-primary btn-sm">Order Now</a></td>
             </tr>
         </tbody>
