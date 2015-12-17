@@ -3,9 +3,9 @@ package facades;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import infrastructure.IAirportProvider;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -39,34 +39,40 @@ class AeroAirportProvider implements IAirportProvider {
 
             int HttpResult = con.getResponseCode();
 
-            JsonParser parser = new JsonParser();
-            try (InputStreamReader is = HttpResult < 400 ? new InputStreamReader(con.getInputStream(), "utf-8") : new InputStreamReader(con.getErrorStream(), "utf-8")) {
-                String response = "";
-
-                try (Scanner responseReader = new Scanner(is)) {
-                    while (responseReader.hasNext()) {
-                        response += responseReader.nextLine();
-                    }
+            try (InputStream stream = HttpResult < 400 ? con.getInputStream() : con.getErrorStream()) {
+                if (stream == null) {
+                    return new ArrayList<>();
                 }
 
-                // We need to remove the "(" and ")" around the response;
-                response = response.substring(1, response.length() - 1);
+                JsonParser parser = new JsonParser();
+                try (InputStreamReader is = HttpResult < 400 ? new InputStreamReader(stream, "utf-8") : new InputStreamReader(stream, "utf-8")) {
+                    String response = "";
 
-                JsonObject responseObject = parser.parse(response).getAsJsonObject();
-                JsonArray airportObjectArray = responseObject.get("airports").getAsJsonArray();
+                    try (Scanner responseReader = new Scanner(is)) {
+                        while (responseReader.hasNext()) {
+                            response += responseReader.nextLine();
+                        }
+                    }
 
-                for (int i = 0; i < airportObjectArray.size(); i++) {
-                    JsonObject airportObject = airportObjectArray.get(i).getAsJsonObject();
+                    // We need to remove the "(" and ")" around the response;
+                    response = response.substring(1, response.length() - 1);
 
-                    String code = airportObject.get("code").getAsString();
-                    String name = airportObject.get("name").getAsString();
-                    String city = airportObject.get("city").getAsString();
-                    String country = airportObject.get("country").getAsString();
-                    String timezone = airportObject.get("timezone").getAsString();
-                    double latitude = airportObject.get("lat").getAsDouble();
-                    double longitude = airportObject.get("lng").getAsDouble();
+                    JsonObject responseObject = parser.parse(response).getAsJsonObject();
+                    JsonArray airportObjectArray = responseObject.get("airports").getAsJsonArray();
 
-                    airports.add(new AeroAirportModel(code, name, city, country, timezone, latitude, longitude));
+                    for (int i = 0; i < airportObjectArray.size(); i++) {
+                        JsonObject airportObject = airportObjectArray.get(i).getAsJsonObject();
+
+                        String code = airportObject.get("code").getAsString();
+                        String name = airportObject.get("name").getAsString();
+                        String city = airportObject.get("city").getAsString();
+                        String country = airportObject.get("country").getAsString();
+                        String timezone = airportObject.get("timezone").getAsString();
+                        double latitude = airportObject.get("lat").getAsDouble();
+                        double longitude = airportObject.get("lng").getAsDouble();
+
+                        airports.add(new AeroAirportModel(code, name, city, country, timezone, latitude, longitude));
+                    }
                 }
             }
         } catch (IOException ex) {

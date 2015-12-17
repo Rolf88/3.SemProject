@@ -7,11 +7,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="label label-info">Origin</label><br><autocomplete ng-model="ctrl.origin" data="ctrl.originAirports" on-type="ctrl.updateOriginAirports" required></autocomplete>
+                                <autocomplete ng-model="ctrl.origin" class="form-control" data="ctrl.originAirports" on-type="ctrl.updateOriginAirports" required></autocomplete>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="label label-info">Destination</label><br><autocomplete ng-model="ctrl.destination" data="ctrl.destinationAirports" on-type="ctrl.updateDestinationAirports"></autocomplete>
+                                <autocomplete ng-model="ctrl.destination" class="form-control" data="ctrl.destinationAirports" on-type="ctrl.updateDestinationAirports"></autocomplete>
                             </div>
                         </div>
                         <div class="col-md-3">

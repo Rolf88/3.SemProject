@@ -45,13 +45,9 @@ public class MomondoService implements IMomondoService {
         //TODO: This need to be loaded from a database
         flightUrlsList = facade.getFlightApiUrls();
 
-        for (int i = 0; i < flightUrlsList.size(); i++) {
-            FLIGHT_API_URLS.add(flightUrlsList.get(i).getUrl());
+        for (FlightApiUrls flightUrlsList1 : flightUrlsList) {
+            FLIGHT_API_URLS.add(flightUrlsList1.getUrl());
         }
-
-//        FLIGHT_API_URLS.add("http://angularairline-plaul.rhcloud.com/");
-//        FLIGHT_API_URLS.add("http://timetravel-tocvfan.rhcloud.com/");
-//        FLIGHT_API_URLS.add("http://flightairline-cphol24.rhcloud.com/AirlineSystem/");
     }
 
     @Override

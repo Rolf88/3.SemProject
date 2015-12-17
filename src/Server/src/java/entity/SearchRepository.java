@@ -35,7 +35,7 @@ public class SearchRepository implements ISearchRepository {
     @Override
     public List<HighscoreModel<String>> getTopDestination(int size) {
         Query query = this.entityManager.createQuery("SELECT s.destination as destination, COUNT(s) AS numbers FROM SearchLog s "
-                + "WHERE s.destination IS NOT NULL "
+                + "WHERE s.destination IS NOT NULL AND s.destionation != 'undefined' "
                 + "GROUP BY s.destination "
                 + "ORDER BY COUNT(s) DESC")
                 .setMaxResults(size);
