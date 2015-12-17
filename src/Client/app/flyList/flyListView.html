@@ -6,23 +6,24 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <autocomplete ng-model="ctrl.origin" data="ctrl.originAirports" on-type="ctrl.updateOriginAirports" required></autocomplete>
+                                <label class="label label-info">Origin</label><br><autocomplete ng-model="ctrl.origin" data="ctrl.originAirports" on-type="ctrl.updateOriginAirports" required></autocomplete>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <autocomplete ng-model="ctrl.destination" data="ctrl.destinationAirports" on-type="ctrl.updateDestinationAirports"></autocomplete>
+                                <label class="label label-info">Destination</label><br><autocomplete ng-model="ctrl.destination" data="ctrl.destinationAirports" on-type="ctrl.updateDestinationAirports"></autocomplete>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input id="datepicker" type="text" class="form-control" placeholder="Departure Date" ng-model="ctrl.departureDate" required>
+                                <label class="label label-info">Departure Date</label><br><input id="datepicker" type="text" placeholder="Pick date.." class="form-control" ng-model="ctrl.departureDate" required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
+                                <label class="label label-info">Number of passengers</label><br>
                                 <select class="form-control" ng-init="ctrl.numberOfPassengers = ctrl.numberOfPassengers || ''" ng-model="ctrl.numberOfPassengers" required>
-                                    <option value="">Number of Passenger</option>
+                                    <option value="">Pick a number..</option>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -45,13 +46,13 @@
                     </div>
                 </div>
                 <div class="col-md-1">
-                    <input class="btn btn-default" type="submit" value="Search">
+                    <br><input class="btn btn-default" type="submit" value="Search">
                 </div>
             </div>
         </form>
     </div>
 </nav>
-    
+
 <h1 ng-show="ctrl.noresult">Ingen resultater</h1>
 
 <!-- Main component for a primary marketing message or call to action -->
@@ -61,11 +62,11 @@
             <tr>
                 <th>#</th>
                 <th>Date</th>
-                <th style="cursor: pointer;" ng-click="ctrl.orderByField='taveltime'; ctrl.reverseSort = !ctrl.reverseSort">Travel Time</th>
-                <th style="cursor: pointer;" ng-click="ctrl.orderByField='fromdestination'; ctrl.reverseSort = !ctrl.reverseSort">From Destination</th>
-                <th style="cursor: pointer;" ng-click="ctrl.orderByField='todestination'; ctrl.reverseSort = !ctrl.reverseSort">To Destination</th>
-                <th style="cursor: pointer;" ng-click="ctrl.orderByField='airline'; ctrl.reverseSort = !ctrl.reverseSort">Airline</th>
-                <th style="cursor: pointer;" ng-click="ctrl.orderByField='price'; ctrl.reverseSort = !ctrl.reverseSort">Price</th>
+                <th style="cursor: pointer;" ng-click="ctrl.orderByField = 'taveltime'; ctrl.reverseSort = !ctrl.reverseSort">Travel Time</th>
+                <th style="cursor: pointer;" ng-click="ctrl.orderByField = 'fromdestination'; ctrl.reverseSort = !ctrl.reverseSort">From Destination</th>
+                <th style="cursor: pointer;" ng-click="ctrl.orderByField = 'todestination'; ctrl.reverseSort = !ctrl.reverseSort">To Destination</th>
+                <th style="cursor: pointer;" ng-click="ctrl.orderByField = 'airline'; ctrl.reverseSort = !ctrl.reverseSort">Airline</th>
+                <th style="cursor: pointer;" ng-click="ctrl.orderByField = 'price'; ctrl.reverseSort = !ctrl.reverseSort">Price</th>
                 <th>Action</th>
             </tr>
         </thead>
