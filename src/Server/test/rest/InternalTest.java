@@ -35,7 +35,7 @@ public class InternalTest {
     static Server server;
 
     public InternalTest() {
-        baseURI = "http://localhost:8084/Server";
+        baseURI = "http://localhost:8082/";
         defaultParser = Parser.JSON;
         basePath = "/api";
     }
