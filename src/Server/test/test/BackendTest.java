@@ -32,14 +32,14 @@ public class BackendTest {
     static Server server;
 
     public BackendTest() {
-        baseURI = "http://flightsearch-cphol24.rhcloud.com/Server";
+        baseURI = "http://localhost:8087";
         defaultParser = Parser.JSON;
         basePath = "/api";
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        server = new Server(8082);
+        server = new Server(8087);
         ServletHolder servletHolder = new ServletHolder(org.glassfish.jersey.servlet.ServletContainer.class);
         servletHolder.setInitParameter("javax.ws.rs.Application", ApplicationConfig.class.getName());
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);

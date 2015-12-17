@@ -35,14 +35,14 @@ public class InternalTest {
     static Server server;
 
     public InternalTest() {
-        baseURI = "http://localhost:8082/";
+        baseURI = "http://localhost:8089/";
         defaultParser = Parser.JSON;
         basePath = "/api";
     }
     
     @BeforeClass
     public static void setUpClass() throws Exception {
-        server = new Server(8082);
+        server = new Server(8089);
         ServletHolder servletHolder = new ServletHolder(org.glassfish.jersey.servlet.ServletContainer.class);
         servletHolder.setInitParameter("javax.ws.rs.Application", ApplicationConfig.class.getName());
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
