@@ -8,6 +8,7 @@ package presentation.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import converters.FlightConverter;
 import deploy.DeploymentConfiguration;
 import entities.FlightRepository;
 import exceptions.InvalidDataException;
@@ -77,7 +78,7 @@ public class FlightinfoResource {
 
         JsonObject jo = new JsonObject();
         jo.addProperty("airline", "Gruppe 42");
-        jo.add("flights", gson.toJsonTree(fm));
+        jo.addProperty("flights", FlightConverter.serialize(fm));
 
         return Response.ok(gson.toJson(jo)).build();
     }
