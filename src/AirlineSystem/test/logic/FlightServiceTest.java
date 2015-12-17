@@ -50,7 +50,7 @@ public class FlightServiceTest {
     }
 
     @Test
-    public void test_findFlights_isNotNull() throws ParseException {
+    public void test_findFlights_isNotNull() throws ParseException, NoFlightFoundException {
         String iataOrigin = "CPH";
         String iataDestination = "QAR";
         Date departure = new Date(116, 00, 01, 06, 00, 00);
@@ -63,7 +63,7 @@ public class FlightServiceTest {
     }
 
     @Test
-    public void test_findFlights_isNotEmpty() throws ParseException {
+    public void test_findFlights_isNotEmpty() throws ParseException, NoFlightFoundException {
         String iataOrigin = "CPH";
         String iataDestination = "QAR";
         Date departure = new Date(116, 00, 01, 06, 00, 00);
@@ -76,7 +76,7 @@ public class FlightServiceTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void test_findFlights_NullPointerException() throws ParseException {
+    public void test_findFlights_NullPointerException() throws ParseException, NoFlightFoundException {
         String iataOrigin = null;
         String iataDestination = null;
         Date departure = new Date(116, 00, 01, 06, 00, 00);
@@ -87,7 +87,7 @@ public class FlightServiceTest {
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void test_findFlights_fromToNotTheSame() throws ParseException {
+    public void test_findFlights_fromToNotTheSame() throws ParseException, NoFlightFoundException {
         String iataOrigin = "CPH";
         String iataDestination = "CPH";
         Date departure = new Date(116, 00, 01, 06, 00, 00);
